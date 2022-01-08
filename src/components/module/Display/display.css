@@ -1,0 +1,36 @@
+/* styling for login, signup, reset password, create PIN pages */
+.left-section {
+  height: 100%;
+  background-color: #6379f4;
+  background: url(../../../assets/img/bglogin.svg) no-repeat;
+  background-size: auto;
+}
+.logo-desktop {
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 40px;
+  margin-top: 1.8em;
+  margin-left: 4em;
+}
+img.display-app {
+  width: 449px;
+  transform: translate(129px, 17px);
+}
+.section-left-text {
+  margin-left: 7em;
+  margin-bottom: 1.5em;
+}
+.section-left-desc {
+  margin-left: 11em;
+  margin-bottom: 3em;
+}
+.registration-text {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 33px;
+}
+.registration-desc {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 30px;
+}

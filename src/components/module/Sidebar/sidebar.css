@@ -1,0 +1,21 @@
+.menu-bar {
+  margin-left: 6em;
+  margin-right: 1.5em;
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+.menu-items {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 31px;
+  color: rgba(58, 61, 66, 0.8);
+  border-left: 3px solid transparent;
+}
+.menu-items:hover {
+  cursor: pointer;
+  border-left: 3px solid #6379f4;
+  color: #6379f4 !important;
+  font-weight: bold;
+  transition: 0.3s;
+}
