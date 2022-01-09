@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Zwallet! Awesome App For Saving Times.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hello! My name's **Ferdi** and I'm part of the Developer Team who built **Zwallet**! I'm here to inform you about this cool apps. **Zwallet** is a website application that offering the simplicity and rapidity for anything related to banking needs.
 
-## Available Scripts
+> **Zwallet** is a mobile-first web app that currently available in Responsive Layout for 3 breakpoints: less than 567px (default layout), 768px (tablet layout), 1200px (desktop layout).
 
-In the project directory, you can run:
+Some Pages that currently available in **Zwallet**:
 
-### `npm start`
+## Registration Pages
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before we could investing our time with all of the great features from **Zwallet**, we need to register to create an account in **Sign Up** page. Here are the steps you need to do:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Create your own username.
+- Enter your commonly used e-mail address.
+- Create a strong and uniqe password to secure your account.
 
-### `npm test`
+Or if you already have one, you could use **Login** page instead. Just type your e-mail address and password and you are ready to go!
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In other case, if you already have an account but you forgot your password, you could navigate to **Forgot Password** page. Several things you need to do:
 
-### `npm run build`
+- Confirm your e-mail first, so we could recognize your account.
+- Re-create your new password.
+- Congrats! Your **Zwallet** account is back!
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Website Application Pages
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This part contains all of the great features from **Zwallet**.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Pages you need to know:
 
-### `npm run eject`
+- **Dashboard**, you can check the your balance and other activities in this app.
+- **Transaction History**, you can check your transaction history from _incomes_ to _expenses_, from _weekly_ to _monthly_.
+- **Transfer Receiver**, you can share happiness by send them some _bills_ from this page, it will show your list of contacts.
+- **Transfer Input**, input amount _bills_ you want to transfer.
+- **Transfer Confirmation**, check and confirm your details.
+- **Transfer Status**, it will show you either your transaction is _success_ or _failed_.
+- **Top Up**, you can re-fill your balance anytime.
+- **Profile**, you can customize or edit your profile.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Snippets
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Zwallet Update!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Zwallet** is currently on development process!
