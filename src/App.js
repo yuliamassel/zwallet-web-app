@@ -12,6 +12,7 @@ import TransferConfirm from "./pages/TransferConfirm";
 import TransferStatus from "./pages/TransferStatus";
 import ResetPassConfirm from "./pages/ResetPassConfirm";
 import ResetPassCreate from "./pages/ResetPassCreate";
+import TopUp from "./pages/TopUp";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path={"/reset-password"} element={<ResetPassConfirm />} />
           <Route path={"/create-new-password"} element={<ResetPassCreate />} />
           <Route path={"/history"} element={<Transaction />} />
+          <Route path={"/topup"} element={<TopUp />} />
           <Route path={"/receiver"} element={<Receiver />} />
           <Route path={"/transfer"} element={<Transfer />} />
           <Route

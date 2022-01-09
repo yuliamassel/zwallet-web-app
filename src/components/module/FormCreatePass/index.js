@@ -11,7 +11,7 @@ const FormCreatePassword = () => {
   };
   return (
     <Fragment>
-      <section class="row col-xl-4 right-section animation-appear ">
+      <section class="row col-xl-4 right-section ">
         <div class="col-md-12 col-xl-12">
           <h2 class="section-right-text d-none d-md-block registration-text">
             Did You Forgot Your Password? <br></br> Don’t Worry, You Can Reset
@@ -42,7 +42,7 @@ const FormCreatePassword = () => {
               placeholder="Create your new password"
               type="password"
               name="password"
-              id="pass"
+              id="create-pass"
             />
             <BsIcons.BsEyeSlash className="form-icons bi-eye-slash position-absolute" />
           </div>
@@ -52,7 +52,7 @@ const FormCreatePassword = () => {
               placeholder="Confirm your new password"
               type="password"
               name="password"
-              id="pass"
+              id="confirm-pass"
             />
             <BsIcons.BsEyeSlash className="form-icons bi-eye-slash position-absolute" />
           </div>

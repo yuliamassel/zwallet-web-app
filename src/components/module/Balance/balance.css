@@ -1,0 +1,76 @@
+@media screen and (min-width: 768px) {
+  /* styling for balance part */
+  .balance {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    border-radius: 25px;
+    background-color: #6379f4;
+    justify-content: space-between;
+  }
+  .saldo {
+    margin: 15px 0px 0px 30px;
+  }
+  .saldo p {
+    margin: 10px 0px 15px 0px;
+  }
+  .saldo-text {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #e0e0e0;
+  }
+  .saldo-nominal {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 30px;
+    color: #ffffff;
+  }
+  .saldo-contact {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #dfdcdc;
+  }
+  .btn-transaction {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 67px 10px 10px;
+  }
+  button.transfer,
+  button.topup {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    padding: 0px 10px 0px 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 0;
+    border: 0.5px solid #ffffff;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: #ffffff;
+  }
+  button.transfer p,
+  button.topup p {
+    margin: 13px 16px 13px 14px;
+  }
+  button.transfer img,
+  button.topup img {
+    margin: 8px 5px 5px 10px;
+  }
+  button.transfer:hover,
+  button.topup:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 5px #fff;
+    transform: scale(1.05);
+    transition: 0.3s;
+  }
+  button.transfer:active,
+  button.topup:active {
+    background-color: #fff;
+    color: #4c65f5;
+  }
+}

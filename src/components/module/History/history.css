@@ -1,0 +1,66 @@
+@media screen and (min-width: 768px) {
+  /* styling history transaction section  */
+  .history-content-transaction {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    border-radius: 25px;
+    background-color: #fff;
+    margin: 10px 0px 0px 5px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  .history-transaction-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    color: #3a3d42;
+    margin: 10px;
+  }
+  .history-page-link {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #6379f4;
+  }
+  .history-transaction-profiles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 5px;
+  }
+  .profile-description {
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-description p {
+    margin: 5px 5px 0px -29px;
+  }
+  .profile-desc-name {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #4d4b57;
+  }
+  .profile-desc {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #7a7886;
+  }
+  /* styling cool effects on history transaction */
+  .history-transaction-profiles:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.3s;
+  }
+  .history-page-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

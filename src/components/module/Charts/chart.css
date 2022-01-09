@@ -1,0 +1,49 @@
+@media screen and (min-width: 768px) {
+  .history-content {
+    display: flex;
+    flex-direction: row;
+    flex: 2.5;
+  }
+  .history-content-chart {
+    border-radius: 25px;
+    background-color: #fff;
+    margin: 10px 5px 0px 0px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  .financial {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .income {
+    margin: 10px 0px 0px 30px;
+  }
+  .expense {
+    margin: 10px 30px 0px 0px;
+  }
+  .income .financial-text,
+  .expense .financial-text {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #6a6a6a;
+  }
+  .income .financial-cash,
+  .expense .financial-cash {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+    color: #3a3d42;
+  }
+  .graphic {
+    display: flex;
+    flex: 1;
+    margin: 0px 0px -30px 0px;
+  }
+  .graphic img {
+    width: 290px;
+    height: 200px;
+    transform: translate(80px, -42px);
+  }
+}

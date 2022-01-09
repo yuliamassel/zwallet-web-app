@@ -72,7 +72,7 @@ const FormSignUp = () => {
 
           <p className="create mt-5 ">
             Already have an account? Let's{" "}
-            <span class="create-account text-blue" onClick={toLoginPage}>
+            <span className="create-account text-blue" onClick={toLoginPage}>
               Login
             </span>
           </p>
