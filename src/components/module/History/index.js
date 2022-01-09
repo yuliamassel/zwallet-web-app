@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import "./history.css";
+import img from "../../../assets/img/blank-profile-picture.png";
 
 const History = () => {
   const navigate = useNavigate("");
@@ -19,7 +20,7 @@ const History = () => {
         </div>
 
         <div className="history-transaction-profiles ">
-          <img src="src/samuel.svg" alt="Samuel" />
+          <img src={img} height="52px" className="user-pic m-1" alt="Samuel" />
           <div className="profile-description">
             <p className="profile-desc-name">Samuel Suhi</p>
             <p className="profile-desc">Transfer</p>
@@ -28,7 +29,7 @@ const History = () => {
         </div>
 
         <div className="history-transaction-profiles ">
-          <img src="src/netflix.svg" alt="Netflix" />
+          <img src={img} height="52px" className="user-pic m-1" alt="Netflix" />
           <div className="profile-description">
             <p className="profile-desc-name">Netflix</p>
             <p className="profile-desc">Subscription</p>
@@ -36,7 +37,12 @@ const History = () => {
           <p className="nominal-subscription">-Rp149.000</p>
         </div>
         <div className="history-transaction-profiles ">
-          <img src="src/christine.svg" alt="Christine" />
+          <img
+            src={img}
+            height="52px"
+            className="user-pic m-1"
+            alt="Christine"
+          />
           <div className="profile-description">
             <p className="profile-desc-name">Christine</p>
             <p className="profile-desc">Transfer</p>
@@ -45,7 +51,7 @@ const History = () => {
         </div>
 
         <div className="history-transaction-profiles ">
-          <img src="src/adobe.svg" alt="Adobe" />
+          <img src={img} height="52px" className="user-pic m-1" alt="Adobe" />
           <div className="profile-description">
             <p className="profile-desc-name">Adobe Inc.</p>
             <p className="profile-desc">Subscription</p>

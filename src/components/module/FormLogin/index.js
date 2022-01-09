@@ -13,6 +13,9 @@ const FormLogin = () => {
   const toResetPassPage = () => {
     navigate("/reset-password");
   };
+  const handleClick = () => {
+    navigate("/");
+  };
   return (
     <Fragment>
       <section className="row col-xl-4 right-section ">
@@ -66,7 +69,11 @@ const FormLogin = () => {
             </p>
           </div>
 
-          <Button className="button btn-login mb-1" type="submit">
+          <Button
+            onClick={handleClick}
+            className="button btn-login mb-1"
+            type="submit"
+          >
             Login
           </Button>
           {/* <!-- input form end here --> */}

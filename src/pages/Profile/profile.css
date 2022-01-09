@@ -1,0 +1,48 @@
+.profile-edit {
+  cursor: pointer;
+}
+
+.text-edit {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 27px;
+  text-align: center;
+  color: #7a7886;
+}
+.pen-edit {
+  font-size: 0.7em;
+}
+.profile-user-name {
+  font-weight: bold;
+  font-size: 1.4em;
+  line-height: 32px;
+  text-align: center;
+  color: #4d4b57;
+  margin-bottom: 0;
+}
+.profile-user-phone {
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 27px;
+  text-align: center;
+  color: #7a7886;
+}
+.profile-manager {
+  width: 50%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  background: #e5e8ed;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.profile-manager-option {
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 28px;
+  color: #4d4b57;
+}
+.arrow-nav-manager {
+  font-weight: bold;
+  color: #7e7d84;
+}

@@ -1,11 +1,17 @@
 import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Input from "../../components/base/Input";
 import Footer from "../../components/module/Footer";
 import Header from "../../components/module/Header";
 import Sidebar from "../../components/module/Sidebar";
+import img from "../../assets/img/blank-profile-picture.png";
 
 const Receiver = () => {
+  const navigate = useNavigate("");
+  const toInputTransfer = () => {
+    navigate("/transfer");
+  };
   return (
     <Fragment>
       <main className="container-fluid">
@@ -125,48 +131,52 @@ const Receiver = () => {
                 </div>
 
                 {/* <!-- receiver list for lg, xl, xxl --> */}
-                <a href="transfer_input.html">
-                  <div className="d-flex receivers p-2 mb-3 ms-3 me-3 ">
-                    <img
-                      className="receiver-picture ms-4"
-                      src="src/samuel.svg"
-                      alt="Samuel"
-                    />
-                    <div className="receiver-detail mt-2 ms-3">
-                      <p className="text-title-name mb-0">Samuel Suhi</p>
-                      <p className="weekly mt-1">+62 813-8492-9994</p>
-                    </div>
-                  </div>
-                </a>
 
-                <div className="d-flex receivers p-2 mb-3 ms-3 me-3 ">
+                <div
+                  onClick={toInputTransfer}
+                  className="d-flex receivers p-1 mb-3 ms-3 me-3 "
+                >
                   <img
-                    className="receiver-picture ms-4"
-                    src="src/momo.svg"
+                    class="receiver-picture user-pic mt-2 ms-4"
+                    src={img}
+                    height="54px"
+                    alt="Samuel"
+                  />
+                  <div className="receiver-detail mt-2 ms-3">
+                    <p className="text-title-name mb-0">Samuel Suhi</p>
+                    <p className="weekly mt-1">+62 813-8492-9994</p>
+                  </div>
+                </div>
+
+                <div className="d-flex receivers p-1 mb-3 ms-3 me-3 ">
+                  <img
+                    class="receiver-picture user-pic mt-2 ms-4"
+                    src={img}
+                    height="54px"
                     alt="Momo"
-                    width="52px"
                   />
                   <div className="receiver-detail mt-2 ms-3">
                     <p className="text-title-name mb-0">Momo Taro</p>
                     <p className="weekly mt-1">+62 812-4343-6731</p>
                   </div>
                 </div>
-                <div className="d-flex receivers p-2 mb-3 ms-3 me-3 ">
+                <div className="d-flex receivers p-1 mb-3 ms-3 me-3 ">
                   <img
-                    className="receiver-picture ms-4"
-                    src="src/jessica.svg"
+                    class="receiver-picture user-pic mt-2 ms-4"
+                    src={img}
+                    height="54px"
                     alt="Jessica"
-                    width="52px"
                   />
                   <div className="receiver-detail mt-2 ms-3">
                     <p className="text-title-name mb-0">Jessica Keen</p>
                     <p className="weekly mt-1">+62 811-3452-5252</p>
                   </div>
                 </div>
-                <div className="d-flex receivers p-2 mb-3 ms-3 me-3 ">
+                <div className="d-flex receivers p-1 mb-3 ms-3 me-3 ">
                   <img
-                    className="receiver-picture ms-4"
-                    src="src/robert.svg"
+                    class="receiver-picture user-pic mt-2 ms-4"
+                    src={img}
+                    height="54px"
                     alt="Michael"
                   />
                   <div className="receiver-detail mt-2 ms-3">

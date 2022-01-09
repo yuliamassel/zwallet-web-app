@@ -77,7 +77,7 @@ const Dashboard = () => {
               <Sidebar />
 
               <section className="content-bar col-lg-8 animation-pull-out ">
-                <section className="menu-content animation-pull-out">
+                <section className="menu-content ">
                   <Balance />
 
                   <section className="row history-content d-lg-flex flex-row">

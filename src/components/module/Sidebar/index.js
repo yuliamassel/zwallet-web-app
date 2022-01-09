@@ -23,7 +23,7 @@ const Sidebar = () => {
   };
   return (
     <Fragment>
-      <aside className="menu-bar col-lg-2 d-lg-flex flex-column animation-fade-in">
+      <aside className="menu-bar col-lg-2 d-lg-flex flex-column">
         <section className="menu-bar-nav d-lg-flex flex-column mb-5 mt-2">
           <div
             onClick={toDashboard}

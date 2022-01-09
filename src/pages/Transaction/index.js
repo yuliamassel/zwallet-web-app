@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Footer from "../../components/module/Footer";
 import Header from "../../components/module/Header";
 import Sidebar from "../../components/module/Sidebar";
+import img from "../../assets/img/blank-profile-picture.png";
 
 const Transaction = () => {
   return (
@@ -82,16 +83,27 @@ const Transaction = () => {
 
                 <p className="weekly ms-4">This Week</p>
 
-                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-4 ms-3 me-3 pt-2 pb-2">
-                  <img className="ms-3" src="src/samuel.svg" alt="Samuel" />
+                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-3 ms-3 me-3 pt-2 pb-2">
+                  <img
+                    className="receiver-picture user-pic mt-1 ms-3"
+                    src={img}
+                    height="54px"
+                    alt="Samuel"
+                  />
                   <div className="profile-description history-page">
                     <p className="profile-desc-name mb-0">Samuel Suhi</p>
                     <p className="profile-desc mb-0">Transfer</p>
                   </div>
                   <p className="nominal-transfer me-3">+Rp50.000</p>
                 </div>
-                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-4 ms-3 me-3 pt-2 pb-2">
-                  <img className="ms-3" src="src/netflix.svg" alt="Netflix" />
+
+                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-3 ms-3 me-3 pt-2 pb-2">
+                  <img
+                    className="receiver-picture user-pic mt-1 ms-3"
+                    src={img}
+                    height="54px"
+                    alt="Netflix"
+                  />
                   <div className="profile-description history-page">
                     <p className="profile-desc-name mb-0">Netflix</p>
                     <p className="profile-desc mb-0">Subscription</p>
@@ -101,10 +113,11 @@ const Transaction = () => {
 
                 <p className="monthly ms-4">This Month</p>
 
-                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-4 ms-3 me-3 pt-2 pb-2">
+                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-3 ms-3 me-3 pt-2 pb-2">
                   <img
-                    className="ms-3"
-                    src="src/christine.svg"
+                    className="receiver-picture user-pic mt-1 ms-3"
+                    src={img}
+                    height="54px"
                     alt="Christine"
                   />
                   <div className="profile-description history-page">
@@ -113,8 +126,14 @@ const Transaction = () => {
                   </div>
                   <p className="nominal-transfer me-3">+Rp150.000</p>
                 </div>
-                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-4 ms-3 me-3 pt-2 pb-2">
-                  <img className="ms-3" src="src/adobe.svg" alt="Adobe" />
+
+                <div className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-3 ms-3 me-3 pt-2 pb-2">
+                  <img
+                    className="receiver-picture user-pic mt-1 ms-3"
+                    src={img}
+                    height="54px"
+                    alt="Adobe"
+                  />
                   <div className="profile-description history-page">
                     <p className="profile-desc-name mb-0">Adobe Inc.</p>
                     <p className="profile-desc mb-0">Transfer</p>

@@ -1,0 +1,36 @@
+.topup-text {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #3a3d42;
+}
+.topup-instruction {
+  height: 62vh;
+  overflow-y: auto;
+}
+.topup-instruction::-webkit-scrollbar {
+  width: 5px;
+  background: #ebe8e8;
+}
+.topup-instruction::-webkit-scrollbar-thumb {
+  background: rgba(196, 193, 193, 0.3);
+}
+.topup-instruction-point {
+  padding: 1em;
+  background: #ffffff;
+  box-shadow: 1px 6px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.number {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #6379f4;
+}
+.topup-instruction-text {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 27px;
+  color: #7a7886;
+}

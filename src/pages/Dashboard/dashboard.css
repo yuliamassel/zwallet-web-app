@@ -164,6 +164,11 @@ button.calendar {
 
 /* styling for screen 768px and up */
 @media screen and (min-width: 768px) {
+  /* .main-content {
+    height: 79.35%;
+    width: 100%;
+  } */
+
   .active-page {
     border-left: 3px solid #6379f4 !important;
     color: #6379f4 !important;
@@ -172,6 +177,7 @@ button.calendar {
   }
 
   .content-bar {
+    height: 76.32vh;
     margin-right: 6em;
   }
 
@@ -228,6 +234,14 @@ button.calendar {
 }
 
 /* ================== TRANSFER INPUT PAGE ==================== */
+.input-amount-money {
+  width: 25%;
+  margin-left: 21em;
+}
+.input-amount {
+  padding-left: 0.5em !important;
+  padding-bottom: 0.2em !important;
+}
 .input-amount-money input {
   font-weight: bold;
   font-size: 32px;
@@ -237,6 +251,11 @@ button.calendar {
 }
 ::placeholder {
   color: #b5bdcc;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .input-notes {
   margin-top: 5em;
@@ -252,9 +271,11 @@ button.calendar {
 .input-notes input:focus {
   border-bottom: 2px solid #6379f4;
 }
-.input-notes:active i {
+.input-notes:active .pen,
+.input-notes:focus .pen {
   color: #6379f4;
 }
+
 .transfer-instruction {
   font-weight: normal;
   font-size: 16px;
@@ -268,6 +289,10 @@ button.calendar {
   margin-bottom: 15em;
   transform: translateY(13em);
 }
+.btn-continue-desktop {
+  margin-top: 6em;
+}
+
 .btn-continue button,
 .btn-continue-desktop button {
   font-weight: bold;
@@ -282,6 +307,18 @@ button.calendar {
 }
 
 /* ================== TRANSFER CONFIRMATION PAGE ==================== */
+
+.details-transfer {
+  height: 43.5%;
+  overflow-y: scroll;
+}
+.details-transfer::-webkit-scrollbar {
+  width: 5px;
+  background: #ebe8e8;
+}
+.details-transfer::-webkit-scrollbar-thumb {
+  background: rgba(196, 193, 193, 0.3);
+}
 .text-title {
   font-weight: normal;
   font-size: 16px;
