@@ -33,7 +33,6 @@ const Dashboard = () => {
       })
       .then((res) => {
         setLoading(false);
-        console.info(res.data.data);
         const result = res.data.data;
         setUserHeader({
           userFullName: `${result.first_name} ${result.last_name}`,
