@@ -16,7 +16,7 @@ const Balance = (props) => {
         <div className="saldo">
           <p className="saldo-text">Balance</p>
           <p className="saldo-nominal">Rp {props.balance}</p>
-          <p className="saldo-contact">+62 813-9387-7946</p>
+          <p className="saldo-contact">{props.user_phone}</p>
         </div>
         <div className="btn-transaction">
           {/* <!-- link to transfer receiver page --> */}

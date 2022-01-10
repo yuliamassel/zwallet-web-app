@@ -51,10 +51,7 @@ const Dashboard = () => {
     <Fragment>
       <main className="container-fluid">
         <div className="row d-flex">
-          <Header
-            user_fullname={userHeader.userFullName}
-            user_phone={userHeader.userPhone}
-          />
+          <Header />
 
           <main className="col-12 main-content">
             {/* <!-- button for xs, sm, md version --> */}
@@ -118,7 +115,10 @@ const Dashboard = () => {
 
               <section className="content-bar col-lg-8 animation-pull-out ">
                 <section className="menu-content ">
-                  <Balance balance={userHeader.balance} />
+                  <Balance
+                    balance={userHeader.balance}
+                    user_phone={userHeader.userPhone}
+                  />
 
                   <section className="row history-content d-lg-flex flex-row">
                     <Chart />
