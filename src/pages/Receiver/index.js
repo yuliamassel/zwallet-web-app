@@ -137,7 +137,7 @@ const Receiver = () => {
                   className="d-flex receivers p-1 mb-3 ms-3 me-3 "
                 >
                   <img
-                    class="receiver-picture user-pic mt-2 ms-4"
+                    className="receiver-picture user-pic mt-2 ms-4"
                     src={img}
                     height="54px"
                     alt="Samuel"
@@ -150,7 +150,7 @@ const Receiver = () => {
 
                 <div className="d-flex receivers p-1 mb-3 ms-3 me-3 ">
                   <img
-                    class="receiver-picture user-pic mt-2 ms-4"
+                    className="receiver-picture user-pic mt-2 ms-4"
                     src={img}
                     height="54px"
                     alt="Momo"
@@ -162,7 +162,7 @@ const Receiver = () => {
                 </div>
                 <div className="d-flex receivers p-1 mb-3 ms-3 me-3 ">
                   <img
-                    class="receiver-picture user-pic mt-2 ms-4"
+                    className="receiver-picture user-pic mt-2 ms-4"
                     src={img}
                     height="54px"
                     alt="Jessica"
@@ -174,7 +174,7 @@ const Receiver = () => {
                 </div>
                 <div className="d-flex receivers p-1 mb-3 ms-3 me-3 ">
                   <img
-                    class="receiver-picture user-pic mt-2 ms-4"
+                    className="receiver-picture user-pic mt-2 ms-4"
                     src={img}
                     height="54px"
                     alt="Michael"

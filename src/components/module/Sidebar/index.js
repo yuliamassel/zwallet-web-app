@@ -20,6 +20,7 @@ const Sidebar = () => {
   };
   const logOut = () => {
     localStorage.removeItem("auth");
+    localStorage.removeItem("userId");
     navigate("/login");
   };
   return (

@@ -5,7 +5,7 @@ import * as AiIcons from "react-icons/ai";
 import "./balance.css";
 import Button from "../../base/Button";
 
-const Balance = () => {
+const Balance = (props) => {
   const navigate = useNavigate("");
   const handleClick = () => {
     navigate("/receiver");
@@ -15,7 +15,7 @@ const Balance = () => {
       <section className="balance big-screen">
         <div className="saldo">
           <p className="saldo-text">Balance</p>
-          <p className="saldo-nominal">Rp120.000</p>
+          <p className="saldo-nominal">Rp {props.balance}</p>
           <p className="saldo-contact">+62 813-9387-7946</p>
         </div>
         <div className="btn-transaction">

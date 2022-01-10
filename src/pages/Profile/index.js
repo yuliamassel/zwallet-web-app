@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Footer from "../../components/module/Footer";
@@ -8,9 +9,44 @@ import img from "../../assets/img/blank-profile-picture.png";
 import "./profile.css";
 
 const Profile = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [userId, setUserId] = useState(() => {
+    const user = localStorage.getItem("userId");
+    const convertedUser = JSON.parse(user);
+    return convertedUser;
+  });
+  const [userHeader, setUserHeader] = useState({
+    userFullName: "",
+    userPhone: ""
+  });
+  // eslint-disable-next-line no-unused-vars
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate("");
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`https://zwallet-web-app.herokuapp.com/users/details/${userId}`, {
+        headers: { auth: "admin" }
+      })
+      .then((res) => {
+        setLoading(false);
+        const result = res.data.data;
+        setUserHeader({
+          userFullName: `${result.first_name} ${result.last_name}`,
+          userPhone: `${result.phone}`
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err.response);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const logOut = () => {
     localStorage.removeItem("auth");
+    localStorage.removeItem("userId");
     navigate("/login");
   };
   return (
@@ -40,8 +76,10 @@ const Profile = () => {
                   </div>
 
                   <div className="profile-name d-flex flex-column align-items-center">
-                    <p className="profile-user-name">Robert Chandler</p>
-                    <p className="profile-user-phone">+62 813-9387-7946</p>
+                    <p className="profile-user-name">
+                      {userHeader.userFullName}
+                    </p>
+                    <p className="profile-user-phone">{userHeader.userPhone}</p>
                   </div>
 
                   <div className="profile-manager d-flex flex-row justify-content-between">

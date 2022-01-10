@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import axios from "axios";
 import * as BsIcons from "react-icons/bs";
 import * as AiIcons from "react-icons/ai";
 import "./dashboard.css";
@@ -10,11 +11,51 @@ import Chart from "../../components/module/Charts";
 import History from "../../components/module/History";
 
 const Dashboard = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [userId, setUserId] = useState(() => {
+    const user = localStorage.getItem("userId");
+    const convertedUser = JSON.parse(user);
+    return convertedUser;
+  });
+  const [userHeader, setUserHeader] = useState({
+    userFullName: "",
+    userPhone: "",
+    balance: 0
+  });
+  // eslint-disable-next-line no-unused-vars
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`https://zwallet-web-app.herokuapp.com/users/details/${userId}`, {
+        headers: { auth: "admin" }
+      })
+      .then((res) => {
+        setLoading(false);
+        console.info(res.data.data);
+        const result = res.data.data;
+        setUserHeader({
+          userFullName: `${result.first_name} ${result.last_name}`,
+          userPhone: `${result.phone}`,
+          balance: `${result.balance}`
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err.response);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Fragment>
       <main className="container-fluid">
         <div className="row d-flex">
-          <Header />
+          <Header
+            user_fullname={userHeader.userFullName}
+            user_phone={userHeader.userPhone}
+          />
 
           <main className="col-12 main-content">
             {/* <!-- button for xs, sm, md version --> */}
@@ -78,7 +119,7 @@ const Dashboard = () => {
 
               <section className="content-bar col-lg-8 animation-pull-out ">
                 <section className="menu-content ">
-                  <Balance />
+                  <Balance balance={userHeader.balance} />
 
                   <section className="row history-content d-lg-flex flex-row">
                     <Chart />

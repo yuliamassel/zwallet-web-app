@@ -30,8 +30,10 @@ const FormLogin = () => {
       })
       .then((res) => {
         setLoading(false);
-        console.info(res);
+        const result = res.data.data;
+        const userId = result.id;
         localStorage.setItem("auth", "1");
+        localStorage.setItem("userId", JSON.stringify(userId));
         navigate("/");
       })
       .catch((err) => {
@@ -43,8 +45,6 @@ const FormLogin = () => {
           setErrorMessage("We have trouble");
         }
       });
-
-    console.info(form);
   };
   const toSignUpPage = () => {
     navigate("/signup");
