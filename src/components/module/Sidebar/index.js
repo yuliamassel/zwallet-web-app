@@ -19,6 +19,7 @@ const Sidebar = () => {
     navigate("/profile");
   };
   const logOut = () => {
+    localStorage.removeItem("auth");
     navigate("/login");
   };
   return (

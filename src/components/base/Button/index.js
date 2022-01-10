@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
 
-const Button = ({ children, ...props }) => {
+const Button = ({ isLoading, children, ...props }) => {
   return (
     <Fragment>
-      <button {...props}>{children}</button>
+      <button disabled={isLoading ? true : false} {...props}>
+        {isLoading ? "Loading..." : children}
+      </button>
     </Fragment>
   );
 };

@@ -10,6 +10,7 @@ import "./profile.css";
 const Profile = () => {
   const navigate = useNavigate("");
   const logOut = () => {
+    localStorage.removeItem("auth");
     navigate("/login");
   };
   return (

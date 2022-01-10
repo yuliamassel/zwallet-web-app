@@ -13,27 +13,81 @@ import TransferStatus from "./pages/TransferStatus";
 import ResetPassConfirm from "./pages/ResetPassConfirm";
 import ResetPassCreate from "./pages/ResetPassCreate";
 import TopUp from "./pages/TopUp";
+import RequireAuth from "./components/base/RequireAuth";
 
 const App = () => {
   return (
     <Fragment>
       <BrowserRouter>
         <Routes>
-          <Route path={"/"} element={<Dashboard />} />
+          <Route
+            path={"/"}
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
           <Route path={"/signup"} element={<SignUp />} />
           <Route path={"/login"} element={<Login />} />
           <Route path={"/reset-password"} element={<ResetPassConfirm />} />
           <Route path={"/create-new-password"} element={<ResetPassCreate />} />
-          <Route path={"/history"} element={<Transaction />} />
-          <Route path={"/topup"} element={<TopUp />} />
-          <Route path={"/receiver"} element={<Receiver />} />
-          <Route path={"/transfer"} element={<Transfer />} />
+          <Route
+            path={"/history"}
+            element={
+              <RequireAuth>
+                <Transaction />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/topup"}
+            element={
+              <RequireAuth>
+                <TopUp />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/receiver"}
+            element={
+              <RequireAuth>
+                <Receiver />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/transfer"}
+            element={
+              <RequireAuth>
+                <Transfer />
+              </RequireAuth>
+            }
+          />
           <Route
             path={"/transfer-confirmation"}
-            element={<TransferConfirm />}
+            element={
+              <RequireAuth>
+                <TransferConfirm />
+              </RequireAuth>
+            }
           />
-          <Route path={"/transfer-status"} element={<TransferStatus />} />
-          <Route path={"/profile"} element={<Profile />} />
+          <Route
+            path={"/transfer-status"}
+            element={
+              <RequireAuth>
+                <TransferStatus />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/profile"}
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
           <Route path={"/*"} element={<Page404 />} />
         </Routes>
       </BrowserRouter>

@@ -1,10 +1,15 @@
 import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import * as AiIcons from "react-icons/ai";
 import "./balance.css";
 import Button from "../../base/Button";
 
 const Balance = () => {
+  const navigate = useNavigate("");
+  const handleClick = () => {
+    navigate("/receiver");
+  };
   return (
     <Fragment>
       <section className="balance big-screen">
@@ -15,7 +20,7 @@ const Balance = () => {
         </div>
         <div className="btn-transaction">
           {/* <!-- link to transfer receiver page --> */}
-          <Button className="transfer align-items-center">
+          <Button onClick={handleClick} className="transfer align-items-center">
             <BsIcons.BsArrowUp className="icons-size" />
             <p>Transfer</p>
           </Button>

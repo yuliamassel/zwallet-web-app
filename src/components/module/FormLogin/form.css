@@ -73,6 +73,12 @@
 }
 
 /* styling for forms in login, signup, reset password, create PIN pages */
+.text-error {
+  text-align: left !important;
+  font-size: 0.8em;
+  color: red;
+}
+
 .text-blue {
   color: #6379f4;
 }
