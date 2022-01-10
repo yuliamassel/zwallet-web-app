@@ -39,6 +39,34 @@ Pages you need to know:
 
 ## Snippets
 
+Here are some snippets about this app:
+
+- Login
+
+![Login](./src/assets/snippets/zwallet-login.jpg)
+
+- Sign Up
+
+![Sign Up](./src/assets/snippets/zwallet-signup.jpg)
+
+- Dashboard
+
+![Dashboard](./src/assets/snippets/zwallet-home.png)
+
+- Transaction
+
+![Transaction](./src/assets/snippets/zwallet-transaction.png)
+
+- Transfer
+
+![Transfer](./src/assets/snippets/zwallet-transfer.png)
+
+- Profile
+
+![Profile](./src/assets/snippets/zwallet-profile.png)
+
 ## Zwallet Update!
 
 **Zwallet** is currently on development process!
+
+Last Updated on Monday, 10/01/2022
