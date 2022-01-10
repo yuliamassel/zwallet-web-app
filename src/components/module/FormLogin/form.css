@@ -146,6 +146,7 @@ button {
 }
 .bi-eye-slash {
   right: 3.3em;
+  cursor: pointer;
 }
 .forgot {
   text-align: end;

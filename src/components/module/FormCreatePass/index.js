@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../base/Button";
@@ -6,6 +6,11 @@ import Input from "../../base/Input";
 
 const FormCreatePassword = () => {
   const navigate = useNavigate("");
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
+  const handlePasswordVisibility = () => {
+    setPasswordVisibility(passwordVisibility ? false : true);
+  };
   const toLoginPage = () => {
     navigate("/login");
   };
@@ -40,21 +45,27 @@ const FormCreatePassword = () => {
             <BsIcons.BsLock className="form-icons position-absolute" />
             <Input
               placeholder="Create your new password"
-              type="password"
+              type={passwordVisibility ? "text" : "password"}
               name="password"
               id="create-pass"
             />
-            <BsIcons.BsEyeSlash className="form-icons bi-eye-slash position-absolute" />
+            <BsIcons.BsEyeSlash
+              onClick={handlePasswordVisibility}
+              className="form-icons bi-eye-slash position-absolute"
+            />
           </div>
           <div className="input-form d-flex mt-5">
             <BsIcons.BsLock className="form-icons position-absolute" />
             <Input
               placeholder="Confirm your new password"
-              type="password"
+              type={passwordVisibility ? "text" : "password"}
               name="password"
               id="confirm-pass"
             />
-            <BsIcons.BsEyeSlash className="form-icons bi-eye-slash position-absolute" />
+            <BsIcons.BsEyeSlash
+              onClick={handlePasswordVisibility}
+              className="form-icons bi-eye-slash position-absolute"
+            />
           </div>
 
           <Button

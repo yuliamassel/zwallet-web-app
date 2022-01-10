@@ -15,6 +15,11 @@ const FormSignUp = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate("");
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
+  const handlePasswordVisibility = () => {
+    setPasswordVisibility(passwordVisibility ? false : true);
+  };
 
   const handleChange = (e) => {
     setForm({
@@ -102,11 +107,21 @@ const FormSignUp = () => {
               value={form.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              type="password"
+              type={passwordVisibility ? "text" : "password"}
               name="password"
               id="pass"
             />
-            <BsIcons.BsEyeSlash className="form-icons bi-eye-slash position-absolute" />
+            {passwordVisibility ? (
+              <BsIcons.BsEyeSlash
+                onClick={handlePasswordVisibility}
+                className="form-icons bi-eye-slash position-absolute"
+              />
+            ) : (
+              <BsIcons.BsEye
+                onClick={handlePasswordVisibility}
+                className="form-icons bi-eye-slash position-absolute"
+              />
+            )}
           </div>
 
           {errorMessage ? (
