@@ -44,6 +44,9 @@ const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const toPersonalInfoPage = () => {
+    navigate("/personal-information");
+  };
   const logOut = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("userId");
@@ -82,7 +85,10 @@ const Profile = () => {
                     <p className="profile-user-phone">{userHeader.userPhone}</p>
                   </div>
 
-                  <div className="profile-manager d-flex flex-row justify-content-between">
+                  <div
+                    onClick={toPersonalInfoPage}
+                    className="profile-manager d-flex flex-row justify-content-between"
+                  >
                     <p className="profile-manager-option">
                       Personal Information
                     </p>

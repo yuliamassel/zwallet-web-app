@@ -14,6 +14,7 @@ import ResetPassConfirm from "./pages/ResetPassConfirm";
 import ResetPassCreate from "./pages/ResetPassCreate";
 import TopUp from "./pages/TopUp";
 import RequireAuth from "./components/base/RequireAuth";
+import PersonalInfo from "./pages/PersonalInfo";
 
 const App = () => {
   return (
@@ -85,6 +86,14 @@ const App = () => {
             element={
               <RequireAuth>
                 <Profile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/personal-information"}
+            element={
+              <RequireAuth>
+                <PersonalInfo />
               </RequireAuth>
             }
           />
