@@ -7,6 +7,9 @@
   color: #6379f4;
   font-weight: bold;
 }
+.page-status {
+  font-weight: bolder;
+}
 .img-not-found {
   background-color: transparent;
 }

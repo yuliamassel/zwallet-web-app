@@ -16,26 +16,26 @@ const FormCreatePassword = () => {
   };
   return (
     <Fragment>
-      <section class="row col-xl-4 right-section ">
-        <div class="col-md-12 col-xl-12">
-          <h2 class="section-right-text d-none d-md-block registration-text">
+      <section className="row col-xl-4 right-section ">
+        <div className="col-md-12 col-xl-12">
+          <h2 className="section-right-text d-none d-md-block registration-text">
             Did You Forgot Your Password? <br></br> Don’t Worry, You Can Reset
             Your <br></br> Password In a Minutes.
           </h2>
-          <p class="section-right-desc d-none d-md-block registration-desc">
+          <p className="section-right-desc d-none d-md-block registration-desc">
             Now you can create a new password for your Zwallet account. Type
             your password twice so we can confirm your new passsword.
           </p>
         </div>
 
         {/* <!-- layout mobile version --> */}
-        <div class="col-12 right-section-header d-md-none">
-          <h1 class="logo text-blue text-center">Zwallet</h1>
+        <div className="col-12 right-section-header d-md-none">
+          <h1 className="logo text-blue text-center">Zwallet</h1>
         </div>
 
-        <div class="col-12 right-section-content text-center animation-pull-out">
-          <h2 class="login-title d-md-none">Reset Password</h2>
-          <p class="login-desc d-md-none">
+        <div className="col-12 right-section-content text-center animation-pull-out">
+          <h2 className="login-title d-md-none">Reset Password</h2>
+          <p className="login-desc d-md-none">
             Create and confirm your new password so <br></br> you can login to
             Zwallet.
           </p>
@@ -70,7 +70,7 @@ const FormCreatePassword = () => {
 
           <Button
             onClick={toLoginPage}
-            class="button btn-login btn-confirm mb-1"
+            className="button btn-login btn-confirm mb-1"
             type="submit"
           >
             Reset Password
