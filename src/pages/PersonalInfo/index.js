@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../components/module/Footer";
 import Header from "../../components/module/Header";
@@ -6,6 +7,10 @@ import Sidebar from "../../components/module/Sidebar";
 import "./personalInfo.css";
 
 const PersonalInfo = () => {
+  const navigate = useNavigate();
+  const toNewPhonePage = () => {
+    navigate("/new-phone");
+  };
   // eslint-disable-next-line no-unused-vars
   const [userId, setUserId] = useState(() => {
     const user = localStorage.getItem("userId");
@@ -25,7 +30,7 @@ const PersonalInfo = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://zwallet-web-app.herokuapp.com/users/details/${userId}`, {
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
         headers: { auth: "admin" }
       })
       .then((res) => {
@@ -91,10 +96,15 @@ const PersonalInfo = () => {
                         Phone Number
                       </p>
                       <p className="personal-info-card-desc ms-1">
-                        {personalInfoUser.userPhone}
+                        +62 {personalInfoUser.userPhone}
                       </p>
                     </div>
-                    <p className="manage-phone text-blue me-2">Manage</p>
+                    <p
+                      onClick={toNewPhonePage}
+                      className="manage-phone text-blue me-2"
+                    >
+                      Manage
+                    </p>
                   </div>
                 </section>
               </section>

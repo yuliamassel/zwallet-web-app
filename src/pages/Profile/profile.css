@@ -14,7 +14,7 @@
 }
 .profile-user-name {
   font-weight: bold;
-  font-size: 1.4em;
+  font-size: 1.3em;
   line-height: 32px;
   text-align: center;
   color: #4d4b57;
@@ -22,7 +22,7 @@
 }
 .profile-user-phone {
   font-weight: normal;
-  font-size: 1em;
+  font-size: 0.9em;
   line-height: 27px;
   text-align: center;
   color: #7a7886;
@@ -38,7 +38,7 @@
 .profile-manager-option {
   margin: 0;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1em;
   line-height: 28px;
   color: #4d4b57;
 }

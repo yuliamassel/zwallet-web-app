@@ -28,7 +28,7 @@ const Dashboard = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://zwallet-web-app.herokuapp.com/users/details/${userId}`, {
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
         headers: { auth: "admin" }
       })
       .then((res) => {

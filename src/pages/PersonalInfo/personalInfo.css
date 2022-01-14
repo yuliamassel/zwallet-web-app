@@ -1,14 +1,23 @@
-.personal-info-text {
+.personal-info-text,
+.change-pass-text,
+.new-phone-text,
+.manage-phone-text {
   margin-right: 2em;
   margin-left: 2em;
 }
-.personal-info-title {
+.personal-info-title,
+.change-pass-title,
+.new-phone-title,
+.manage-phone-title {
   font-weight: bold;
   font-size: 18px;
   line-height: 25px;
   color: #3a3d42;
 }
-.personal-info-desc {
+.personal-info-desc,
+.change-pass-desc,
+.new-phone-desc,
+.manage-phone-desc {
   font-weight: normal;
   font-size: 0.9em;
   line-height: 28px;
@@ -35,7 +44,7 @@
 
 .personal-info-card-desc {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.1em;
   line-height: 30px;
   color: #514f5b;
 }

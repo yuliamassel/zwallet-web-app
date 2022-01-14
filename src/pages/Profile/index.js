@@ -26,7 +26,7 @@ const Profile = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://zwallet-web-app.herokuapp.com/users/details/${userId}`, {
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
         headers: { auth: "admin" }
       })
       .then((res) => {
@@ -46,6 +46,12 @@ const Profile = () => {
 
   const toPersonalInfoPage = () => {
     navigate("/personal-information");
+  };
+  const toChangePasswordPage = () => {
+    navigate("/change-password");
+  };
+  const toChangePINPage = () => {
+    navigate("/change-PIN");
   };
   const logOut = () => {
     localStorage.removeItem("auth");
@@ -74,15 +80,17 @@ const Profile = () => {
                   </div>
 
                   <div className="profile-edit d-flex flex-row justify-content-center align-items-center ">
-                    <BsIcons.BsPen className="pen-edit text-grey" />
-                    <p className="text-edit text-grey ms-1 mt-3">Edit</p>
+                    <BsIcons.BsPen className="pen-edit text-grey m-0" />
+                    <p className="text-edit text-grey ms-1 mt-1 mb-0">Edit</p>
                   </div>
 
                   <div className="profile-name d-flex flex-column align-items-center">
                     <p className="profile-user-name">
                       {userHeader.userFullName}
                     </p>
-                    <p className="profile-user-phone">{userHeader.userPhone}</p>
+                    <p className="profile-user-phone">
+                      +62 {userHeader.userPhone}
+                    </p>
                   </div>
 
                   <div
@@ -94,11 +102,17 @@ const Profile = () => {
                     </p>
                     <BsIcons.BsArrowRight className="icons-size arrow-nav-manager" />
                   </div>
-                  <div className="profile-manager d-flex flex-row justify-content-between">
+                  <div
+                    onClick={toChangePasswordPage}
+                    className="profile-manager d-flex flex-row justify-content-between"
+                  >
                     <p className="profile-manager-option">Change Password</p>
                     <BsIcons.BsArrowRight className="icons-size arrow-nav-manager" />
                   </div>
-                  <div className="profile-manager d-flex flex-row justify-content-between">
+                  <div
+                    onClick={toChangePINPage}
+                    className="profile-manager d-flex flex-row justify-content-between"
+                  >
                     <p className="profile-manager-option">Change PIN</p>
                     <BsIcons.BsArrowRight className="icons-size arrow-nav-manager" />
                   </div>
