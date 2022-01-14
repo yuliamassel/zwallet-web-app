@@ -15,6 +15,11 @@ import ResetPassCreate from "./pages/ResetPassCreate";
 import TopUp from "./pages/TopUp";
 import RequireAuth from "./components/base/RequireAuth";
 import PersonalInfo from "./pages/PersonalInfo";
+import ChangePassword from "./pages/ChangePassword";
+import ChangePIN from "./pages/ChangePIN";
+import CreatePIN from "./pages/CreatePIN";
+import NewPhone from "./pages/NewPhone";
+import ManagePhone from "./pages/ManagePhone";
 
 const App = () => {
   return (
@@ -29,8 +34,9 @@ const App = () => {
               </RequireAuth>
             }
           />
-          <Route path={"/signup"} element={<SignUp />} />
           <Route path={"/login"} element={<Login />} />
+          <Route path={"/signup"} element={<SignUp />} />
+          <Route path={"/create-pin"} element={<CreatePIN />} />
           <Route path={"/reset-password"} element={<ResetPassConfirm />} />
           <Route path={"/create-new-password"} element={<ResetPassCreate />} />
           <Route
@@ -94,6 +100,38 @@ const App = () => {
             element={
               <RequireAuth>
                 <PersonalInfo />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/change-password"}
+            element={
+              <RequireAuth>
+                <ChangePassword />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/change-PIN"}
+            element={
+              <RequireAuth>
+                <ChangePIN />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/new-phone"}
+            element={
+              <RequireAuth>
+                <NewPhone />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"/manage-phone"}
+            element={
+              <RequireAuth>
+                <ManagePhone />
               </RequireAuth>
             }
           />
