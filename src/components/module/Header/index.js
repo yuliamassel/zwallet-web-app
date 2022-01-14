@@ -21,7 +21,7 @@ const Header = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://zwallet-web-app.herokuapp.com/users/details/${userId}`, {
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
         headers: { auth: "admin" }
       })
       .then((res) => {
@@ -77,7 +77,7 @@ const Header = () => {
             />
             <div className="user-profile-name me-4">
               <p className="name mb-0">{userHeader.userFullName}</p>
-              <p className="phone mb-0">{userHeader.userPhone}</p>
+              <p className="phone mb-0">+62 {userHeader.userPhone}</p>
             </div>
             <BsIcons.BsBell className="notif icons-size mt-3" />
           </div>

@@ -14,10 +14,10 @@ const FormLogin = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handlePasswordVisibility = () => {
-    setPasswordVisibility(passwordVisibility ? false : true);
+  const handleShowPassword = () => {
+    setShowPassword(showPassword ? false : true);
   };
   const handleChange = (e) => {
     setForm({
@@ -28,7 +28,7 @@ const FormLogin = () => {
   const handleClick = () => {
     setLoading(true);
     axios
-      .post("https://zwallet-web-app.herokuapp.com/users/login", {
+      .post(`${process.env.REACT_APP_ZWALLET_API}/users/login`, {
         email: form.email,
         password: form.password
       })
@@ -102,18 +102,18 @@ const FormLogin = () => {
               value={form.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              type={passwordVisibility ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               name="password"
               id="pass"
             />
-            {passwordVisibility ? (
+            {showPassword ? (
               <BsIcons.BsEyeSlash
-                onClick={handlePasswordVisibility}
+                onClick={handleShowPassword}
                 className="form-icons bi-eye-slash position-absolute"
               />
             ) : (
               <BsIcons.BsEye
-                onClick={handlePasswordVisibility}
+                onClick={handleShowPassword}
                 className="form-icons bi-eye-slash position-absolute"
               />
             )}
