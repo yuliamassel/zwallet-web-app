@@ -1,0 +1,14 @@
+.form-change-pass,
+.btn-pass {
+  width: 100%;
+}
+.input-form.pass,
+.btn-change-pass {
+  width: 50%;
+}
+.eye-icon-pass {
+  right: 16em;
+}
+.button.btn-login.btn-pass {
+  margin-top: 2em !important;
+}
