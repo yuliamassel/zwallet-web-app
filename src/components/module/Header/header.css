@@ -25,6 +25,7 @@
   }
   .user-pic {
     border-radius: 5px;
+    height: 53px;
   }
   .user-profile-name:hover,
   .user-pic:hover {
