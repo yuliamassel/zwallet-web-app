@@ -1,43 +1,12 @@
-import React, { Fragment, useState, useEffect } from "react";
-import axios from "axios";
+import React, { Fragment, useContext } from "react";
 import * as BsIcons from "react-icons/bs";
 import img from "../../../assets/img/blank-profile-picture.png";
 import "./header.css";
+import { UserContext } from "../../../context/UserContext";
 
 const Header = () => {
   // eslint-disable-next-line no-unused-vars
-  const [userId, setUserId] = useState(() => {
-    const user = localStorage.getItem("userId");
-    const convertedUser = JSON.parse(user);
-    return convertedUser;
-  });
-  const [userHeader, setUserHeader] = useState({
-    userFullName: "",
-    userPhone: ""
-  });
-  // eslint-disable-next-line no-unused-vars
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
-        headers: { auth: "admin" }
-      })
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUserHeader({
-          userFullName: `${result.first_name} ${result.last_name}`,
-          userPhone: `${result.phone}`
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { user, setUser } = useContext(UserContext);
   return (
     <Fragment>
       <header className="col-12 header-content d-flex flex-column">
@@ -76,8 +45,10 @@ const Header = () => {
               height="53px"
             />
             <div className="user-profile-name me-4">
-              <p className="name mb-0">{userHeader.userFullName}</p>
-              <p className="phone mb-0">+62 {userHeader.userPhone}</p>
+              <p className="name mb-0">
+                {user.first_name} {user.last_name}
+              </p>
+              <p className="phone mb-0">+62 {user.phone}</p>
             </div>
             <BsIcons.BsBell className="notif icons-size mt-3" />
           </div>

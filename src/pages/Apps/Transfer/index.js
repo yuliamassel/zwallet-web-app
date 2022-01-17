@@ -1,14 +1,17 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 import img from "../../../assets/img/blank-profile-picture.png";
 import axios from "axios";
+import { UserContext } from "../../../context/UserContext";
 
 const Transfer = () => {
+  // eslint-disable-next-line no-unused-vars
+  const { user, setUser } = useContext(UserContext);
   const { id } = useParams(); // ini akan menangkap params dari url bar browser
-  const [user, setUser] = useState({
+  const [userReceiver, setUserReceiver] = useState({
     id: "",
     first_name: "",
     last_name: "",
@@ -27,7 +30,7 @@ const Transfer = () => {
       .then((res) => {
         const result = res.data.data;
         console.log(result);
-        setUser(result);
+        setUserReceiver(result);
       })
       .catch((err) => {
         console.log(err.response);
@@ -53,9 +56,9 @@ const Transfer = () => {
           />
           <div className="receiver-detail ms-3 mt-2">
             <p className="text-title-name mb-0">
-              {user.first_name} {user.last_name}
+              {userReceiver.first_name} {userReceiver.last_name}
             </p>
-            <p className="weekly mt-1">+62 {user.phone}</p>
+            <p className="weekly mt-1">+62 {userReceiver.phone}</p>
           </div>
         </div>
 
@@ -73,7 +76,9 @@ const Transfer = () => {
           />
         </div>
 
-        <p className="text-title-name text-center">Rp120.000 Available</p>
+        <p className="text-title-name text-center">
+          Rp {user.balance} Available
+        </p>
 
         <div className="input-notes notes-position d-flex mt-4 w-50 ">
           <BsIcons.BsPen className="pen text-grey position-absolute ms-1" />

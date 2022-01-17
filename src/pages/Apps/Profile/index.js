@@ -1,45 +1,14 @@
-import React, { Fragment, useEffect, useState } from "react";
-import axios from "axios";
+import React, { Fragment, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import img from "../../../assets/img/blank-profile-picture.png";
 import "./profile.css";
+import { UserContext } from "../../../context/UserContext";
 
 const Profile = () => {
   // eslint-disable-next-line no-unused-vars
-  const [userId, setUserId] = useState(() => {
-    const user = localStorage.getItem("userId");
-    const convertedUser = JSON.parse(user);
-    return convertedUser;
-  });
-  const [userHeader, setUserHeader] = useState({
-    userFullName: "",
-    userPhone: ""
-  });
-  // eslint-disable-next-line no-unused-vars
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate("");
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
-        headers: { auth: "admin" }
-      })
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUserHeader({
-          userFullName: `${result.first_name} ${result.last_name}`,
-          userPhone: `${result.phone}`
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const toPersonalInfoPage = () => {
     navigate("/apps/personal-information");
@@ -74,8 +43,10 @@ const Profile = () => {
           </div>
 
           <div className="profile-name d-flex flex-column align-items-center">
-            <p className="profile-user-name">{userHeader.userFullName}</p>
-            <p className="profile-user-phone">+62 {userHeader.userPhone}</p>
+            <p className="profile-user-name">
+              {user.first_name} {user.last_name}
+            </p>
+            <p className="profile-user-phone">+62 {user.phone}</p>
           </div>
 
           <div

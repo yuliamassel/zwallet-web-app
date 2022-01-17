@@ -1,52 +1,16 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
 import "./personalInfo.css";
+import { UserContext } from "../../../context/UserContext";
 
 const PersonalInfo = () => {
+  // eslint-disable-next-line no-unused-vars
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const toNewPhonePage = () => {
     navigate("/apps/new-phone");
   };
-  // eslint-disable-next-line no-unused-vars
-  const [userId, setUserId] = useState(() => {
-    const user = localStorage.getItem("userId");
-    const convertedUser = JSON.parse(user);
-    return convertedUser;
-  });
-  const [personalInfoUser, setPersonalInfoUser] = useState({
-    userFirstName: "",
-    userLastName: "",
-    userPhone: "",
-    userEmail: ""
-  });
-  // eslint-disable-next-line no-unused-vars
-  const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate("");
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
-        headers: { auth: "admin" }
-      })
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setPersonalInfoUser({
-          userFirstName: `${result.first_name}`,
-          userLastName: `${result.last_name}`,
-          userPhone: `${result.phone}`,
-          userEmail: `${result.email}`
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out ">
@@ -62,28 +26,20 @@ const PersonalInfo = () => {
 
           <div className="personal-info-card d-flex flex-column mb-3">
             <p className="personal-info-card-title ms-1">First Name</p>
-            <p className="personal-info-card-desc ms-1">
-              {personalInfoUser.userFirstName}
-            </p>
+            <p className="personal-info-card-desc ms-1">{user.first_name}</p>
           </div>
           <div className="personal-info-card d-flex flex-column mb-3">
             <p className="personal-info-card-title ms-1">Last Name</p>
-            <p className="personal-info-card-desc ms-1">
-              {personalInfoUser.userLastName}
-            </p>
+            <p className="personal-info-card-desc ms-1">{user.last_name}</p>
           </div>
           <div className="personal-info-card d-flex flex-column mb-3">
             <p className="personal-info-card-title ms-1">Verified E-mail</p>
-            <p className="personal-info-card-desc ms-1">
-              {personalInfoUser.userEmail}
-            </p>
+            <p className="personal-info-card-desc ms-1">{user.email}</p>
           </div>
           <div className="personal-info-card d-flex flex-row justify-content-between align-items-center mb-3">
             <div>
               <p className="personal-info-card-title ms-1">Phone Number</p>
-              <p className="personal-info-card-desc ms-1">
-                +62 {personalInfoUser.userPhone}
-              </p>
+              <p className="personal-info-card-desc ms-1">+62 {user.phone}</p>
             </div>
             <p onClick={toNewPhonePage} className="manage-phone text-blue me-2">
               Manage

@@ -1,10 +1,13 @@
 import React, { Fragment } from "react";
 import Router from "./config/Router";
+import UserProvider from "./context/UserContext";
 
 const App = () => {
   return (
     <Fragment>
-      <Router />
+      <UserProvider>
+        <Router />
+      </UserProvider>
     </Fragment>
   );
 };

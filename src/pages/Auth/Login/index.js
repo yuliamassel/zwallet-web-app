@@ -1,16 +1,19 @@
 import axios from "axios";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 import "./login.css";
+import { UserContext } from "../../../context/UserContext";
 
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: ""
   });
+  // eslint-disable-next-line no-unused-vars
+  const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -36,6 +39,7 @@ const Login = () => {
         setLoading(false);
         const result = res.data.data;
         const userId = result.id;
+        setUser(result);
         localStorage.setItem("auth", "1");
         localStorage.setItem("userId", JSON.stringify(userId));
         navigate("/");

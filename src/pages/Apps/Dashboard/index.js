@@ -1,25 +1,18 @@
-import React, { Fragment, useState, useEffect } from "react";
-import axios from "axios";
+import React, { Fragment, useContext, useEffect, useState } from "react";
+// import axios from "axios";
 import "./dashboard.css";
 import Balance from "../../../components/module/Balance";
 import Chart from "../../../components/module/Charts";
 import History from "../../../components/module/History";
+import { UserContext } from "../../../context/UserContext";
+import axios from "axios";
 
 const Dashboard = () => {
   // eslint-disable-next-line no-unused-vars
-  const [userId, setUserId] = useState(() => {
-    const user = localStorage.getItem("userId");
-    const convertedUser = JSON.parse(user);
-    return convertedUser;
-  });
-  const [userHeader, setUserHeader] = useState({
-    userFullName: "",
-    userPhone: "",
-    balance: 0
-  });
+  const { user, setUser } = useContext(UserContext);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
-
+  const userId = JSON.parse(localStorage.getItem("userId"));
   useEffect(() => {
     setLoading(true);
     axios
@@ -29,11 +22,7 @@ const Dashboard = () => {
       .then((res) => {
         setLoading(false);
         const result = res.data.data;
-        setUserHeader({
-          userFullName: `${result.first_name} ${result.last_name}`,
-          userPhone: `${result.phone}`,
-          balance: `${result.balance}`
-        });
+        setUser(result);
       })
       .catch((err) => {
         setLoading(false);
@@ -47,10 +36,7 @@ const Dashboard = () => {
       {/* <!-- main content for lg, xl, xxl --> */}
       <section className="content-bar col-lg-8 animation-pull-out ">
         <section className="menu-content ">
-          <Balance
-            balance={userHeader.balance}
-            user_phone={userHeader.userPhone}
-          />
+          <Balance balance={user.balance} user_phone={user.phone} />
 
           <section className="row history-content d-lg-flex flex-row">
             <Chart />

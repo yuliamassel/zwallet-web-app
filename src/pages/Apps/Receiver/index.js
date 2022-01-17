@@ -28,7 +28,7 @@ const Receiver = () => {
         });
     } else {
       axios
-        .get(`${process.env.REACT_APP_ZWALLET_API}/users?limit=3&order=asc`, {
+        .get(`${process.env.REACT_APP_ZWALLET_API}/users?limit=4&order=asc`, {
           headers: { auth: "admin" }
         })
         .then((res) => {
