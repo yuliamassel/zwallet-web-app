@@ -7,21 +7,21 @@ import "./sidebar.css";
 const Sidebar = () => {
   const navigate = useNavigate("");
   const toDashboard = () => {
-    navigate("/");
+    navigate("/apps");
   };
   const toTransferPage = () => {
-    navigate("/receiver");
+    navigate("/apps/receiver");
   };
   const toTopUpPage = () => {
-    navigate("/topup");
+    navigate("/apps/topup");
   };
   const toProfilePage = () => {
-    navigate("/profile");
+    navigate("/apps/profile");
   };
   const logOut = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("userId");
-    navigate("/login");
+    navigate("/auth/login");
   };
   return (
     <Fragment>

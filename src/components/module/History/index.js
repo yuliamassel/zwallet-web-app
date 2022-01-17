@@ -4,9 +4,9 @@ import "./history.css";
 import img from "../../../assets/img/blank-profile-picture.png";
 
 const History = () => {
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
   const toTransactionPage = () => {
-    navigate("/history");
+    navigate("/apps/history");
   };
   return (
     <Fragment>

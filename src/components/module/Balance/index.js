@@ -8,7 +8,7 @@ import Button from "../../base/Button";
 const Balance = (props) => {
   const navigate = useNavigate("");
   const handleClick = () => {
-    navigate("/receiver");
+    navigate("/apps/receiver");
   };
   return (
     <Fragment>

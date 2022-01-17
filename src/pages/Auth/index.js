@@ -1,9 +1,13 @@
 import React, { Fragment } from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import display from "../../assets/img/mobile.png";
 import "./auth.css";
 
 const Auth = () => {
+  let auth = localStorage.getItem("auth");
+  if (auth) {
+    return <Navigate to={"/apps"} />;
+  }
   return (
     <Fragment>
       <main className="container-fluid d-flex">
