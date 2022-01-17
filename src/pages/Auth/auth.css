@@ -112,6 +112,8 @@ img.display-app {
 
 /* styling for forms in login, signup, reset password, create PIN pages */
 .text-error {
+  margin: 0;
+  padding: 0;
   text-align: left !important;
   font-size: 0.8em;
   color: red;

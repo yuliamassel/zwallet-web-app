@@ -7,7 +7,8 @@ import Input from "../../../components/base/Input";
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    username: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: ""
   });
@@ -27,8 +28,11 @@ const SignUp = () => {
   const validate = (values) => {
     const errors = {};
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (!values.username) {
-      errors.username = "Username is required";
+    if (!values.first_name) {
+      errors.first_name = "First Name is required";
+    }
+    if (!values.last_name) {
+      errors.last_name = "Last Name is required";
     }
     if (!values.email) {
       errors.email = "Email is required";
@@ -48,7 +52,8 @@ const SignUp = () => {
       setLoading(true);
       axios
         .post(`${process.env.REACT_APP_ZWALLET_API}/users/registration`, {
-          username: form.username,
+          first_name: form.first_name,
+          last_name: form.last_name,
           email: form.email,
           password: form.password
         })
@@ -109,20 +114,33 @@ const SignUp = () => {
           </p>
           {/* <!-- input form start here--> */}
           <form onSubmit={handleSubmit}>
-            <div className="input-form d-flex mt-3 ">
+            <div className="input-form d-flex mt-3">
               <BsIcons.BsPerson className="form-icons position-absolute" />
               <Input
-                value={form.username}
+                value={form.first_name}
                 onChange={handleChange}
-                placeholder="Enter your username"
+                placeholder="Enter your first name"
                 type="text"
-                name="username"
-                id="uname"
+                name="first_name"
+                id="firstName"
               />
             </div>
-            <div className="text-error mb-0">{formError.username}</div>
+            <div className="text-error mb-0">{formError.first_name}</div>
 
-            <div className="input-form d-flex mt-5 ">
+            <div className="input-form d-flex mt-4 ">
+              <BsIcons.BsPerson className="form-icons position-absolute" />
+              <Input
+                value={form.last_name}
+                onChange={handleChange}
+                placeholder="Enter your last name"
+                type="text"
+                name="last_name"
+                id="lastName"
+              />
+            </div>
+            <div className="text-error mb-0">{formError.last_name}</div>
+
+            <div className="input-form d-flex mt-4 ">
               <BsIcons.BsEnvelope className="form-icons position-absolute" />
               <Input
                 value={form.email}
@@ -135,7 +153,7 @@ const SignUp = () => {
             </div>
             <div className="text-error mb-0">{formError.email}</div>
 
-            <div className="input-form d-flex mt-5">
+            <div className="input-form d-flex mt-4">
               <BsIcons.BsLock className="form-icons position-absolute" />
               <Input
                 value={form.password}
