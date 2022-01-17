@@ -1,0 +1,16 @@
+.topup-form {
+  margin-top: 6em;
+}
+.button-topup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  margin-left: 20em;
+}
+.balance-info {
+  font-weight: normal;
+  font-size: 0.9em;
+  line-height: 28px;
+  color: #7a7886;
+}

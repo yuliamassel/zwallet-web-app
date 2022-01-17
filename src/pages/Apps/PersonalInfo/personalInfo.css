@@ -1,7 +1,8 @@
 .personal-info-text,
 .change-pass-text,
 .new-phone-text,
-.manage-phone-text {
+.manage-phone-text,
+.topup-input-text {
   margin-right: 2em;
   margin-left: 2em;
 }
@@ -17,7 +18,8 @@
 .personal-info-desc,
 .change-pass-desc,
 .new-phone-desc,
-.manage-phone-desc {
+.manage-phone-desc,
+.topup-input-desc {
   font-weight: normal;
   font-size: 0.9em;
   line-height: 28px;

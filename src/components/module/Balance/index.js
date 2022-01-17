@@ -10,6 +10,9 @@ const Balance = (props) => {
   const handleClick = () => {
     navigate("/apps/receiver");
   };
+  const handleTopUp = () => {
+    navigate("/apps/topup-input");
+  };
   return (
     <Fragment>
       <section className="balance big-screen">
@@ -24,7 +27,7 @@ const Balance = (props) => {
             <BsIcons.BsArrowUp className="icons-size" />
             <p>Transfer</p>
           </Button>
-          <Button className="topup align-items-center">
+          <Button onClick={handleTopUp} className="topup align-items-center">
             <AiIcons.AiOutlinePlus className="icons-size" />
             <p>Top Up</p>
           </Button>

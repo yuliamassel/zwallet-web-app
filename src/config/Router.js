@@ -23,6 +23,7 @@ import ChangePIN from "../pages/Apps/ChangePIN";
 import NewPhone from "../pages/Apps/NewPhone";
 import ManagePhone from "../pages/Apps/ManagePhone";
 import Page404 from "../pages/404";
+import TopUpInput from "../pages/Apps/TopUpInput";
 // import RequireAuth from "./components/base/RequireAuth";
 
 const Router = () => {
@@ -43,6 +44,7 @@ const Router = () => {
           <Route index element={<Dashboard />} />
           <Route path={"history"} element={<Transaction />} />
           <Route path={"topup"} element={<TopUp />} />
+          <Route path={"topup-input"} element={<TopUpInput />} />
           <Route path={"receiver"} element={<Receiver />} />
           <Route path={"transfer/:id"} element={<Transfer />} />
           <Route path={"confirmation"} element={<TransferConfirm />} />
