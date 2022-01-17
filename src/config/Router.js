@@ -44,7 +44,7 @@ const Router = () => {
           <Route path={"history"} element={<Transaction />} />
           <Route path={"topup"} element={<TopUp />} />
           <Route path={"receiver"} element={<Receiver />} />
-          <Route path={"transfer"} element={<Transfer />} />
+          <Route path={"transfer/:id"} element={<Transfer />} />
           <Route path={"confirmation"} element={<TransferConfirm />} />
           <Route path={"status"} element={<TransferStatus />} />
           <Route path={"profile"} element={<Profile />} />

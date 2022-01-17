@@ -1,12 +1,40 @@
-import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 import img from "../../../assets/img/blank-profile-picture.png";
+import axios from "axios";
 
 const Transfer = () => {
-  const navigate = useNavigate("");
+  const { id } = useParams(); // ini akan menangkap params dari url bar browser
+  const [user, setUser] = useState({
+    id: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    wallet_id: "",
+    user_ID: "",
+    balance: 0
+  });
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${id}`, {
+        //id ini ditangkap dari tab url browser
+        headers: { auth: "admin" }
+      })
+      .then((res) => {
+        const result = res.data.data;
+        console.log(result);
+        setUser(result);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const navigate = useNavigate();
   const toConfirmPage = () => {
     navigate("/apps/confirmation");
   };
@@ -24,8 +52,10 @@ const Transfer = () => {
             alt="Samuel"
           />
           <div className="receiver-detail ms-3 mt-2">
-            <p className="text-title-name mb-0">Samuel Suhi</p>
-            <p className="weekly mt-1">+62 813-8492-9994</p>
+            <p className="text-title-name mb-0">
+              {user.first_name} {user.last_name}
+            </p>
+            <p className="weekly mt-1">+62 {user.phone}</p>
           </div>
         </div>
 
