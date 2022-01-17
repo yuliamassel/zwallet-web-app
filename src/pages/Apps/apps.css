@@ -1,0 +1,347 @@
+/* global styling */
+body {
+  background-color: #fafcff;
+  font-family: "Nunito Sans", sans-serif;
+}
+.text-blue {
+  color: #6379f4;
+}
+.text-white {
+  color: #ffffff;
+}
+.text-green {
+  color: #1ec15f;
+}
+.text-red {
+  color: #ff5b37;
+}
+.text-grey {
+  color: rgba(58, 61, 66, 0.4);
+}
+.icons-size {
+  font-size: 1.7em;
+}
+button,
+input {
+  border: 0;
+  outline: 0;
+  width: 100%;
+}
+a {
+  text-decoration: none;
+}
+[class^="col"] {
+  padding: 0.4em;
+  margin-bottom: 0.5em;
+}
+.header-content {
+  background-color: #6379f4;
+  border-radius: 0px 0px 25px 25px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* styling default mobile version */
+.saldo {
+  margin-left: -6em;
+}
+.saldo-text {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #d0d0d0;
+}
+.saldo-nominal {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  color: #ffffff;
+}
+button.transfer-default,
+button.topup-default {
+  background: #eaedff;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #514f5b;
+}
+.history-title {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #3a3d42;
+}
+.history-transaction-profiles {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+.profile-desc-name {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  color: #4d4b57;
+}
+.profile-desc {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #7a7886;
+}
+.nominal-transfer {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1ec15f;
+}
+.nominal-subscription {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  color: #ff5b37;
+}
+
+.nav-title {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  color: #ffffff;
+}
+.weekly,
+.monthly {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #7a7886;
+}
+button.expense,
+button.income,
+button.calendar {
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #6379f4;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes pull-out {
+  0% {
+    transform: translate(0, 100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 100%;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+.animation-pull-out {
+  animation-name: pull-out;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+}
+.animation-fade-in {
+  animation-name: fade-in;
+  animation-duration: 0.56s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+}
+
+/* styling for screen 768px and up */
+@media screen and (min-width: 768px) {
+  /* .main-content {
+      height: 79.35%;
+      width: 100%;
+    } */
+
+  .active-page {
+    border-left: 3px solid #6379f4 !important;
+    color: #6379f4 !important;
+    font-weight: bold !important;
+    transition: 0.3s;
+  }
+
+  .content-bar {
+    height: 76.32vh;
+    margin-right: 6em;
+  }
+
+  .content-bar.big-screen {
+    background-color: #fff;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 25px;
+  }
+  .profile-description.history-page {
+    margin-left: -20em !important;
+  }
+  .history-transaction-profiles:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+    transition: 0.3s;
+  }
+}
+
+/* ================== TRANSFER RECEIVER PAGE ==================== */
+.search-receiver {
+  background-color: #fff;
+  border-radius: 12px;
+}
+.search-receiver-input {
+  width: 75%;
+}
+.desktop {
+  width: 100%;
+}
+.bg-input {
+  background: rgba(58, 61, 66, 0.1);
+}
+.bg-search-input {
+  background: rgba(216, 217, 218, 0.1);
+}
+.text-title-name {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #514f5b;
+}
+.receivers {
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.receivers:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: 0.3s;
+}
+.receivers:active {
+  background-color: #eeecec;
+}
+
+/* ================== TRANSFER INPUT PAGE ==================== */
+.input-amount-money {
+  width: 25%;
+  margin-left: 21em;
+}
+.input-amount {
+  padding-left: 0.5em !important;
+  padding-bottom: 0.2em !important;
+}
+.input-amount-money input {
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 42px;
+  color: #6379f4;
+  caret-color: red;
+}
+::placeholder {
+  color: #b5bdcc;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-notes {
+  margin-top: 5em;
+  margin-left: 15em;
+}
+.input-notes input {
+  border-bottom: 2px solid rgba(169, 169, 169, 0.6);
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #3a3d42;
+}
+.input-notes input:focus {
+  border-bottom: 2px solid #6379f4;
+}
+.input-notes:active .pen,
+.input-notes:focus .pen {
+  color: #6379f4;
+}
+
+.transfer-instruction {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 28px;
+  color: #7a7886;
+}
+.notes-position {
+  margin-left: 15em;
+}
+.btn-continue {
+  margin-bottom: 15em;
+  transform: translateY(13em);
+}
+.btn-continue-desktop {
+  margin-top: 6em;
+}
+
+.btn-continue button,
+.btn-continue-desktop button {
+  font-weight: bold;
+  background-color: #6379f4;
+  border-radius: 12px;
+}
+.btn-continue button:active,
+.btn-continue-desktop button:active {
+  background-color: #ffffff;
+  color: #6379f4 !important;
+  transition: 0.3s;
+}
+
+/* ================== TRANSFER CONFIRMATION PAGE ==================== */
+
+.details-transfer {
+  height: 43.5%;
+  overflow-y: scroll;
+}
+.details-transfer::-webkit-scrollbar {
+  width: 5px;
+  background: #ebe8e8;
+}
+.details-transfer::-webkit-scrollbar-thumb {
+  background: rgba(196, 193, 193, 0.3);
+}
+.text-title {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #7a7886;
+}
+.text-content {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #514f5b;
+}
+.confirm-items {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+/* ================== TRANSFER STATUS PAGE ==================== */
+
+.btn-share {
+  font-weight: bold;
+  background: rgba(99, 121, 244, 0.15);
+  border-radius: 12px;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+}

@@ -1,0 +1,54 @@
+.personal-info-text,
+.change-pass-text,
+.new-phone-text,
+.manage-phone-text {
+  margin-right: 2em;
+  margin-left: 2em;
+}
+.personal-info-title,
+.change-pass-title,
+.new-phone-title,
+.manage-phone-title {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: #3a3d42;
+}
+.personal-info-desc,
+.change-pass-desc,
+.new-phone-desc,
+.manage-phone-desc {
+  font-weight: normal;
+  font-size: 0.9em;
+  line-height: 28px;
+  color: #7a7886;
+}
+.personal-info-card {
+  margin-left: 2em;
+  margin-right: 2em;
+  padding: 0.5em;
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.personal-info-card p {
+  margin: 0;
+}
+
+.personal-info-card-title {
+  font-weight: normal;
+  font-size: 0.9em;
+  line-height: 22px;
+  color: #7a7886;
+}
+
+.personal-info-card-desc {
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 30px;
+  color: #514f5b;
+}
+.manage-phone {
+  font-size: 0.85em;
+  cursor: pointer;
+}
