@@ -28,9 +28,12 @@ const Receiver = () => {
         });
     } else {
       axios
-        .get(`${process.env.REACT_APP_ZWALLET_API}/users?limit=4&order=desc`, {
-          headers: { auth: "admin" }
-        })
+        .get(
+          `${process.env.REACT_APP_ZWALLET_API}/users?limit=4&sort=first_name&order=asc`,
+          {
+            headers: { auth: "admin" }
+          }
+        )
         .then((res) => {
           console.info(res.data);
           const result = res.data.data;
