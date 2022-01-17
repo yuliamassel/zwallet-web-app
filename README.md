@@ -23,7 +23,7 @@ Hello! My name's **Ferdi** and I'm part of the Developer Team who built **Zwalle
    npm start
    ```
 
-Or you can try it here: [Zwallet Web App](https://zwallet-web-app.netlify.app/login)
+Or you can try it here: [Zwallet Web App](https://zwallet-web-app.netlify.app/auth/login)
 
 ## Pages
 
@@ -73,4 +73,4 @@ Here are some snippets about this app:
 
 **Zwallet** is currently on development process!
 
-Last Updated on Monday, 10/01/2022
+Last Updated on Monday, 17/01/2022
