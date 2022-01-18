@@ -2,8 +2,6 @@
 
 Hello! My name's **Ferdi** and I'm part of the Developer Team who built **Zwallet**! I'm here to inform you about this cool apps. **Zwallet** is a website application that offering the simplicity and rapidity for anything related to banking needs.
 
-> **Zwallet** is a mobile-first web app that currently available in Responsive Layout for 3 breakpoints: less than 567px (default layout), 768px (tablet layout), 1200px (desktop layout).
-
 ## Built With
 
 - [React.js](https://reactjs.org/)
@@ -22,6 +20,8 @@ Hello! My name's **Ferdi** and I'm part of the Developer Team who built **Zwalle
    ```sh
    npm start
    ```
+
+## Demonstration
 
 Or you can try it here: [Zwallet Web App](https://zwallet-web-app.netlify.app/auth/login)
 
@@ -73,4 +73,4 @@ Here are some snippets about this app:
 
 **Zwallet** is currently on development process!
 
-Last Updated on Monday, 17/01/2022
+Last Updated on Tuesday, 18/01/2022
