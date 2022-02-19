@@ -54,3 +54,6 @@
   font-size: 0.85em;
   cursor: pointer;
 }
+.manage-phone:hover {
+  text-decoration: underline;
+}

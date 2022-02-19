@@ -7,8 +7,12 @@ const PersonalInfo = () => {
   // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const toNewPhonePage = () => {
-    navigate("/apps/new-phone");
+  const managePhoneNumber = () => {
+    if (user.phone !== null) {
+      navigate("/apps/manage-phone");
+    } else {
+      navigate("/apps/new-phone");
+    }
   };
 
   return (
@@ -41,7 +45,10 @@ const PersonalInfo = () => {
               <p className="personal-info-card-title ms-1">Phone Number</p>
               <p className="personal-info-card-desc ms-1">+62 {user.phone}</p>
             </div>
-            <p onClick={toNewPhonePage} className="manage-phone text-blue me-2">
+            <p
+              onClick={managePhoneNumber}
+              className="manage-phone text-blue me-2"
+            >
               Manage
             </p>
           </div>
