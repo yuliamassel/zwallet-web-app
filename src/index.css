@@ -1,12 +1,12 @@
-body {
+/* body {
   overflow: hidden;
-}
+} */
 
-/* body::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 5px;
   background: #fafcff;
 }
 body::-webkit-scrollbar-thumb {
   background: #6379f4;
   border-radius: 2px;
-} */
+}
