@@ -73,6 +73,7 @@ const Receiver = () => {
 
         {users.map((user, index) => (
           <div
+            key={user.id}
             onClick={() => navigate(`/apps/transfer/${user.id}`)}
             className="d-flex receivers p-1 mb-3 ms-3 me-3 "
           >

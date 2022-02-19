@@ -27,6 +27,7 @@
   margin-right: 0.6em;
   cursor: pointer;
 }
+.delete-phone:hover,
 .delete-phone:active {
-  color: #6379f4;
+  color: #e60e0e;
 }

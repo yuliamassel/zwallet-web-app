@@ -9,12 +9,12 @@ const Chart = () => {
       <section className="col-lg-6 history-content-chart d-flex flex-column ms-3">
         <div className="financial">
           <div className="income">
-            <BsIcons.BsArrowUp className="icons-size text-green" />
+            <BsIcons.BsArrowDown className="icons-size text-green" />
             <p className="financial-text">Income</p>
             <p className="financial-cash">Rp2.120.000</p>
           </div>
           <div className="expense">
-            <BsIcons.BsArrowDown className="icons-size text-red" />
+            <BsIcons.BsArrowUp className="icons-size text-red" />
             <p className="financial-text">Expense</p>
             <p className="financial-cash">Rp1.560.000</p>
           </div>
