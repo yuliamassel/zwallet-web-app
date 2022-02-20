@@ -24,6 +24,7 @@ import NewPhone from "../pages/Apps/NewPhone";
 import ManagePhone from "../pages/Apps/ManagePhone";
 import Page404 from "../pages/404";
 import TopUpInput from "../pages/Apps/TopUpInput";
+import NewPIN from "../pages/Apps/ChangePIN/NewPIN";
 // import RequireAuth from "./components/base/RequireAuth";
 
 const Router = () => {
@@ -53,6 +54,7 @@ const Router = () => {
           <Route path={"personal-information"} element={<PersonalInfo />} />
           <Route path={"change-password"} element={<ChangePassword />} />
           <Route path={"change-PIN"} element={<ChangePIN />} />
+          <Route path={"new-PIN"} element={<NewPIN />} />
           <Route path={"new-phone"} element={<NewPhone />} />
           <Route path={"manage-phone"} element={<ManagePhone />} />
         </Route>

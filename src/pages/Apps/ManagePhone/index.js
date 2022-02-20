@@ -10,7 +10,7 @@ const ManagePhone = () => {
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out ">
         <section className="manage-phone-content d-flex flex-column">
-          <div className="manage-phone-text mt-2">
+          <div className="manage-phone-text">
             <p className="manage-phone-title">Manage Phone Number</p>
             <p className="manage-phone-desc">
               You can only delete the phone number and then <br /> you must add

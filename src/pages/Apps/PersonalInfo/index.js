@@ -19,7 +19,7 @@ const PersonalInfo = () => {
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out ">
         <section className="personal-info-content d-flex flex-column">
-          <div className="personal-info-text mt-2">
+          <div className="personal-info-text">
             <p className="personal-info-title">Personal Information</p>
             <p className="personal-info-desc">
               We got your personal information from the sign <br /> up proccess.

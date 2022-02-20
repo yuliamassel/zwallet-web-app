@@ -49,7 +49,7 @@ const NewPhone = () => {
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out ">
         <section className="new-phone-content d-flex flex-column">
-          <div className="new-phone-text mt-2">
+          <div className="new-phone-text">
             <p className="new-phone-title">Add Phone Number</p>
             <p className="new-phone-desc">
               Add at least one phone number for the transfer <br /> ID so you

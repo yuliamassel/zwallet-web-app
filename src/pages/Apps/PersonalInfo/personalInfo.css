@@ -2,14 +2,17 @@
 .change-pass-text,
 .new-phone-text,
 .manage-phone-text,
-.topup-input-text {
+.topup-input-text,
+.change-pin-text {
+  margin-top: 1rem;
   margin-right: 2em;
   margin-left: 2em;
 }
 .personal-info-title,
 .change-pass-title,
 .new-phone-title,
-.manage-phone-title {
+.manage-phone-title,
+.change-pin-title {
   font-weight: bold;
   font-size: 18px;
   line-height: 25px;
@@ -19,7 +22,8 @@
 .change-pass-desc,
 .new-phone-desc,
 .manage-phone-desc,
-.topup-input-desc {
+.topup-input-desc,
+.change-pin-desc {
   font-weight: normal;
   font-size: 0.9em;
   line-height: 28px;

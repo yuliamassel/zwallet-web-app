@@ -1,14 +1,8 @@
 import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
-import "./changePin.css";
 
-const ChangePIN = () => {
-  const navigate = useNavigate();
-  const newPinPage = () => {
-    navigate("/apps/new-PIN");
-  };
+const NewPIN = () => {
   return (
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out ">
@@ -16,8 +10,8 @@ const ChangePIN = () => {
           <div className="change-pin-text">
             <p className="change-pin-title">Change PIN</p>
             <p className="change-pin-desc">
-              Enter your current 6 digits Zwallet PIN below to <br /> continue
-              to the next steps.
+              Type your new 6 digits security PIN for transactions <br /> in
+              Zwallet.
             </p>
           </div>
 
@@ -44,9 +38,7 @@ const ChangePIN = () => {
           </div>
 
           <div className="btn-change-pin d-flex align-items-center">
-            <Button onClick={newPinPage} className="button btn-login btn-pin">
-              Continue
-            </Button>
+            <Button className="button btn-login btn-pin">Change PIN</Button>
           </div>
         </section>
       </section>
@@ -54,4 +46,4 @@ const ChangePIN = () => {
   );
 };
 
-export default ChangePIN;
+export default NewPIN;

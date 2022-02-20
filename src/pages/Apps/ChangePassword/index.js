@@ -14,7 +14,7 @@ const ChangePassword = () => {
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out ">
         <section className="change-password-content d-flex flex-column">
-          <div className="change-pass-text mt-2">
+          <div className="change-pass-text">
             <p className="change-pass-title">Change Password</p>
             <p className="change-pass-desc">
               You must enter your current password and then <br /> type your new

@@ -268,11 +268,11 @@ input::-webkit-inner-spin-button {
   line-height: 18px;
   color: #3a3d42;
 }
-.input-notes input:focus {
+.input-notes input:focus-within {
   border-bottom: 2px solid #6379f4;
 }
 .input-notes:active .pen,
-.input-notes:focus .pen {
+.input-notes:focus-within .pen {
   color: #6379f4;
 }
 
