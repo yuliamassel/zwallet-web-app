@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Button from "../../../components/base/Button";
+import Input from "../../../components/base/Input";
 
 const CreatePIN = () => {
   return (
@@ -29,9 +30,28 @@ const CreatePIN = () => {
             Enter your Zwallet e-mail so we can send <br></br> you a password
             reset link.
           </p>
-          {/* <!-- input form start here--> */}
 
-          <input className="pin-input" type="text" maxLength="1" />
+          {/* <!-- input form start here--> */}
+          <div className="input-pin-container d-flex flex-row justify-content-between">
+            <div className="pin-input-wrapper">
+              <Input className="pin-input" type="text" maxLength="1" />
+            </div>
+            <div className="pin-input-wrapper">
+              <Input className="pin-input" type="text" maxLength="1" />
+            </div>
+            <div className="pin-input-wrapper">
+              <Input className="pin-input" type="text" maxLength="1" />
+            </div>
+            <div className="pin-input-wrapper">
+              <Input className="pin-input" type="text" maxLength="1" />
+            </div>
+            <div className="pin-input-wrapper">
+              <Input className="pin-input" type="text" maxLength="1" />
+            </div>
+            <div className="pin-input-wrapper">
+              <Input className="pin-input" type="text" maxLength="1" />
+            </div>
+          </div>
 
           <Button className="button btn-login btn-confirm mb-1" type="submit">
             Confirm

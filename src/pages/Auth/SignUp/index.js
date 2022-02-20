@@ -114,7 +114,7 @@ const SignUp = () => {
           </p>
           {/* <!-- input form start here--> */}
           <form onSubmit={handleSubmit}>
-            <div className="input-form d-flex mt-3">
+            <div className="input-form d-flex mt-1">
               <BsIcons.BsPerson className="form-icons position-absolute" />
               <Input
                 value={form.first_name}
@@ -127,7 +127,7 @@ const SignUp = () => {
             </div>
             <div className="text-error mb-0">{formError.first_name}</div>
 
-            <div className="input-form d-flex mt-4 ">
+            <div className="input-form d-flex margin-input-signup ">
               <BsIcons.BsPerson className="form-icons position-absolute" />
               <Input
                 value={form.last_name}
@@ -140,7 +140,7 @@ const SignUp = () => {
             </div>
             <div className="text-error mb-0">{formError.last_name}</div>
 
-            <div className="input-form d-flex mt-4 ">
+            <div className="input-form d-flex margin-input-signup ">
               <BsIcons.BsEnvelope className="form-icons position-absolute" />
               <Input
                 value={form.email}
@@ -153,7 +153,7 @@ const SignUp = () => {
             </div>
             <div className="text-error mb-0">{formError.email}</div>
 
-            <div className="input-form d-flex mt-4">
+            <div className="input-form d-flex margin-input-signup">
               <BsIcons.BsLock className="form-icons position-absolute" />
               <Input
                 value={form.password}

@@ -138,9 +138,12 @@ input {
   font-size: 15px;
   font-family: "Nunito Sans";
   line-height: 23px;
-  padding-left: 2.5em !important;
+  padding-left: 2.5em;
   padding-bottom: 0.6em;
   background-color: transparent;
+}
+.margin-input-signup {
+  margin-top: 1.7rem;
 }
 .input-form {
   border-bottom: 2px solid rgba(201, 197, 197, 0.6);
@@ -149,7 +152,7 @@ input {
 .input-form input:focus {
   border-bottom: 2px solid #324ef0;
 }
-.input-form:active .form-icons {
+.input-form:focus-within .form-icons {
   color: #6379f4;
 }
 .form-icons {
@@ -307,4 +310,29 @@ button {
   animation-iteration-count: 1;
   transition-duration: 0.5s;
   transition-timing-function: linear;
+}
+
+/* styling for create PIN input */
+.pin-input-wrapper {
+  background: #ffffff;
+  border: 1px solid rgba(169, 169, 169, 0.6);
+  border-radius: 10px;
+  padding: 0.5rem 0.2rem;
+  width: 53px;
+  height: 65px;
+  text-align: center;
+}
+.pin-input {
+  text-align: center;
+  padding: 0.7rem 0.2rem;
+  font-size: 1.2em;
+  font-weight: bold;
+  /* background-color: #8796ee; */
+  border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+}
+.pin-input:focus-within {
+  border-bottom: 1px solid #6379f4;
+}
+.pin-input-wrapper:focus-within {
+  border: 1px solid #6379f4;
 }
