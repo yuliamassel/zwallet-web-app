@@ -38,10 +38,10 @@ const Login = () => {
       .then((res) => {
         setLoading(false);
         const result = res.data.data;
-        const userId = result.id;
+        const token = result.token;
         setUser(result);
         localStorage.setItem("auth", "1");
-        localStorage.setItem("userId", JSON.stringify(userId));
+        localStorage.setItem("token", JSON.stringify(token));
         navigate("/");
       })
       .catch((err) => {

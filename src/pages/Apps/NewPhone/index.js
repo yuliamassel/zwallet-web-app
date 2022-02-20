@@ -9,7 +9,7 @@ import axios from "axios";
 
 const NewPhone = () => {
   const [form, setForm] = useState({ phone: "" });
-  const id = JSON.parse(localStorage.getItem("userId"));
+  const token = JSON.parse(localStorage.getItem("token"));
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,14 +24,17 @@ const NewPhone = () => {
   const handleClick = () => {
     setLoading(true);
     axios
-      .put(`${process.env.REACT_APP_ZWALLET_API}/users/profile/${id}`, {
-        phone: form.phone
-      })
+      .put(
+        `${process.env.REACT_APP_ZWALLET_API}/users/profile`,
+        { phone: form.phone },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((res) => {
         setLoading(false);
         const result = res.data.data;
         setUser(result);
-        navigate("/apps/manage-phone");
+        alert("Success Add Phone Number!");
+        navigate("/apps");
       })
       .catch((err) => {
         setLoading(false);

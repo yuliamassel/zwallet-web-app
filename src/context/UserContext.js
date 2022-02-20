@@ -8,11 +8,11 @@ const UserProvider = (props) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    const id = JSON.parse(localStorage.getItem("userId"));
-    if (id) {
+    const token = JSON.parse(localStorage.getItem("token"));
+    if (token) {
       axios
-        .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${id}`, {
-          headers: { auth: "admin" }
+        .get(`${process.env.REACT_APP_ZWALLET_API}/users/profile`, {
+          headers: { Authorization: `Bearer ${token}` }
         })
         .then((res) => {
           setLoading(false);

@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   const logOut = () => {
     localStorage.removeItem("auth");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
     navigate("/auth/login");
   };
   return (

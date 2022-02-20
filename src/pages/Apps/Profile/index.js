@@ -10,6 +10,9 @@ const Profile = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const addProfilePicture = () => {
+    navigate("/apps/profile-picture");
+  };
   const toPersonalInfoPage = () => {
     navigate("/apps/personal-information");
   };
@@ -21,7 +24,7 @@ const Profile = () => {
   };
   const logOut = () => {
     localStorage.removeItem("auth");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
     navigate("/auth/login");
   };
   return (
@@ -30,14 +33,17 @@ const Profile = () => {
         <section className="profile-content d-flex flex-column justify-content-center align-items-center">
           <div className="profile-img ">
             <img
-              src={img}
+              src={user.picture ? user.picture : img}
               className="user-pic mt-3"
               height="76px"
               alt="Users"
             />
           </div>
 
-          <div className="profile-edit d-flex flex-row justify-content-center align-items-center ">
+          <div
+            onClick={addProfilePicture}
+            className="profile-edit d-flex flex-row justify-content-center align-items-center "
+          >
             <BsIcons.BsPen className="pen-edit text-grey m-0" />
             <p className="text-edit text-grey ms-1 mt-1 mb-0">Edit</p>
           </div>
@@ -46,7 +52,9 @@ const Profile = () => {
             <p className="profile-user-name">
               {user.first_name} {user.last_name}
             </p>
-            <p className="profile-user-phone">+62 {user.phone}</p>
+            <p className="profile-user-phone">
+              {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+            </p>
           </div>
 
           <div

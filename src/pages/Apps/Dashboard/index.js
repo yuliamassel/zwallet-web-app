@@ -12,12 +12,12 @@ const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
-  const userId = JSON.parse(localStorage.getItem("userId"));
+  const token = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${userId}`, {
-        headers: { auth: "admin" }
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/profile`, {
+        headers: { Authorization: `Bearer ${token}` }
       })
       .then((res) => {
         setLoading(false);
@@ -36,7 +36,10 @@ const Dashboard = () => {
       {/* <!-- main content for lg, xl, xxl --> */}
       <section className="content-bar col-lg-8 animation-pull-out ">
         <section className="menu-content ">
-          <Balance balance={user.balance} user_phone={user.phone} />
+          <Balance
+            balance={user.balance}
+            user_phone={user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+          />
 
           <section className="row history-content d-lg-flex flex-row">
             <Chart />

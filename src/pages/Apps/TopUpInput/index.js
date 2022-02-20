@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const TopUpInput = () => {
-  const [topupForm, setTopupForm] = useState({ topup: "" });
-  const id = JSON.parse(localStorage.getItem("userId"));
+  const [topupForm, setTopupForm] = useState({ amount_topup: "" });
+  const token = JSON.parse(localStorage.getItem("token"));
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -22,13 +22,16 @@ const TopUpInput = () => {
   const handleClick = () => {
     setLoading(true);
     axios
-      .put(`${process.env.REACT_APP_ZWALLET_API}/wallet/topup/${id}`, {
-        topup: topupForm.topup
-      })
+      .put(
+        `${process.env.REACT_APP_ZWALLET_API}/wallet/topup/`,
+        { amount_topup: topupForm.amount_topup },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((res) => {
         setLoading(false);
         const result = res.data.data;
         setUser(result);
+        alert("Top Up Success!");
         navigate("/apps");
       })
       .catch((err) => {
@@ -51,8 +54,8 @@ const TopUpInput = () => {
 
         <div className="input-amount-money topup-form mb-2 ">
           <Input
-            name="topup"
-            value={topupForm.topup}
+            name="amount_topup"
+            value={topupForm.amount_topup}
             onChange={handleChange}
             className="input-amount text-center bg-transparent"
             placeholder="0.00"

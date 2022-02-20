@@ -6,6 +6,7 @@ import Input from "../../../components/base/Input";
 import img from "../../../assets/img/blank-profile-picture.png";
 
 const Receiver = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
   const [users, setUsers] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams(); // ini untuk mengatur query param
   const querySearch = searchParams.get("search"); // ini menangkap dari setSearchParam di bawah, msk ke var
@@ -16,7 +17,7 @@ const Receiver = () => {
       axios
         .get(
           `${process.env.REACT_APP_ZWALLET_API}/users/search?name=${querySearch}&sort=created_at&order=asc`,
-          { headers: { auth: "admin" } }
+          { headers: { Authorization: `Bearer ${token}` } }
         )
         .then((res) => {
           console.info(res.data);
@@ -31,7 +32,7 @@ const Receiver = () => {
         .get(
           `${process.env.REACT_APP_ZWALLET_API}/users?limit=4&sort=first_name&order=asc`,
           {
-            headers: { auth: "admin" }
+            headers: { Authorization: `Bearer ${token}` }
           }
         )
         .then((res) => {
@@ -43,6 +44,7 @@ const Receiver = () => {
           console.log(err.response);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [querySearch]);
 
   const handleSearch = (e) => {
@@ -79,15 +81,17 @@ const Receiver = () => {
           >
             <img
               className="receiver-picture user-pic mt-2 ms-4"
-              src={img}
+              src={user.picture ? user.picture : img}
               height="54px"
-              alt="Samuel"
+              alt="User"
             />
             <div className="receiver-detail mt-2 ms-3">
               <p className="text-title-name mb-0">
                 {user.first_name} {user.last_name}
               </p>
-              <p className="weekly mt-1">+62 {user.phone}</p>
+              <p className="weekly mt-1">
+                {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+              </p>
             </div>
           </div>
         ))}

@@ -40,7 +40,7 @@ const Header = () => {
           <div className="user-profile d-md-flex flex-row d-none d-md-block">
             <img
               className="ms-2 me-4 user-pic"
-              src={img}
+              src={user.picture ? user.picture : img}
               alt="Robert"
               height="53px"
             />
@@ -48,7 +48,9 @@ const Header = () => {
               <p className="name mb-0">
                 {user.first_name} {user.last_name}
               </p>
-              <p className="phone mb-0">+62 {user.phone}</p>
+              <p className="phone mb-0">
+                {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+              </p>
             </div>
             <BsIcons.BsBell className="notif icons-size mt-3" />
           </div>

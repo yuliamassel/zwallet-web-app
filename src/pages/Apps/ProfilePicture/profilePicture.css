@@ -1,0 +1,48 @@
+.preview-picture {
+  height: 180px;
+  width: auto;
+  display: flex;
+  margin: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.preview-text {
+  font-weight: bolder;
+}
+#picture {
+  padding-left: 0;
+}
+.picture-input {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+.picture-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.picture-input::before {
+  content: "Select Profile Picture";
+  background: -webkit-linear-gradient(top, #6379f4, #8596f3);
+  border: 1px solid #6379f4;
+  border-radius: 7px;
+  padding: 5px 8px;
+  padding-left: 5rem;
+  outline: none;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 10pt;
+  color: #fff;
+}
+.picture-input:hover::before {
+  background: -webkit-linear-gradient(top, #495dcf, #6270c2);
+}
+.picture-input:active::before {
+  background: -webkit-linear-gradient(top, #6379f4, #8596f3);
+}
+.btn-upload {
+  margin: auto;
+  margin-top: 3rem;
+}

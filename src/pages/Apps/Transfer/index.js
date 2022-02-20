@@ -10,6 +10,7 @@ import { UserContext } from "../../../context/UserContext";
 const Transfer = () => {
   // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(UserContext);
+  const token = JSON.parse(localStorage.getItem("token"));
   const { id } = useParams(); // ini akan menangkap params dari url bar browser
   const [userReceiver, setUserReceiver] = useState({
     id: "",
@@ -17,15 +18,13 @@ const Transfer = () => {
     last_name: "",
     email: "",
     phone: "",
-    wallet_id: "",
-    user_ID: "",
-    balance: 0
+    picture: ""
   });
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${id}`, {
         //id ini ditangkap dari tab url browser
-        headers: { auth: "admin" }
+        headers: { Authorization: `Bearer ${token}` }
       })
       .then((res) => {
         const result = res.data.data;
@@ -49,8 +48,8 @@ const Transfer = () => {
         {/* <!-- receiver lg, xl, xxl --> */}
         <div className="d-flex receivers  mb-3 mt-3 ms-4 me-4 ">
           <img
-            class="receiver-picture user-pic mt-2 ms-4"
-            src={img}
+            className="receiver-picture user-pic mt-2 ms-4"
+            src={userReceiver.picture ? userReceiver.picture : img}
             height="54px"
             alt="Samuel"
           />
@@ -58,7 +57,11 @@ const Transfer = () => {
             <p className="text-title-name mb-0">
               {userReceiver.first_name} {userReceiver.last_name}
             </p>
-            <p className="weekly mt-1">+62 {userReceiver.phone}</p>
+            <p className="weekly mt-1">
+              {userReceiver.phone
+                ? `+62 ${userReceiver.phone}`
+                : "+ Add phone number"}
+            </p>
           </div>
         </div>
 

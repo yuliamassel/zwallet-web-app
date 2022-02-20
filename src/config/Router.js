@@ -25,6 +25,7 @@ import ManagePhone from "../pages/Apps/ManagePhone";
 import Page404 from "../pages/404";
 import TopUpInput from "../pages/Apps/TopUpInput";
 import NewPIN from "../pages/Apps/ChangePIN/NewPIN";
+import ProfilePicture from "../pages/Apps/ProfilePicture";
 // import RequireAuth from "./components/base/RequireAuth";
 
 const Router = () => {
@@ -51,6 +52,7 @@ const Router = () => {
           <Route path={"confirmation"} element={<TransferConfirm />} />
           <Route path={"status"} element={<TransferStatus />} />
           <Route path={"profile"} element={<Profile />} />
+          <Route path={"profile-picture"} element={<ProfilePicture />} />
           <Route path={"personal-information"} element={<PersonalInfo />} />
           <Route path={"change-password"} element={<ChangePassword />} />
           <Route path={"change-PIN"} element={<ChangePIN />} />

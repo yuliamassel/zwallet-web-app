@@ -43,7 +43,9 @@ const PersonalInfo = () => {
           <div className="personal-info-card d-flex flex-row justify-content-between align-items-center mb-3">
             <div>
               <p className="personal-info-card-title ms-1">Phone Number</p>
-              <p className="personal-info-card-desc ms-1">+62 {user.phone}</p>
+              <p className="personal-info-card-desc ms-1">
+                {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+              </p>
             </div>
             <p
               onClick={managePhoneNumber}

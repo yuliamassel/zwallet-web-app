@@ -7,8 +7,8 @@ import Input from "../../../components/base/Input";
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: ""
   });
@@ -28,11 +28,11 @@ const SignUp = () => {
   const validate = (values) => {
     const errors = {};
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (!values.first_name) {
-      errors.first_name = "First Name is required";
+    if (!values.firstName) {
+      errors.firstName = "First Name is required";
     }
-    if (!values.last_name) {
-      errors.last_name = "Last Name is required";
+    if (!values.lastName) {
+      errors.lastName = "Last Name is required";
     }
     if (!values.email) {
       errors.email = "Email is required";
@@ -51,15 +51,22 @@ const SignUp = () => {
     if (Object.keys(resultValidate).length === 0) {
       setLoading(true);
       axios
-        .post(`${process.env.REACT_APP_ZWALLET_API}/users/registration`, {
-          first_name: form.first_name,
-          last_name: form.last_name,
+        .post(`${process.env.REACT_APP_ZWALLET_API}/users/register`, {
+          firstName: form.firstName,
+          lastName: form.lastName,
           email: form.email,
           password: form.password
         })
         .then((res) => {
           setLoading(false);
-          navigate("/auth/login");
+          const result = res.data.data;
+          console.log(result);
+          const userId = result.id;
+          localStorage.setItem("userId", JSON.stringify(userId));
+          alert(
+            "Registration success! Please check your email to verify account."
+          );
+          // navigate("/auth/login");
         })
         .catch((err) => {
           setLoading(false);
@@ -117,11 +124,11 @@ const SignUp = () => {
             <div className="input-form d-flex mt-1">
               <BsIcons.BsPerson className="form-icons position-absolute" />
               <Input
-                value={form.first_name}
+                value={form.firstName}
                 onChange={handleChange}
                 placeholder="Enter your first name"
                 type="text"
-                name="first_name"
+                name="firstName"
                 id="firstName"
               />
             </div>
@@ -130,11 +137,11 @@ const SignUp = () => {
             <div className="input-form d-flex margin-input-signup ">
               <BsIcons.BsPerson className="form-icons position-absolute" />
               <Input
-                value={form.last_name}
+                value={form.lastName}
                 onChange={handleChange}
                 placeholder="Enter your last name"
                 type="text"
-                name="last_name"
+                name="lastName"
                 id="lastName"
               />
             </div>
