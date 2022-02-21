@@ -132,7 +132,7 @@ const SignUp = () => {
                 id="firstName"
               />
             </div>
-            <div className="text-error mb-0">{formError.first_name}</div>
+            <div className="text-error mb-0">{formError.firstName}</div>
 
             <div className="input-form d-flex margin-input-signup ">
               <BsIcons.BsPerson className="form-icons position-absolute" />
@@ -145,7 +145,7 @@ const SignUp = () => {
                 id="lastName"
               />
             </div>
-            <div className="text-error mb-0">{formError.last_name}</div>
+            <div className="text-error mb-0">{formError.lastName}</div>
 
             <div className="input-form d-flex margin-input-signup ">
               <BsIcons.BsEnvelope className="form-icons position-absolute" />
