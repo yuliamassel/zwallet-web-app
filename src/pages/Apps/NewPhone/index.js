@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
@@ -10,6 +10,7 @@ import axios from "axios";
 const NewPhone = () => {
   const [form, setForm] = useState({ phone: "" });
   const token = JSON.parse(localStorage.getItem("token"));
+  // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,7 +47,24 @@ const NewPhone = () => {
         }
       });
   };
-  console.log(user);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/profile`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((res) => {
+        setLoading(false);
+        const result = res.data.data;
+        setUser(result);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err.response);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Fragment>
