@@ -1,48 +1,28 @@
-import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
+// import axios from "axios";
+import React, { Fragment, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Input from "../../../components/base/Input";
 import img from "../../../assets/img/blank-profile-picture.png";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { GetReceivers, SearchReceiver } from "../../../redux/actions/users";
+
 const Receiver = () => {
-  const token = JSON.parse(localStorage.getItem("token"));
-  const [users, setUsers] = useState([]);
+  const getReceivers = useSelector((state) => state.GetReceivers);
+  const searchReceiver = useSelector((state) => state.SearchReceiver);
+  const dispatch = useDispatch();
+
   const [searchParams, setSearchParams] = useSearchParams(); // ini untuk mengatur query param
   const querySearch = searchParams.get("search"); // ini menangkap dari setSearchParam di bawah, msk ke var
   const navigate = useNavigate();
 
   useEffect(() => {
     if (querySearch) {
-      axios
-        .get(
-          `${process.env.REACT_APP_ZWALLET_API}/users/search?name=${querySearch}&sort=created_at&order=asc`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        )
-        .then((res) => {
-          console.info(res.data);
-          const result = res.data.data;
-          setUsers(result);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+      dispatch(SearchReceiver(querySearch));
     } else {
-      axios
-        .get(
-          `${process.env.REACT_APP_ZWALLET_API}/users?limit=4&sort=first_name&order=asc`,
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
-        )
-        .then((res) => {
-          console.info(res.data);
-          const result = res.data.data;
-          setUsers(result);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+      dispatch(GetReceivers());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [querySearch]);
@@ -73,7 +53,7 @@ const Receiver = () => {
 
         {/* <!-- receiver list for lg, xl, xxl --> */}
 
-        {users.map((user, index) => (
+        {/* {users.map((user, index) => (
           <div
             key={user.id}
             onClick={() => navigate(`/apps/transfer/${user.id}`)}
@@ -94,7 +74,53 @@ const Receiver = () => {
               </p>
             </div>
           </div>
-        ))}
+        ))} */}
+
+        {querySearch
+          ? searchReceiver.data.map((user, index) => (
+              <div
+                key={user.id}
+                onClick={() => navigate(`/apps/transfer/${user.id}`)}
+                className="d-flex receivers p-1 mb-3 ms-3 me-3 "
+              >
+                <img
+                  className="receiver-picture user-pic mt-2 ms-4"
+                  src={user.picture ? user.picture : img}
+                  height="54px"
+                  alt="User"
+                />
+                <div className="receiver-detail mt-2 ms-3">
+                  <p className="text-title-name mb-0">
+                    {user.first_name} {user.last_name}
+                  </p>
+                  <p className="weekly mt-1">
+                    {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+                  </p>
+                </div>
+              </div>
+            ))
+          : getReceivers.data.map((user, index) => (
+              <div
+                key={user.id}
+                onClick={() => navigate(`/apps/transfer/${user.id}`)}
+                className="d-flex receivers p-1 mb-3 ms-3 me-3 "
+              >
+                <img
+                  className="receiver-picture user-pic mt-2 ms-4"
+                  src={user.picture ? user.picture : img}
+                  height="54px"
+                  alt="User"
+                />
+                <div className="receiver-detail mt-2 ms-3">
+                  <p className="text-title-name mb-0">
+                    {user.first_name} {user.last_name}
+                  </p>
+                  <p className="weekly mt-1">
+                    {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+                  </p>
+                </div>
+              </div>
+            ))}
       </section>
     </Fragment>
   );
