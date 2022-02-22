@@ -8,9 +8,15 @@ import axios from "axios";
 import { UserContext } from "../../../context/UserContext";
 
 const Transfer = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [form, setForm] = useState({
+    amountTransfer: "",
+    notes: ""
+  });
+  const [loading, setLoading] = useState(false);
+
   // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(UserContext);
-  const token = JSON.parse(localStorage.getItem("token"));
   const { id } = useParams(); // ini akan menangkap params dari url bar browser
   const [userReceiver, setUserReceiver] = useState({
     id: "",
@@ -38,7 +44,39 @@ const Transfer = () => {
   }, []);
   const navigate = useNavigate();
   const toConfirmPage = () => {
-    navigate("/apps/confirmation");
+    navigate(`/apps/confirmation/${userReceiver.id}`);
+  };
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_ZWALLET_API}/transaction/transfer`,
+        {
+          receiverName: `${userReceiver.first_name} ${userReceiver.last_name}`,
+          receiverPhone: userReceiver.phone,
+          amountTransfer: form.amountTransfer,
+          notes: form.notes
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((res) => {
+        setLoading(false);
+        const result = res.data.data;
+        console.log(result);
+        toConfirmPage();
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err.response);
+      });
   };
   return (
     <Fragment>
@@ -70,39 +108,46 @@ const Transfer = () => {
           to the next steps.
         </p>
 
-        {/* <!-- input amount money for lg, xl, xxl --> */}
-        <div className="input-amount-money mb-2 mt-3">
-          <Input
-            className=" input-amount text-center bg-transparent"
-            placeholder="0.00"
-            type="number"
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          {/* <!-- input amount money for lg, xl, xxl --> */}
+          <div className="input-amount-money mb-2 mt-3">
+            <Input
+              name="amountTransfer"
+              value={form.amountTransfer}
+              onChange={handleChange}
+              className=" input-amount text-center bg-transparent"
+              placeholder="0.00"
+              type="number"
+            />
+          </div>
 
-        <p className="text-title-name text-center">
-          Rp {user.balance} Available
-        </p>
+          <p className="text-title-name text-center">
+            Rp {user.balance} Available
+          </p>
 
-        <div className="input-notes notes-position d-flex mt-4 w-50 ">
-          <BsIcons.BsPen className="pen text-grey position-absolute ms-1" />
-          <Input
-            className="ps-5 p-1 w-100 bg-transparent"
-            placeholder="Add some notes"
-            type="text"
-            name="notes"
-            id="notes"
-          />
-        </div>
+          <div className="input-notes notes-position d-flex mt-4 w-50 ">
+            <BsIcons.BsPen className="pen text-grey position-absolute ms-1" />
+            <Input
+              name="notes"
+              value={form.notes}
+              onChange={handleChange}
+              className="ps-5 p-1 w-100 bg-transparent"
+              placeholder="Add some notes"
+              type="text"
+              id="notes"
+            />
+          </div>
 
-        {/* <!-- button continue for lg, xl, xxl --> */}
-        <div className="btn-continue-desktop d-flex justify-content-end ms-5 me-5">
-          <Button
-            onClick={toConfirmPage}
-            className="button text-white w-25 p-2 shadow"
-          >
-            Continue
-          </Button>
-        </div>
+          {/* <!-- button continue for lg, xl, xxl --> */}
+          <div className="btn-continue-desktop d-flex justify-content-end ms-5 me-5">
+            <Button
+              isLoading={loading}
+              className="button text-white w-25 p-2 shadow"
+            >
+              Continue
+            </Button>
+          </div>
+        </form>
       </section>
     </Fragment>
   );

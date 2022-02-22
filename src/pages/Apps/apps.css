@@ -311,6 +311,7 @@ input::-webkit-inner-spin-button {
 .details-transfer {
   height: 43.5%;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .details-transfer::-webkit-scrollbar {
   width: 5px;
@@ -321,8 +322,8 @@ input::-webkit-inner-spin-button {
 }
 .text-title {
   font-weight: normal;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 19px;
   color: #7a7886;
 }
 .text-content {
@@ -342,6 +343,46 @@ input::-webkit-inner-spin-button {
 .btn-share {
   font-weight: bold;
   background: rgba(99, 121, 244, 0.15);
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  padding: 0.7rem;
+}
+.btn-download-pdf {
+  font-weight: bold;
+  background: rgba(99, 121, 244, 0.15);
+  border-radius: 10px;
+  padding: 0.7rem 1.2rem;
+}
+.btn-download-pdf:hover,
+.btn-share:hover {
+  background: #2641d826;
+  transition: 0.4s;
+}
+.btn-download-pdf:active,
+.btn-share:active {
+  background: #0f195226;
+  transition: 0.4s;
+}
+.success-icon {
+  font-size: 4em;
+}
+.share-icon {
+  font-weight: bolder;
+  font-size: 1.2em;
+}
+.btn-back-home {
+  font-weight: bold;
+  background-color: #6379f4;
+  box-shadow: 1px 6px 75px #6d64640d;
+  border-radius: 12px;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+.btn-back-home:hover {
+  background-color: #4c65f0;
+  transition: 0.4s;
+}
+.btn-back-home:active {
+  background-color: #384fd3;
+  transition: 0.4s;
 }

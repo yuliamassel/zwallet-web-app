@@ -1,12 +1,53 @@
-import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import img from "../../../assets/img/blank-profile-picture.png";
+import axios from "axios";
 
 const TransferConfirm = () => {
-  const navigate = useNavigate("");
+  const token = JSON.parse(localStorage.getItem("token"));
+  const { id } = useParams(); // ini akan menangkap params dari url bar browser
+  const [userReceiver, setUserReceiver] = useState({ picture: "" });
+  const [transaction, setTransaction] = useState({
+    receiver_name: "",
+    receiver_phone: "",
+    amount_transfer: "",
+    balance_left: "",
+    date: "",
+    notes: ""
+  });
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${id}`, {
+        //id ini ditangkap dari tab url browser
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((res) => {
+        const result = res.data.data;
+        console.log(result);
+        setUserReceiver(result);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+
+    axios
+      .get(`${process.env.REACT_APP_ZWALLET_API}/transaction/history`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((res) => {
+        const result = res.data.data[0];
+        setTransaction(result);
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const navigate = useNavigate();
   const toStatusPage = () => {
-    navigate("/apps/status");
+    navigate(`/apps/status/${id}`);
   };
   return (
     <Fragment>
@@ -17,13 +58,13 @@ const TransferConfirm = () => {
         <div className="d-flex receivers p-1 mb-3 mt-2 ms-4 me-4 ">
           <img
             className="receiver-picture user-pic mt-2 ms-4"
-            src={img}
+            src={userReceiver.picture ? userReceiver.picture : img}
             height="54px"
             alt="Samuel"
           />
           <div className="receiver-detail ms-3 mt-2">
-            <p className="text-title-name mb-0">Samuel Suhi</p>
-            <p className="weekly mt-1">+62 813-8492-9994</p>
+            <p className="text-title-name mb-0">{transaction.receiver_name}</p>
+            <p className="weekly mt-1">+62 {transaction.receiver_phone}</p>
           </div>
         </div>
 
@@ -33,23 +74,25 @@ const TransferConfirm = () => {
           <div className="row mt-2 me-1">
             <div className="col-5 col-md-11 ms-3 ms-md-5 me-md-5 confirm-items ">
               <p className="text-title m-2">Amount</p>
-              <p className="text-content m-2">Rp100.000</p>
+              <p className="text-content m-2">
+                Rp {transaction.amount_transfer}
+              </p>
             </div>
             <div className="col-5 col-md-11 offset-1 ms-md-5 me-md-5 confirm-items mt-md-1">
               <p className="text-title m-2">Balance Left</p>
-              <p className="text-content m-2">Rp20.000</p>
+              <p className="text-content m-2">Rp {transaction.balance_left}</p>
             </div>
           </div>
           <div className="row mt-4 mt-md-1 me-1">
             <div className="col-5 col-md-11 ms-3 ms-md-5 me-md-5 confirm-items ">
               <p className="text-title m-2">Date & Time</p>
-              <p className="text-content m-2">May, 11 2020 - 12.20</p>
+              <p className="text-content m-2">{transaction.date}</p>
             </div>
           </div>
           <div className="row mt-4 mt-md-1 mb-md-5 me-1">
             <div className="col-11 ms-3 ms-md-5 me-md-5 confirm-items ">
               <p className="text-title m-2">Notes</p>
-              <p className="text-content m-2">For buying some socks</p>
+              <p className="text-content m-2">{transaction.notes}</p>
             </div>
           </div>
         </div>

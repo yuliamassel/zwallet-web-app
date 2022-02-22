@@ -11,12 +11,12 @@ const Chart = () => {
           <div className="income">
             <BsIcons.BsArrowDown className="icons-size text-green" />
             <p className="financial-text">Income</p>
-            <p className="financial-cash">Rp2.120.000</p>
+            <p className="financial-cash">Rp 0</p>
           </div>
           <div className="expense">
             <BsIcons.BsArrowUp className="icons-size text-red" />
             <p className="financial-text">Expense</p>
-            <p className="financial-cash">Rp1.560.000</p>
+            <p className="financial-cash">Rp 0</p>
           </div>
         </div>
         <div className="graphic">

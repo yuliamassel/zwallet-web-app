@@ -1,10 +1,30 @@
-import React, { Fragment } from "react";
+import axios from "axios";
+import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./history.css";
 import img from "../../../assets/img/blank-profile-picture.png";
+import * as RiIcons from "react-icons/ri";
 
 const History = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [history, setHistory] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_ZWALLET_API}/transaction/history`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then((res) => {
+        const result = res.data.data;
+        setHistory(result);
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const toTransactionPage = () => {
     navigate("/apps/history");
   };
@@ -19,45 +39,30 @@ const History = () => {
           </p>
         </div>
 
-        <div className="history-transaction-profiles ">
-          <img src={img} height="52px" className="user-pic m-1" alt="Samuel" />
-          <div className="profile-description">
-            <p className="profile-desc-name">Samuel Suhi</p>
-            <p className="profile-desc">Transfer</p>
+        {history.length > 0 ? (
+          history.map((profile, index) => (
+            <div key={index} className="history-transaction-profiles ">
+              <img
+                src={img}
+                height="52px"
+                className="user-pic m-1"
+                alt="Samuel"
+              />
+              <div className="profile-description">
+                <p className="profile-desc-name">{profile.receiver_name}</p>
+                <p className="profile-desc">{profile.date}</p>
+              </div>
+              <p className="nominal-subscription">
+                -Rp{profile.amount_transfer}
+              </p>
+            </div>
+          ))
+        ) : (
+          <div className="no-transactions d-flex flex-column justify-content-center align-items-center mt-5">
+            <RiIcons.RiFileList3Line className="no-transactions-icon" />
+            <p className="no-transactions-text mt-2">No Transactions</p>
           </div>
-          <p className="nominal-transfer">+Rp50.000</p>
-        </div>
-
-        <div className="history-transaction-profiles ">
-          <img src={img} height="52px" className="user-pic m-1" alt="Netflix" />
-          <div className="profile-description">
-            <p className="profile-desc-name">Netflix</p>
-            <p className="profile-desc">Subscription</p>
-          </div>
-          <p className="nominal-subscription">-Rp149.000</p>
-        </div>
-        <div className="history-transaction-profiles ">
-          <img
-            src={img}
-            height="52px"
-            className="user-pic m-1"
-            alt="Christine"
-          />
-          <div className="profile-description">
-            <p className="profile-desc-name">Christine</p>
-            <p className="profile-desc">Transfer</p>
-          </div>
-          <p className="nominal-transfer">+Rp150.000</p>
-        </div>
-
-        <div className="history-transaction-profiles ">
-          <img src={img} height="52px" className="user-pic m-1" alt="Adobe" />
-          <div className="profile-description">
-            <p className="profile-desc-name">Adobe Inc.</p>
-            <p className="profile-desc">Subscription</p>
-          </div>
-          <p className="nominal-subscription">-Rp249.000</p>
-        </div>
+        )}
       </section>
     </Fragment>
   );

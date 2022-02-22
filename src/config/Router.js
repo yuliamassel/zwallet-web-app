@@ -49,8 +49,8 @@ const Router = () => {
           <Route path={"topup-input"} element={<TopUpInput />} />
           <Route path={"receiver"} element={<Receiver />} />
           <Route path={"transfer/:id"} element={<Transfer />} />
-          <Route path={"confirmation"} element={<TransferConfirm />} />
-          <Route path={"status"} element={<TransferStatus />} />
+          <Route path={"confirmation/:id"} element={<TransferConfirm />} />
+          <Route path={"status/:id"} element={<TransferStatus />} />
           <Route path={"profile"} element={<Profile />} />
           <Route path={"profile-picture"} element={<ProfilePicture />} />
           <Route path={"personal-information"} element={<PersonalInfo />} />

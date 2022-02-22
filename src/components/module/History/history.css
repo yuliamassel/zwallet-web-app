@@ -63,4 +63,14 @@
     cursor: pointer;
     text-decoration: underline;
   }
+
+  .no-transactions-icon {
+    font-size: 4em;
+    color: #b3b3b6;
+  }
+  .no-transactions-text {
+    color: #b4b4b4;
+    font-size: 1em;
+    font-weight: bold;
+  }
 }

@@ -37,7 +37,13 @@ const PersonalInfo = () => {
             <p className="personal-info-card-desc ms-1">{user.last_name}</p>
           </div>
           <div className="personal-info-card d-flex flex-column mb-3">
-            <p className="personal-info-card-title ms-1">Verified E-mail</p>
+            {user.verified === "unverified" ? (
+              <p className="personal-info-card-title unverified ms-1">
+                Unverified E-mail
+              </p>
+            ) : (
+              <p className="personal-info-card-title ms-1">Verified E-mail</p>
+            )}
             <p className="personal-info-card-desc ms-1">{user.email}</p>
           </div>
           <div className="personal-info-card d-flex flex-row justify-content-between align-items-center mb-3">

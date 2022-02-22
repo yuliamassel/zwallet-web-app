@@ -47,7 +47,9 @@
   line-height: 22px;
   color: #7a7886;
 }
-
+.unverified {
+  color: red !important;
+}
 .personal-info-card-desc {
   font-weight: bold;
   font-size: 1.1em;
