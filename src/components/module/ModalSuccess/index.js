@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import * as BsIcons from "react-icons/bs";
+import Button from "../../base/Button";
 import "./modalsuccess.css";
 
 const ModalSuccess = ({ successTitle, successDesc, action, ...props }) => {
@@ -16,9 +17,9 @@ const ModalSuccess = ({ successTitle, successDesc, action, ...props }) => {
           </section>
 
           <section className="modal-success-footer">
-            <button onClick={props.closeModal} className="btn-modal-success ">
+            <Button onClick={props.closeModal} className="btn-modal-success ">
               {action}
-            </button>
+            </Button>
           </section>
         </div>
       </div>
