@@ -136,10 +136,6 @@ const ChangePassword = () => {
                 )}
               </div>
               <p className="text-error mb-0">{formError.currentPassword}</p>
-              {/* {errorMessage ? (
-                <p className="text-error mb-0">{errorMessage}</p>
-              ) : (
-              )} */}
 
               <div className="input-form pass d-flex mt-4">
                 <BsIcons.BsLock className="form-icons position-absolute" />
@@ -166,10 +162,6 @@ const ChangePassword = () => {
               <p className="text-error error-validation mb-0">
                 {formError.newPassword}
               </p>
-              {/* {errorMessage ? (
-                <p className="text-error mb-0">{errorMessage}</p>
-              ) : (
-              )} */}
 
               <div className="input-form pass d-flex mt-4">
                 <BsIcons.BsLock className="form-icons position-absolute" />
@@ -194,10 +186,6 @@ const ChangePassword = () => {
                 )}
               </div>
               <p className="text-error mb-0">{formError.repeatNewPassword}</p>
-              {/* {errorMessage ? (
-                <p className="text-error mb-0">{errorMessage}</p>
-              ) : (
-              )} */}
 
               {errorMessage ? (
                 <p className="text-error mb-0">{errorMessage}</p>
@@ -219,7 +207,7 @@ const ChangePassword = () => {
           <ModalSuccess
             successTitle="Change Password Success!"
             successDesc="Since your password has been changed, make sure to remember the new one!"
-            action="Go bak to Profile"
+            action="Go back to Profile"
             closeModal={handleNavigate}
           />
         ) : null}

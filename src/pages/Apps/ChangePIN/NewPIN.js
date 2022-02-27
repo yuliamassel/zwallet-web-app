@@ -114,7 +114,7 @@ const NewPIN = () => {
           <ModalSuccess
             successTitle="Create PIN Success!"
             successDesc="Your PIN is important for transactions and for secure your account. Don't let anyone know!"
-            action="Go bak to Profile"
+            action="Go back to Profile"
             closeModal={handleNavigate}
           />
         ) : null}
