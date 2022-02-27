@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
+import ModalSuccess from "../../../components/module/ModalSuccess";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -17,6 +18,11 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate("");
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+
+  const handleModalSuccess = () => {
+    setOpenModalSuccess(!openModalSuccess);
+  };
 
   const handleChange = (e) => {
     setForm({
@@ -62,11 +68,8 @@ const SignUp = () => {
           const result = res.data.data;
           console.log(result);
           const userId = result.id;
+          handleModalSuccess();
           localStorage.setItem("userId", JSON.stringify(userId));
-          alert(
-            "Registration success! Please check your email to verify account."
-          );
-          // navigate("/auth/login");
         })
         .catch((err) => {
           setLoading(false);
@@ -207,6 +210,15 @@ const SignUp = () => {
           </p>
         </div>
       </section>
+
+      {openModalSuccess ? (
+        <ModalSuccess
+          successTitle="Sign Up Success!"
+          successDesc="Please check your email and verify your account by click the link we've sent to you."
+          action="OK, I got it"
+          closeModal={handleModalSuccess}
+        />
+      ) : null}
     </Fragment>
   );
 };
