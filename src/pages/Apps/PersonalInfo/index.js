@@ -9,9 +9,9 @@ const PersonalInfo = () => {
   const navigate = useNavigate();
   const managePhoneNumber = () => {
     if (user.phone !== null) {
-      navigate("/apps/manage-phone");
+      navigate("/apps/profile/phone");
     } else {
-      navigate("/apps/new-phone");
+      navigate("/apps/profile/phone/new");
     }
   };
 

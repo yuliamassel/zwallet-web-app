@@ -115,7 +115,7 @@ img.display-app {
   margin: 0;
   padding: 0;
   text-align: left !important;
-  font-size: 0.8em;
+  font-size: 0.65em;
   color: red;
 }
 
@@ -317,17 +317,12 @@ button {
   background: #ffffff;
   border: 1px solid rgba(169, 169, 169, 0.6);
   border-radius: 10px;
-  padding: 0.5rem 0.2rem;
+  padding: 0.7rem 0.2rem;
   width: 53px;
   height: 65px;
   text-align: center;
-}
-.pin-input {
-  text-align: center;
-  padding: 0.7rem 0.2rem;
   font-size: 1.2em;
   font-weight: bold;
-  /* background-color: #8796ee; */
   border-bottom: 1px solid rgba(169, 169, 169, 0.4);
 }
 .pin-input:focus-within {

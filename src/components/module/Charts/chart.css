@@ -46,4 +46,13 @@
     height: 200px;
     transform: translate(80px, -42px);
   }
+  .no-chart-icon {
+    font-size: 8em;
+    color: #b3b3b6;
+  }
+  .no-chart-text {
+    color: #b4b4b4;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
 }

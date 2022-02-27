@@ -1,8 +1,54 @@
-import React, { Fragment } from "react";
+import axios from "axios";
+import React, { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 
 const CreatePIN = () => {
+  const [pin, setPin] = useState(new Array(6).fill(""));
+  const PIN = pin.join("");
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+    setPin([...pin.map((d, idx) => (idx === index ? element.value : d))]);
+    // focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!userId) {
+      return setErrorMessage("You have to Sign Up before create PIN!");
+    } else {
+      setLoading(true);
+      axios
+        .put(`${process.env.REACT_APP_ZWALLET_API}/users/PIN/${userId}`, {
+          PIN: PIN
+        })
+        .then((res) => {
+          setLoading(false);
+          const result = res.data.data;
+          console.log(result);
+          localStorage.clear();
+          navigate("/auth/PIN/success");
+        })
+        .catch((err) => {
+          setLoading(false);
+          if (err.response.status === 500) {
+            setErrorMessage("We have trouble");
+          } else {
+            setErrorMessage(err.response.data.message);
+          }
+        });
+    }
+  };
+
   return (
     <Fragment>
       <section className="row col-xl-4 right-section ">
@@ -25,38 +71,44 @@ const CreatePIN = () => {
         </div>
 
         <div className="col-12 right-section-content text-center animation-pull-out">
-          <h2 className="login-title d-md-none">Reset Password</h2>
+          <h2 className="login-title d-md-none">Create PIN</h2>
           <p className="login-desc d-md-none">
-            Enter your Zwallet e-mail so we can send <br></br> you a password
-            reset link.
+            Create 6 digits pin to secure all your money <br></br> and your data
+            in Zwallet app.
           </p>
 
           {/* <!-- input form start here--> */}
-          <div className="input-pin-container d-flex flex-row justify-content-between">
-            <div className="pin-input-wrapper">
-              <Input className="pin-input" type="text" maxLength="1" />
+          <form onSubmit={handleSubmit}>
+            <div className="input-pin-container d-flex flex-row justify-content-between">
+              {pin.map((pins, index) => (
+                <Input
+                  name="pin"
+                  value={pins}
+                  onChange={(e) => handleChange(e.target, index)}
+                  onFocus={(e) => e.target.select()}
+                  className="pin-input-wrapper"
+                  type="text"
+                  maxLength="1"
+                  key={index}
+                />
+                // <div  className="pin-input-wrapper">
+                // </div>
+              ))}
             </div>
-            <div className="pin-input-wrapper">
-              <Input className="pin-input" type="text" maxLength="1" />
-            </div>
-            <div className="pin-input-wrapper">
-              <Input className="pin-input" type="text" maxLength="1" />
-            </div>
-            <div className="pin-input-wrapper">
-              <Input className="pin-input" type="text" maxLength="1" />
-            </div>
-            <div className="pin-input-wrapper">
-              <Input className="pin-input" type="text" maxLength="1" />
-            </div>
-            <div className="pin-input-wrapper">
-              <Input className="pin-input" type="text" maxLength="1" />
-            </div>
-          </div>
 
-          <Button className="button btn-login btn-confirm mb-1" type="submit">
-            Confirm
-          </Button>
-          {/* <!-- input form end here --> */}
+            {errorMessage ? (
+              <p className="text-error mb-0">{errorMessage}</p>
+            ) : null}
+
+            <Button
+              isLoading={loading}
+              className="button btn-login btn-confirm mb-1"
+              type="submit"
+            >
+              Confirm
+            </Button>
+            {/* <!-- input form end here --> */}
+          </form>
         </div>
       </section>
     </Fragment>

@@ -293,6 +293,13 @@ input::-webkit-inner-spin-button {
   margin-top: 6em;
 }
 
+.btn-continue-transfer {
+  margin-top: -2rem;
+}
+.text-error-transfer {
+  text-align: center !important;
+  font-size: 0.7rem;
+}
 .btn-continue button,
 .btn-continue-desktop button {
   font-weight: bold;

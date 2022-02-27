@@ -37,7 +37,7 @@ const Transaction = () => {
             >
               <img
                 className="receiver-picture user-pic mt-1 ms-3"
-                src={img}
+                src={profile.receiver_picture ? profile.receiver_picture : img}
                 height="54px"
                 alt="Samuel"
               />

@@ -77,46 +77,50 @@ const Receiver = () => {
         ))} */}
 
         {querySearch
-          ? searchReceiver.data.map((user, index) => (
+          ? searchReceiver.data.map((receiver, index) => (
               <div
-                key={user.id}
-                onClick={() => navigate(`/apps/transfer/${user.id}`)}
+                key={receiver.id}
+                onClick={() => navigate(`/apps/transfer/${receiver.id}`)}
                 className="d-flex receivers p-1 mb-3 ms-3 me-3 "
               >
                 <img
                   className="receiver-picture user-pic mt-2 ms-4"
-                  src={user.picture ? user.picture : img}
+                  src={receiver.picture ? receiver.picture : img}
                   height="54px"
                   alt="User"
                 />
                 <div className="receiver-detail mt-2 ms-3">
                   <p className="text-title-name mb-0">
-                    {user.first_name} {user.last_name}
+                    {receiver.first_name} {receiver.last_name}
                   </p>
                   <p className="weekly mt-1">
-                    {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+                    {receiver.phone
+                      ? `+62 ${receiver.phone}`
+                      : "+ Add phone number"}
                   </p>
                 </div>
               </div>
             ))
-          : getReceivers.data.map((user, index) => (
+          : getReceivers.data.map((receiver, index) => (
               <div
-                key={user.id}
-                onClick={() => navigate(`/apps/transfer/${user.id}`)}
+                key={receiver.id}
+                onClick={() => navigate(`/apps/transfer/${receiver.id}`)}
                 className="d-flex receivers p-1 mb-3 ms-3 me-3 "
               >
                 <img
                   className="receiver-picture user-pic mt-2 ms-4"
-                  src={user.picture ? user.picture : img}
+                  src={receiver.picture ? receiver.picture : img}
                   height="54px"
                   alt="User"
                 />
                 <div className="receiver-detail mt-2 ms-3">
                   <p className="text-title-name mb-0">
-                    {user.first_name} {user.last_name}
+                    {receiver.first_name} {receiver.last_name}
                   </p>
                   <p className="weekly mt-1">
-                    {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+                    {receiver.phone
+                      ? `+62 ${receiver.phone}`
+                      : "+ Add phone number"}
                   </p>
                 </div>
               </div>

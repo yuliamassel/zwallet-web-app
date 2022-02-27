@@ -43,7 +43,7 @@ const History = () => {
           history.map((profile, index) => (
             <div key={index} className="history-transaction-profiles ">
               <img
-                src={img}
+                src={profile.receiver_picture ? profile.receiver_picture : img}
                 height="52px"
                 className="user-pic m-1"
                 alt="Samuel"

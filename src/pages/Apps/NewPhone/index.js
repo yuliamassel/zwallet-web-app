@@ -6,6 +6,7 @@ import Input from "../../../components/base/Input";
 import "./newphone.css";
 import { UserContext } from "../../../context/UserContext";
 import axios from "axios";
+import ModalSuccess from "../../../components/module/ModalSuccess";
 
 const NewPhone = () => {
   const [form, setForm] = useState({ phone: "" });
@@ -15,6 +16,15 @@ const NewPhone = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const handleModalSuccess = () => {
+    setOpenModalSuccess(!openModalSuccess);
+  };
+  const handleNavigate = () => {
+    setOpenModalSuccess(!openModalSuccess);
+    navigate("/apps");
+  };
 
   const handleChange = (e) => {
     setForm({
@@ -34,8 +44,7 @@ const NewPhone = () => {
         setLoading(false);
         const result = res.data.data;
         setUser(result);
-        alert("Success Add Phone Number!");
-        navigate("/apps");
+        handleModalSuccess();
       })
       .catch((err) => {
         setLoading(false);
@@ -77,36 +86,44 @@ const NewPhone = () => {
               can start transfering your money to <br /> another user.
             </p>
           </div>
-        </section>
+          <div className="form-new-phone d-flex flex-column justify-content-center align-items-center">
+            <div className="input-form pass d-flex mt-5">
+              <BsIcons.BsTelephone className="form-icons position-absolute" />
+              <span className=" phone-code position-absolute ">+62</span>
+              <Input
+                value={form.phone}
+                onChange={handleChange}
+                name="phone"
+                className="input-new-phone"
+                placeholder="Enter your phone number"
+                type="text"
+              />
+            </div>
 
-        <div className="form-new-phone d-flex flex-column justify-content-center align-items-center">
-          <div className="input-form pass d-flex mt-5">
-            <BsIcons.BsTelephone className="form-icons position-absolute" />
-            <span className=" phone-code position-absolute ">+62</span>
-            <Input
-              value={form.phone}
-              onChange={handleChange}
-              name="phone"
-              className="input-new-phone"
-              placeholder="Enter your phone number"
-              type="text"
+            {errorMessage ? (
+              <p className="text-error mb-0">{errorMessage}</p>
+            ) : null}
+
+            <div className="btn-new-phone d-flex align-items-center mt-0">
+              <Button
+                isLoading={loading}
+                onClick={handleClick}
+                className="button btn-login btn-add-phone"
+              >
+                Add Phone Number
+              </Button>
+            </div>
+          </div>
+
+          {openModalSuccess ? (
+            <ModalSuccess
+              successTitle="Add Phone Number Success!"
+              successDesc={`Phone number +62 ${form.phone} successfully added to your profile. Now you can start transactions!`}
+              action="Go bak to Dashboard"
+              closeModal={handleNavigate}
             />
-          </div>
-
-          {errorMessage ? (
-            <p className="text-error mb-0">{errorMessage}</p>
           ) : null}
-
-          <div className="btn-new-phone d-flex align-items-center mt-0">
-            <Button
-              isLoading={loading}
-              onClick={handleClick}
-              className="button btn-login btn-add-phone"
-            >
-              Add Phone Number
-            </Button>
-          </div>
-        </div>
+        </section>
       </section>
     </Fragment>
   );

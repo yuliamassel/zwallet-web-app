@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import * as FiIcons from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import ModalAlert from "../../../components/module/ModalAlert";
+import ModalSuccess from "../../../components/module/ModalSuccess";
 import { UserContext } from "../../../context/UserContext";
 import "./managephone.css";
 
@@ -10,6 +12,19 @@ const ManagePhone = () => {
   const { user, setUser } = useContext(UserContext);
   const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
+
+  const [openModalAlert, setOpenModalAlert] = useState(false);
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const handleModalAlert = () => {
+    setOpenModalAlert(!openModalAlert);
+  };
+  const handleModalSuccess = () => {
+    setOpenModalSuccess(!openModalSuccess);
+  };
+  const handleNavigate = () => {
+    setOpenModalSuccess(!openModalSuccess);
+    navigate("/apps/profile/phone/new");
+  };
 
   const handleClick = () => {
     axios
@@ -22,13 +37,16 @@ const ManagePhone = () => {
         const result = res.data.data;
         setUser(result);
         console.log(result);
-        alert("Phone Number Deleted!");
-        navigate("/apps/new-phone");
+        setOpenModalAlert();
+        handleModalSuccess();
+        // alert("Phone Number Deleted!");
+        // navigate("/apps/profile/phone/new");
       })
       .catch((err) => {
         console.log(err.response);
       });
   };
+
   return (
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out ">
@@ -49,11 +67,31 @@ const ManagePhone = () => {
               </p>
             </div>
             <FiIcons.FiTrash
-              onClick={handleClick}
+              onClick={handleModalAlert}
               className="delete-phone icons-size text-grey"
             />
           </div>
         </section>
+
+        {openModalAlert ? (
+          <ModalAlert
+            alertIcon={<FiIcons.FiTrash />}
+            alertTitle="Delete Phone Number"
+            alertDesc="Are you sure you want to delete your phone number? This action cannot be undone."
+            action="Delete"
+            closeModal={handleModalAlert}
+            handleAction={handleClick}
+          />
+        ) : null}
+
+        {openModalSuccess ? (
+          <ModalSuccess
+            successTitle="Phone Number Deleted!"
+            successDesc="Please add a new phone number for transactions."
+            action="Add New Number"
+            closeModal={handleNavigate}
+          />
+        ) : null}
       </section>
     </Fragment>
   );
