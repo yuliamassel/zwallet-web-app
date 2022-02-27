@@ -58,7 +58,7 @@ const History = () => {
             </div>
           ))
         ) : (
-          <div className="no-transactions d-flex flex-column justify-content-center align-items-center mt-5">
+          <div className="no-transactions d-flex flex-column justify-content-center align-items-center">
             <RiIcons.RiFileList3Line className="no-transactions-icon" />
             <p className="no-transactions-text mt-2">No Transactions</p>
           </div>

@@ -64,13 +64,16 @@
     text-decoration: underline;
   }
 
+  .no-transactions {
+    margin-top: 6rem;
+  }
   .no-transactions-icon {
-    font-size: 4em;
+    font-size: 6em;
     color: #b3b3b6;
   }
   .no-transactions-text {
     color: #b4b4b4;
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: bold;
   }
 }
