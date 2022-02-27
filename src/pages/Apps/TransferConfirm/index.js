@@ -1,36 +1,65 @@
+import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import img from "../../../assets/img/blank-profile-picture.png";
-import axios from "axios";
+import ModalPIN from "../../../components/module/ModalPIN";
+import Input from "../../../components/base/Input";
 
 const TransferConfirm = () => {
   const token = JSON.parse(localStorage.getItem("token"));
-  const { id } = useParams(); // ini akan menangkap params dari url bar browser
-  const [userReceiver, setUserReceiver] = useState({ picture: "" });
+  const transferId = JSON.parse(localStorage.getItem("transferId"));
   const [transaction, setTransaction] = useState({
     receiver_name: "",
     receiver_phone: "",
+    receiver_picture: "",
     amount_transfer: "",
     balance_left: "",
     date: "",
     notes: ""
   });
-  useEffect(() => {
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const [pin, setPin] = useState(new Array(6).fill(""));
+  const PIN = pin.join("");
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+    setPin([...pin.map((d, idx) => (idx === index ? element.value : d))]);
+    // focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${id}`, {
-        //id ini ditangkap dari tab url browser
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      .post(
+        `${process.env.REACT_APP_ZWALLET_API}/transaction/transfer/${transferId}`,
+        { PIN: PIN },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((res) => {
+        setLoading(false);
         const result = res.data.data;
         console.log(result);
-        setUserReceiver(result);
+        navigate("/apps/status");
+        localStorage.removeItem("transferId");
       })
       .catch((err) => {
-        console.log(err.response);
+        setLoading(false);
+        if (err.response.status === 500) {
+          setErrorMessage("We have trouble");
+        } else {
+          setErrorMessage(err.response.data.message);
+        }
       });
+  };
 
+  useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_ZWALLET_API}/transaction/history`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -45,10 +74,12 @@ const TransferConfirm = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const navigate = useNavigate();
-  const toStatusPage = () => {
-    navigate(`/apps/status/${id}`);
+
+  const [openModalPIN, setOpenModalPIN] = useState(false);
+  const handleModalPIN = () => {
+    setOpenModalPIN(!openModalPIN);
   };
+
   return (
     <Fragment>
       <section className="content-bar big-screen col-lg-8 animation-pull-out">
@@ -58,7 +89,9 @@ const TransferConfirm = () => {
         <div className="d-flex receivers p-1 mb-3 mt-2 ms-4 me-4 ">
           <img
             className="receiver-picture user-pic mt-2 ms-4"
-            src={userReceiver.picture ? userReceiver.picture : img}
+            src={
+              transaction.receiver_picture ? transaction.receiver_picture : img
+            }
             height="54px"
             alt="Samuel"
           />
@@ -79,7 +112,7 @@ const TransferConfirm = () => {
               </p>
             </div>
             <div className="col-5 col-md-11 offset-1 ms-md-5 me-md-5 confirm-items mt-md-1">
-              <p className="text-title m-2">Balance Left</p>
+              <p className="text-title m-2">Balance Available</p>
               <p className="text-content m-2">Rp {transaction.balance_left}</p>
             </div>
           </div>
@@ -100,12 +133,42 @@ const TransferConfirm = () => {
         {/* <!-- button continue for lg, xl, xxl --> */}
         <div className="btn-continue-desktop confirm d-flex justify-content-end me-5 mt-4">
           <Button
-            onClick={toStatusPage}
+            onClick={handleModalPIN}
             className="button text-white w-25 p-2 shadow"
           >
             Continue
           </Button>
         </div>
+
+        {openModalPIN ? (
+          <ModalPIN
+            modalTitle="Enter PIN to Transfer"
+            modalSubtitle="Enter your 6 Digits PIN for confirmation to continue transferring money. "
+            closeModal={handleModalPIN}
+            handleAction={handleSubmit}
+            isLoading={loading}
+          >
+            <form onSubmit={handleSubmit}>
+              <div className="pin-confirm-wrapper">
+                {pin.map((pins, index) => (
+                  <Input
+                    name="pin"
+                    value={pins}
+                    onChange={(e) => handleChange(e.target, index)}
+                    onFocus={(e) => e.target.select()}
+                    className="pin-confirm-input"
+                    type="text"
+                    maxLength="1"
+                    key={index}
+                  />
+                ))}
+              </div>
+              {errorMessage ? (
+                <p className="text-error mb-0">{errorMessage}</p>
+              ) : null}
+            </form>
+          </ModalPIN>
+        ) : null}
       </section>
     </Fragment>
   );

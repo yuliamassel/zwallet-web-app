@@ -1,37 +1,22 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import * as BsIcons from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import img from "../../../assets/img/blank-profile-picture.png";
 
 const TransferStatus = () => {
   const token = JSON.parse(localStorage.getItem("token"));
-  const { id } = useParams(); // ini akan menangkap params dari url bar browser
-  const [userReceiver, setUserReceiver] = useState({ picture: "" });
   const [transaction, setTransaction] = useState({
     receiver_name: "",
     receiver_phone: "",
+    receiver_picture: "",
     amount_transfer: "",
     balance_left: "",
     date: "",
     notes: ""
   });
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${id}`, {
-        //id ini ditangkap dari tab url browser
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then((res) => {
-        const result = res.data.data;
-        console.log(result);
-        setUserReceiver(result);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-
     axios
       .get(`${process.env.REACT_APP_ZWALLET_API}/transaction/history`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -91,7 +76,11 @@ const TransferStatus = () => {
           <div className="d-flex receivers p-1 mb-3 mt-3 ms-5 me-4">
             <img
               className="receiver-picture user-pic ms-4 mt-2"
-              src={userReceiver.picture ? userReceiver.picture : img}
+              src={
+                transaction.receiver_picture
+                  ? transaction.receiver_picture
+                  : img
+              }
               alt="Samuel"
             />
             <div className="receiver-detail ms-3 mt-2">

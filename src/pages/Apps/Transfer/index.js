@@ -45,7 +45,7 @@ const Transfer = () => {
   }, []);
   const navigate = useNavigate();
   const toConfirmPage = () => {
-    navigate(`/apps/confirmation/${userReceiver.id}`);
+    navigate(`/apps/confirmation`);
   };
 
   const handleChange = (e) => {
@@ -78,6 +78,8 @@ const Transfer = () => {
         .then((res) => {
           setLoading(false);
           const result = res.data.data;
+          const transferId = result.id;
+          localStorage.setItem("transferId", JSON.stringify(transferId));
           console.log(result);
           toConfirmPage();
         })
