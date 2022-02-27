@@ -1,0 +1,138 @@
+.modal-bg {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-alert-container {
+  height: 245px;
+  width: 550px;
+  position: relative;
+  background: #ffffff;
+  z-index: 10;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.alert {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.modal-alert-icon {
+  flex: 0.5;
+}
+.modal-alert-text {
+  flex: 3;
+}
+.alert-icon-wrapper {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #6379f4;
+  background-color: #d9dfff;
+}
+.alert-delete {
+  color: red;
+  background-color: #f3c9c9;
+}
+.modal-alert-title {
+  margin: 0 0.5rem;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 25px;
+  color: #3a3d42;
+}
+.modal-alert-description {
+  margin: 0.5rem 0.5rem;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 20px;
+  color: rgba(58, 61, 66, 0.6);
+}
+
+.modal-alert-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end !important;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.btn-modal-alert {
+  width: 25%;
+  padding: 0.8rem 1.5rem;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  cursor: pointer;
+}
+.cancel {
+  background-color: #fff;
+  color: rgba(58, 61, 66, 0.6);
+  border: 1px solid rgba(131, 132, 134, 0.6);
+}
+.cancel:hover {
+  background-color: #f8f8f8;
+  transition: 0.3s;
+}
+.cancel:active {
+  background-color: #f1f1f1;
+  transition: 0.3s;
+}
+.delete {
+  background-color: #e02f2f;
+  color: #fff;
+}
+.delete:hover {
+  background-color: #c42424;
+  transition: 0.3s;
+}
+.delete:active {
+  background-color: #a51d1d;
+  transition: 0.3s;
+}
+.native {
+  background-color: #6379f4;
+  color: #fff;
+}
+.native:hover {
+  background: #586ff1;
+  transition: 0.3s;
+}
+.native:active {
+  background: #4c61db;
+  transition: 0.3s;
+}
+@keyframes pull-down {
+  0% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 100%;
+  }
+}
+.animation-pull-down {
+  animation-name: pull-down;
+  animation-duration: 0.4s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+}
