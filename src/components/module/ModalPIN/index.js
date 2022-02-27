@@ -1,8 +1,15 @@
 import React, { Fragment } from "react";
 import * as IoIcons from "react-icons/io5";
+import Button from "../../base/Button";
 import "./modalPIN.css";
 
-const Modal = ({ modalTitle, modalSubtitle, children, ...props }) => {
+const Modal = ({
+  modalTitle,
+  modalSubtitle,
+  children,
+  isLoading,
+  ...props
+}) => {
   return (
     <Fragment>
       <div className="modal-bg ">
@@ -23,9 +30,13 @@ const Modal = ({ modalTitle, modalSubtitle, children, ...props }) => {
           <section className="body">{children}</section>
 
           <section className="footer-modal">
-            <button onClick={props.closeModal} className="btn-pin-confirm">
+            <Button
+              onClick={props.handleAction}
+              isLoading={isLoading}
+              className="btn-pin-confirm"
+            >
               Continue
-            </button>
+            </Button>
           </section>
         </div>
       </div>
