@@ -16,6 +16,7 @@ const Login = () => {
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [formError, setFormError] = useState({});
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,31 +29,49 @@ const Login = () => {
       [e.target.name]: e.target.value
     });
   };
+  const validate = (form) => {
+    const errors = {};
+    if (!form.email) {
+      errors.email = "Email is required";
+    }
+    if (!form.password) {
+      errors.password = "Password is required";
+    }
+    return errors;
+  };
+  const handleLogin = (resultValidate) => {
+    if (Object.keys(resultValidate).length === 0) {
+      setLoading(true);
+      axios
+        .post(`${process.env.REACT_APP_ZWALLET_API}/users/login`, {
+          email: form.email,
+          password: form.password
+        })
+        .then((res) => {
+          setLoading(false);
+          const result = res.data.data;
+          const token = result.token;
+          setUser(result);
+          localStorage.setItem("auth", "1");
+          localStorage.setItem("token", JSON.stringify(token));
+          navigate("/");
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err.response);
+          if (err.response.status === 403) {
+            setErrorMessage(err.response.data.message);
+          } else {
+            setErrorMessage("We have trouble");
+          }
+        });
+    }
+  };
   const handleClick = () => {
-    setLoading(true);
-    axios
-      .post(`${process.env.REACT_APP_ZWALLET_API}/users/login`, {
-        email: form.email,
-        password: form.password
-      })
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        const token = result.token;
-        setUser(result);
-        localStorage.setItem("auth", "1");
-        localStorage.setItem("token", JSON.stringify(token));
-        navigate("/");
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-        if (err.response.status === 403) {
-          setErrorMessage(err.response.data.message);
-        } else {
-          setErrorMessage("We have trouble");
-        }
-      });
+    const resultValidate = validate(form);
+    setFormError(resultValidate);
+    handleLogin(resultValidate);
+    console.log(form);
   };
   const toSignUpPage = () => {
     navigate("/auth/signup");
@@ -98,7 +117,7 @@ const Login = () => {
               id="mail"
             />
           </div>
-          {/* {errorMessage ? <p className="text-danger">{errorMessage}</p> : null} */}
+          <p className="text-error  mb-0">{formError.email}</p>
 
           <div className="input-form d-flex mt-5">
             <BsIcons.BsLock className="form-icons position-absolute" />
@@ -122,6 +141,7 @@ const Login = () => {
               />
             )}
           </div>
+          <p className="text-error  mb-0">{formError.password}</p>
           {errorMessage ? (
             <p className="text-error mb-0">{errorMessage}</p>
           ) : null}

@@ -8,9 +8,13 @@
   width: 30%;
   margin-left: 20em;
 }
+.btn-topup {
+  margin-top: 2rem;
+}
 .balance-info {
-  font-weight: normal;
-  font-size: 0.9em;
-  line-height: 28px;
-  color: #7a7886;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding-left: 1rem;
 }

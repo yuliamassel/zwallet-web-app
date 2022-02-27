@@ -14,7 +14,8 @@ const Transfer = () => {
     notes: ""
   });
   const [loading, setLoading] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [formError, setFormError] = useState({});
   // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(UserContext);
   const { id } = useParams(); // ini akan menangkap params dari url bar browser
@@ -53,30 +54,49 @@ const Transfer = () => {
       [e.target.name]: e.target.value
     });
   };
+  const validate = (form) => {
+    const errors = {};
+    if (!form.amountTransfer) {
+      errors.amountTransfer = "Please input amount of money!";
+    }
+    return errors;
+  };
+  const handleTransfer = (resultValidate) => {
+    if (Object.keys(resultValidate).length === 0) {
+      setLoading(true);
+      axios
+        .post(
+          `${process.env.REACT_APP_ZWALLET_API}/transaction/transfer`,
+          {
+            receiverName: `${userReceiver.first_name} ${userReceiver.last_name}`,
+            receiverPhone: userReceiver.phone,
+            amountTransfer: form.amountTransfer,
+            notes: form.notes
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((res) => {
+          setLoading(false);
+          const result = res.data.data;
+          console.log(result);
+          toConfirmPage();
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err.response);
+          if (err.response.status === 500) {
+            setErrorMessage("We have trouble");
+          } else {
+            setErrorMessage(err.response.data.message);
+          }
+        });
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_ZWALLET_API}/transaction/transfer`,
-        {
-          receiverName: `${userReceiver.first_name} ${userReceiver.last_name}`,
-          receiverPhone: userReceiver.phone,
-          amountTransfer: form.amountTransfer,
-          notes: form.notes
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        console.log(result);
-        toConfirmPage();
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
+    const resultValidate = validate(form);
+    setFormError(resultValidate);
+    handleTransfer(resultValidate);
   };
   return (
     <Fragment>
@@ -121,6 +141,15 @@ const Transfer = () => {
             />
           </div>
 
+          {errorMessage ? (
+            <p className="text-error text-error-transfer mb-0">
+              {errorMessage}
+            </p>
+          ) : null}
+          <p className="text-error text-error-transfer mb-0">
+            {formError.amountTransfer}
+          </p>
+
           <p className="text-title-name text-center">
             Rp {user.balance} Available
           </p>
@@ -142,7 +171,7 @@ const Transfer = () => {
           <div className="btn-continue-desktop d-flex justify-content-end ms-5 me-5">
             <Button
               isLoading={loading}
-              className="button text-white w-25 p-2 shadow"
+              className="button btn-continue-transfer text-white w-25 p-2"
             >
               Continue
             </Button>

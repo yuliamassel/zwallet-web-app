@@ -11,18 +11,18 @@
   width: 53px;
   height: 65px;
   text-align: center;
-}
-.change-pin-input {
-  text-align: center;
   padding: 0.7rem 0.2rem;
   font-size: 1.2em;
   font-weight: bold;
-  /* background-color: #8796ee; */
+}
+/* .change-pin-input {
+  text-align: center;
+  background-color: #8796ee;
   border-bottom: 1px solid rgba(169, 169, 169, 0.4);
-}
-.change-pin-input:focus-within {
+} */
+/* .change-pin-input:focus-within {
   border-bottom: 1px solid #6379f4;
-}
+} */
 .change-pin-wrapper:focus-within {
   border: 1px solid #6379f4;
 }

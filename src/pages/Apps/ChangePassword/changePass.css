@@ -6,6 +6,9 @@
 .btn-change-pass {
   width: 50%;
 }
+.error-validation {
+  text-align: left !important;
+}
 .eye-icon-pass {
   right: 16em;
 }
