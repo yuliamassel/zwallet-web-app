@@ -26,6 +26,8 @@ import Page404 from "../pages/404";
 import TopUpInput from "../pages/Apps/TopUpInput";
 import NewPIN from "../pages/Apps/ChangePIN/NewPIN";
 import ProfilePicture from "../pages/Apps/ProfilePicture";
+import SignUpSuccess from "../pages/Auth/SignUpSuccess";
+import CreatePINSuccess from "../pages/Auth/CreatePINSuccess";
 // import RequireAuth from "./components/base/RequireAuth";
 
 const Router = () => {
@@ -36,9 +38,14 @@ const Router = () => {
         <Route path={"/auth"} element={<Auth />}>
           <Route path={"login"} element={<Login />} />
           <Route path={"signup"} element={<SignUp />} />
-          <Route path={"create-pin"} element={<CreatePIN />} />
-          <Route path={"reset-password"} element={<ResetPassConfirm />} />
-          <Route path={"create-password"} element={<ResetPassCreate />} />
+          <Route path={"signup/success"} element={<SignUpSuccess />} />
+          <Route path={"PIN"} element={<CreatePIN />} />
+          <Route path={"PIN/success"} element={<CreatePINSuccess />} />
+          <Route
+            path={"password/confirmation"}
+            element={<ResetPassConfirm />}
+          />
+          <Route path={"password/new"} element={<ResetPassCreate />} />
           <Route index element={<Navigate to="/auth/login" />} />
         </Route>
 
@@ -46,19 +53,19 @@ const Router = () => {
           <Route index element={<Dashboard />} />
           <Route path={"history"} element={<Transaction />} />
           <Route path={"topup"} element={<TopUp />} />
-          <Route path={"topup-input"} element={<TopUpInput />} />
-          <Route path={"receiver"} element={<Receiver />} />
+          <Route path={"topup/input"} element={<TopUpInput />} />
+          <Route path={"receivers"} element={<Receiver />} />
           <Route path={"transfer/:id"} element={<Transfer />} />
           <Route path={"confirmation/:id"} element={<TransferConfirm />} />
           <Route path={"status/:id"} element={<TransferStatus />} />
           <Route path={"profile"} element={<Profile />} />
-          <Route path={"profile-picture"} element={<ProfilePicture />} />
-          <Route path={"personal-information"} element={<PersonalInfo />} />
-          <Route path={"change-password"} element={<ChangePassword />} />
-          <Route path={"change-PIN"} element={<ChangePIN />} />
-          <Route path={"new-PIN"} element={<NewPIN />} />
-          <Route path={"new-phone"} element={<NewPhone />} />
-          <Route path={"manage-phone"} element={<ManagePhone />} />
+          <Route path={"profile/picture"} element={<ProfilePicture />} />
+          <Route path={"profile/information"} element={<PersonalInfo />} />
+          <Route path={"profile/phone/new"} element={<NewPhone />} />
+          <Route path={"profile/phone"} element={<ManagePhone />} />
+          <Route path={"password/change"} element={<ChangePassword />} />
+          <Route path={"PIN/change"} element={<ChangePIN />} />
+          <Route path={"PIN/new"} element={<NewPIN />} />
         </Route>
 
         <Route path={"/*"} element={<Page404 />} />
