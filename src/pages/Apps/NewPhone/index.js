@@ -23,7 +23,7 @@ const NewPhone = () => {
   };
   const handleNavigate = () => {
     setOpenModalSuccess(!openModalSuccess);
-    navigate("/apps");
+    navigate("/apps/profile");
   };
 
   const handleChange = (e) => {
@@ -119,7 +119,7 @@ const NewPhone = () => {
             <ModalSuccess
               successTitle="Add Phone Number Success!"
               successDesc={`Phone number +62 ${form.phone} successfully added to your profile. Now you can start transactions!`}
-              action="Go bak to Dashboard"
+              action="Go back to Profile"
               closeModal={handleNavigate}
             />
           ) : null}
