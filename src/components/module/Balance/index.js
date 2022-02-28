@@ -7,11 +7,11 @@ import Button from "../../base/Button";
 
 const Balance = (props) => {
   const navigate = useNavigate("");
-  const handleClick = () => {
+  const handleTransfer = () => {
     navigate("/apps/receivers");
   };
   const handleTopUp = () => {
-    navigate("/apps/topup/input");
+    navigate("/apps/topup");
   };
   return (
     <Fragment>
@@ -23,7 +23,10 @@ const Balance = (props) => {
         </div>
         <div className="btn-transaction">
           {/* <!-- link to transfer receiver page --> */}
-          <Button onClick={handleClick} className="transfer align-items-center">
+          <Button
+            onClick={handleTransfer}
+            className="transfer align-items-center"
+          >
             <BsIcons.BsArrowUp className="icons-size" />
             <p>Transfer</p>
           </Button>

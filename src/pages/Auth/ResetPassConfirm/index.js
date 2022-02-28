@@ -7,7 +7,7 @@ import Input from "../../../components/base/Input";
 const ResetPassConfirm = () => {
   const navigate = useNavigate();
   const toCreatePassPage = () => {
-    navigate("/auth/create-password");
+    navigate("/auth/password/new");
   };
   return (
     <Fragment>

@@ -77,7 +77,7 @@ const Login = () => {
     navigate("/auth/signup");
   };
   const toResetPassPage = () => {
-    navigate("/auth/reset-password");
+    navigate("/auth/password/confirmation");
   };
   return (
     <Fragment>
