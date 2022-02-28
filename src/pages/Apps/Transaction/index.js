@@ -9,13 +9,12 @@ const Transaction = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/transaction/history`, {
+      .get(`${process.env.REACT_APP_ZWALLET_API}/transaction/history?limit=5`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then((res) => {
         const result = res.data.data;
         setHistory(result);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err.response);
@@ -27,7 +26,7 @@ const Transaction = () => {
       <section className="content-bar big-screen col-lg-8 animation-pull-out">
         <p className="history-title mt-3 ms-4">Transaction History</p>
 
-        <p className="weekly ms-4">This Week</p>
+        {/* <p className="weekly ms-4">This Week</p> */}
 
         {history.length > 0 ? (
           history.map((profile, index) => (

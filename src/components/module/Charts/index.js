@@ -8,7 +8,6 @@ import "./chart.css";
 const Chart = () => {
   // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(UserContext);
-  console.log(user);
   return (
     <Fragment>
       <section className="col-lg-6 history-content-chart d-flex flex-column ms-3">

@@ -37,10 +37,8 @@ const ManagePhone = () => {
         const result = res.data.data;
         setUser(result);
         console.log(result);
-        setOpenModalAlert();
+        handleModalAlert();
         handleModalSuccess();
-        // alert("Phone Number Deleted!");
-        // navigate("/apps/profile/phone/new");
       })
       .catch((err) => {
         console.log(err.response);
