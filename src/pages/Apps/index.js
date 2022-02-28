@@ -8,8 +8,8 @@ import Sidebar from "../../components/module/Sidebar";
 import "./apps.css";
 
 const Apps = () => {
-  let auth = localStorage.getItem("auth");
-  if (!auth) {
+  let token = localStorage.getItem("token");
+  if (!token) {
     return <Navigate to={"/auth/login"} />;
   }
   return (

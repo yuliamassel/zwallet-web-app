@@ -4,8 +4,8 @@ import display from "../../assets/img/mobile.png";
 import "./auth.css";
 
 const Auth = () => {
-  let auth = localStorage.getItem("auth");
-  if (auth) {
+  let token = localStorage.getItem("token");
+  if (token) {
     return <Navigate to={"/apps"} />;
   }
   return (
