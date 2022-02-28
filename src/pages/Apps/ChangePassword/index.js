@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Fragment, useState } from "react";
 import * as BsIcons from "react-icons/bs";
 import Input from "../../../components/base/Input";
@@ -7,14 +6,19 @@ import "./changePass.css";
 import { useNavigate } from "react-router-dom";
 import ModalSuccess from "../../../components/module/ModalSuccess";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { NewPassword } from "../../../redux/actions/apps/changePassword";
+
 const ChangePassword = () => {
-  const token = JSON.parse(localStorage.getItem("token"));
+  const dispatch = useDispatch();
+  const newPasswordData = useSelector((state) => state.NewPassword);
+
   const [form, setForm] = useState({
     currentPassword: "",
     newPassword: "",
     repeatNewPassword: ""
   });
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState({});
@@ -56,35 +60,7 @@ const ChangePassword = () => {
 
   const handleChangePassword = (resultValidate) => {
     if (Object.keys(resultValidate).length === 0) {
-      setLoading(true);
-      axios
-        .put(
-          `${process.env.REACT_APP_ZWALLET_API}/users/profile/change-password`,
-          {
-            currentPassword: form.currentPassword,
-            newPassword: form.newPassword,
-            repeatNewPassword: form.repeatNewPassword
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
-        )
-        .then((res) => {
-          setLoading(false);
-          const result = res.data.data;
-          console.log(result);
-          handleModalSuccess();
-          // navigate("/apps/profile");
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err.response);
-          if (err.response.status === 500) {
-            setErrorMessage("We have trouble");
-          } else {
-            setErrorMessage(err.response.data.message);
-          }
-        });
+      dispatch(NewPassword({ form, handleModalSuccess, setErrorMessage }));
     }
   };
 
@@ -93,7 +69,6 @@ const ChangePassword = () => {
     const resultValidate = validate(form);
     setFormError(resultValidate);
     handleChangePassword(resultValidate);
-    console.log(form);
   };
 
   const handleShowPassword = () => {
@@ -193,7 +168,7 @@ const ChangePassword = () => {
 
               <div className="btn-change-pass d-flex align-items-center mt-0">
                 <Button
-                  isLoading={loading}
+                  isLoading={newPasswordData.loading}
                   className="button btn-login btn-pass"
                 >
                   Change Password
