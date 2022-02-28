@@ -1,12 +1,22 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useEffect } from "react";
 import * as BsIcons from "react-icons/bs";
 import img from "../../../assets/img/blank-profile-picture.png";
 import "./header.css";
-import { UserContext } from "../../../context/UserContext";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
 
 const Header = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const profileData = useSelector((state) => state.GetProfile);
+  const profile = profileData.data;
+
+  useEffect(() => {
+    dispatch(GetProfile());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Fragment>
       <header className="col-12 header-content d-flex flex-column">
@@ -40,16 +50,16 @@ const Header = () => {
           <div className="user-profile d-md-flex flex-row d-none d-md-block">
             <img
               className="ms-2 me-4 user-pic"
-              src={user.picture ? user.picture : img}
+              src={profile.picture ? profile.picture : img}
               alt="Robert"
               height="53px"
             />
             <div className="user-profile-name me-4">
               <p className="name mb-0">
-                {user.first_name} {user.last_name}
+                {profile.first_name} {profile.last_name}
               </p>
               <p className="phone mb-0">
-                {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+                {profile.phone ? `+62 ${profile.phone}` : "+ Add phone number"}
               </p>
             </div>
             <BsIcons.BsBell className="notif icons-size mt-3" />

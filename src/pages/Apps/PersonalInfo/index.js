@@ -1,14 +1,24 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./personalInfo.css";
-import { UserContext } from "../../../context/UserContext";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
 
 const PersonalInfo = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const profileData = useSelector((state) => state.GetProfile);
+  const profile = profileData.data;
+
+  useEffect(() => {
+    dispatch(GetProfile());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const navigate = useNavigate();
   const managePhoneNumber = () => {
-    if (user.phone !== null) {
+    if (profile.phone !== null) {
       navigate("/apps/profile/phone");
     } else {
       navigate("/apps/profile/phone/new");
@@ -30,27 +40,27 @@ const PersonalInfo = () => {
 
           <div className="personal-info-card d-flex flex-column mb-3">
             <p className="personal-info-card-title ms-1">First Name</p>
-            <p className="personal-info-card-desc ms-1">{user.first_name}</p>
+            <p className="personal-info-card-desc ms-1">{profile.first_name}</p>
           </div>
           <div className="personal-info-card d-flex flex-column mb-3">
             <p className="personal-info-card-title ms-1">Last Name</p>
-            <p className="personal-info-card-desc ms-1">{user.last_name}</p>
+            <p className="personal-info-card-desc ms-1">{profile.last_name}</p>
           </div>
           <div className="personal-info-card d-flex flex-column mb-3">
-            {user.verified === "unverified" ? (
+            {profile.verified === "unverified" ? (
               <p className="personal-info-card-title unverified ms-1">
                 Unverified E-mail
               </p>
             ) : (
               <p className="personal-info-card-title ms-1">Verified E-mail</p>
             )}
-            <p className="personal-info-card-desc ms-1">{user.email}</p>
+            <p className="personal-info-card-desc ms-1">{profile.email}</p>
           </div>
           <div className="personal-info-card d-flex flex-row justify-content-between align-items-center mb-3">
             <div>
               <p className="personal-info-card-title ms-1">Phone Number</p>
               <p className="personal-info-card-desc ms-1">
-                {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+                {profile.phone ? `+62 ${profile.phone}` : "+ Add phone number"}
               </p>
             </div>
             <p

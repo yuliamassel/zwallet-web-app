@@ -1,33 +1,20 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
-// import axios from "axios";
+import React, { Fragment, useEffect } from "react";
 import "./dashboard.css";
 import Balance from "../../../components/module/Balance";
 import Chart from "../../../components/module/Charts";
 import History from "../../../components/module/History";
-import { UserContext } from "../../../context/UserContext";
-import axios from "axios";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
 
 const Dashboard = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
-  // eslint-disable-next-line no-unused-vars
-  const [loading, setLoading] = useState(false);
-  const token = JSON.parse(localStorage.getItem("token"));
+  const dispatch = useDispatch();
+  const profileData = useSelector((state) => state.GetProfile);
+  const profile = profileData.data;
+
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/profile`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUser(result);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
+    dispatch(GetProfile());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,12 +24,14 @@ const Dashboard = () => {
       <section className="content-bar col-lg-8 animation-pull-out ">
         <section className="menu-content ">
           <Balance
-            balance={user.balance}
-            user_phone={user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+            balance={profile.balance}
+            user_phone={
+              profile.phone ? `+62 ${profile.phone}` : "+ Add phone number"
+            }
           />
 
           <section className="row history-content d-lg-flex flex-row">
-            <Chart />
+            <Chart income={profile.income} expense={profile.expense} />
 
             <History />
           </section>

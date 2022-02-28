@@ -21,7 +21,7 @@ export const AuthLoginFailed = (error) => {
 export const AuthLogin = ({ form, navigate, setErrorMessage }) => {
   return (dispatch) => {
     dispatch(AuthLoginRequest());
-    axios
+    return axios
       .post(`${process.env.REACT_APP_ZWALLET_API}/users/login`, {
         email: form.email,
         password: form.password

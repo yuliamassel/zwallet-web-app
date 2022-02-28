@@ -21,7 +21,7 @@ export const AuthSignUpFailed = (error) => {
 export const AuthSignUp = ({ form, handleModalSuccess, setErrorMessage }) => {
   return (dispatch) => {
     dispatch(AuthSignUpRequest());
-    axios
+    return axios
       .post(`${process.env.REACT_APP_ZWALLET_API}/users/register`, {
         firstName: form.firstName,
         lastName: form.lastName,

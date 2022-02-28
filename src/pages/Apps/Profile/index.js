@@ -1,19 +1,30 @@
 import axios from "axios";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import * as AiIcons from "react-icons/ai";
 import img from "../../../assets/img/blank-profile-picture.png";
 import "./profile.css";
-import { UserContext } from "../../../context/UserContext";
 import ModalAlert from "../../../components/module/ModalAlert";
 import ModalPIN from "../../../components/module/ModalPIN";
 import "../../../components/module/ModalPIN/modalPIN.css";
 import Input from "../../../components/base/Input";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
+
 const Profile = () => {
+  const dispatch = useDispatch();
+  const profileData = useSelector((state) => state.GetProfile);
+  const profile = profileData.data;
+
+  useEffect(() => {
+    dispatch(GetProfile());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const token = JSON.parse(localStorage.getItem("token"));
-  const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -53,21 +64,6 @@ const Profile = () => {
       });
   };
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/profile`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then((res) => {
-        const result = res.data.data;
-        setUser(result);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const addProfilePicture = () => {
     navigate("/apps/profile/picture");
   };
@@ -75,7 +71,7 @@ const Profile = () => {
     navigate("/apps/profile/information");
   };
   const toChangePINPage = () => {
-    if (user.PIN !== null) {
+    if (profile.PIN !== null) {
       navigate("/apps/PIN/change");
     } else {
       navigate("/apps/PIN/new");
@@ -99,7 +95,7 @@ const Profile = () => {
         <section className="profile-content d-flex flex-column justify-content-center align-items-center">
           <div className="profile-img ">
             <img
-              src={user.picture ? user.picture : img}
+              src={profile.picture ? profile.picture : img}
               className="user-pic mt-3"
               height="76px"
               alt="Users"
@@ -116,10 +112,10 @@ const Profile = () => {
 
           <div className="profile-name d-flex flex-column align-items-center">
             <p className="profile-user-name">
-              {user.first_name} {user.last_name}
+              {profile.first_name} {profile.last_name}
             </p>
             <p className="profile-user-phone">
-              {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+              {profile.phone ? `+62 ${profile.phone}` : "+ Add phone number"}
             </p>
           </div>
 
@@ -142,7 +138,7 @@ const Profile = () => {
             className="profile-manager d-flex flex-row justify-content-between"
           >
             <p className="profile-manager-option">
-              {user.PIN ? "Change PIN" : "Create PIN"}
+              {profile.PIN ? "Change PIN" : "Create PIN"}
             </p>
             <BsIcons.BsArrowRight className="icons-size arrow-nav-manager" />
           </div>
