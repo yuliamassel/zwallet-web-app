@@ -6,6 +6,7 @@ import img from "../../../assets/img/blank-profile-picture.png";
 import axios from "axios";
 import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import ModalSuccess from "../../../components/module/ModalSuccess";
 
 const ProfilePicture = () => {
   // eslint-disable-next-line no-unused-vars
@@ -14,6 +15,15 @@ const ProfilePicture = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const handleModalSuccess = () => {
+    setOpenModalSuccess(!openModalSuccess);
+  };
+  const handleNavigate = () => {
+    setOpenModalSuccess(!openModalSuccess);
+    navigate("/apps/profile");
+  };
 
   const handleUpload = (e) => {
     setForm({
@@ -37,8 +47,7 @@ const ProfilePicture = () => {
         setLoading(false);
         const result = res.data.data;
         setUser(result);
-        alert("Add Profile Picture Success!");
-        navigate("/apps");
+        handleModalSuccess();
       })
       .catch((err) => {
         setLoading(false);
@@ -85,6 +94,15 @@ const ProfilePicture = () => {
         </div>
         <div className="btn-wrapper"></div>
       </section>
+
+      {openModalSuccess ? (
+        <ModalSuccess
+          successTitle="Add Profile Picture Success!"
+          successDesc="Congratulations! Now your friends could recognize you here!"
+          action="Go back to Profile"
+          closeModal={handleNavigate}
+        />
+      ) : null}
     </section>
   );
 };
