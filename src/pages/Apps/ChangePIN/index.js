@@ -1,15 +1,20 @@
-import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 import "./changePin.css";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { PINConfirmation } from "../../../redux/actions/apps/PINConfirmation";
+
 const ChangePIN = () => {
+  const dispatch = useDispatch();
+  const PinConfirmation = useSelector((state) => state.PINConfirmation);
+
   const [pin, setPin] = useState(new Array(6).fill(""));
   const PIN = pin.join("");
-  const token = JSON.parse(localStorage.getItem("token"));
-  const [loading, setLoading] = useState(false);
+
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -24,27 +29,8 @@ const ChangePIN = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_ZWALLET_API}/users/PIN`,
-        { PIN: PIN },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.message;
-        console.log(result);
-        navigate("/apps/PIN/new");
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err.response.status === 500) {
-          setErrorMessage("We have trouble");
-        } else {
-          setErrorMessage(err.response.data.message);
-        }
-      });
+    dispatch(PINConfirmation({ PIN, navigate, setErrorMessage }));
+    navigate("/apps/PIN/new");
   };
 
   return (
@@ -85,7 +71,10 @@ const ChangePIN = () => {
             </div>
 
             <div className="btn-change-pin d-flex align-items-center">
-              <Button isLoading={loading} className="button btn-login btn-pin">
+              <Button
+                isLoading={PinConfirmation.loading}
+                className="button btn-login btn-pin"
+              >
                 Continue
               </Button>
             </div>

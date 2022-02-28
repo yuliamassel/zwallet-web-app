@@ -40,7 +40,8 @@ const Profile = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(PINConfirmation({ PIN, navigate, setErrorMessage }));
+    dispatch(PINConfirmation({ PIN, setErrorMessage }));
+    navigate("/apps/password/change");
   };
 
   const addProfilePicture = () => {

@@ -1,45 +1,46 @@
 import axios from "axios";
 
-export const PINConfirmationRequest = () => {
+export const NewPinRequest = () => {
   return {
-    type: "PIN_CONFIRMATION_REQUEST"
+    type: "NEW_PIN_REQUEST"
   };
 };
-export const PINConfirmationSuccess = (data) => {
+export const NewPinSuccess = (data) => {
   return {
-    type: "PIN_CONFIRMATION_SUCCESS",
+    type: "NEW_PIN_SUCCESS",
     payload: data
   };
 };
-export const PINConfirmationFailed = (error) => {
+export const NewPinFailed = (error) => {
   return {
-    type: "PIN_CONFIRMATION_FAILED",
+    type: "NEW_PIN_FAILED",
     payload: error
   };
 };
 
-export const PINConfirmation = ({ PIN, setErrorMessage }) => {
+export const NewPin = ({ PIN, handleModalSuccess, setErrorMessage }) => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (dispatch) => {
-    dispatch(PINConfirmationRequest());
+    dispatch(NewPinRequest());
     return axios
-      .post(
+      .put(
         `${process.env.REACT_APP_ZWALLET_API}/users/PIN`,
         { PIN: PIN },
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
-        const data = res.data?.message;
-        dispatch(PINConfirmationSuccess(data));
+        const data = res.data.data;
+        handleModalSuccess();
+        dispatch(NewPinSuccess(data));
       })
       .catch((err) => {
-        const message = err.response.data;
+        const message = err.response.data.message;
         if (err.response.status === 500) {
           setErrorMessage("We have trouble");
         } else {
           setErrorMessage(err.response.data.message);
         }
-        dispatch(PINConfirmationFailed(message));
+        dispatch(NewPinFailed(message));
       });
   };
 };

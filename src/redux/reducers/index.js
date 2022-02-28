@@ -8,6 +8,7 @@ import GetProfile from "./apps/getProfile";
 import GetReceivers from "./apps/getReceivers";
 import SearchReceiver from "./apps/searchReceiver";
 import PINConfirmation from "./apps/PINConfirmation";
+import NewPin from "./apps/changePIN";
 
 // combine all reducers into rootReducers
 const rootReducers = combineReducers({
@@ -17,7 +18,8 @@ const rootReducers = combineReducers({
   GetProfile,
   GetReceivers,
   SearchReceiver,
-  PINConfirmation
+  PINConfirmation,
+  NewPin
 });
 
 export default rootReducers;

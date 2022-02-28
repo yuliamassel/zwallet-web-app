@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Fragment, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
@@ -6,13 +5,19 @@ import Input from "../../../components/base/Input";
 import ModalSuccess from "../../../components/module/ModalSuccess";
 import { UserContext } from "../../../context/UserContext";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { NewPin } from "../../../redux/actions/apps/changePIN";
+
 const NewPIN = () => {
+  const dispatch = useDispatch();
+  const newPinData = useSelector((state) => state.NewPin);
+
   // eslint-disable-next-line no-unused-vars
   const { user, setUser } = useContext(UserContext);
   const [pin, setPin] = useState(new Array(6).fill(""));
   const PIN = pin.join("");
-  const token = JSON.parse(localStorage.getItem("token"));
-  const [loading, setLoading] = useState(false);
+
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -36,27 +41,7 @@ const NewPIN = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .put(
-        `${process.env.REACT_APP_ZWALLET_API}/users/PIN`,
-        { PIN: PIN },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUser(result);
-        handleModalSuccess();
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err.response.status === 500) {
-          setErrorMessage("We have trouble");
-        } else {
-          setErrorMessage(err.response.data.message);
-        }
-      });
+    dispatch(NewPin({ PIN, handleModalSuccess, setErrorMessage }));
   };
 
   return (
@@ -65,7 +50,7 @@ const NewPIN = () => {
         <section className="change-pin-content d-flex flex-column">
           <div className="change-pin-text">
             <p className="change-pin-title">
-              {user.PIN ? "Change PIN" : "Create PIN"}
+              {newPinData.data.PIN ? "Change PIN" : "Create PIN"}
             </p>
             <p className="change-pin-desc">
               Type your new 6 digits security PIN for transactions <br /> in
@@ -100,7 +85,7 @@ const NewPIN = () => {
 
               <div className="btn-change-pin d-flex align-items-center">
                 <Button
-                  isLoading={loading}
+                  isLoading={newPinData.loading}
                   className="button btn-login btn-pin"
                 >
                   {user.PIN ? "Change PIN" : "Create PIN"}
