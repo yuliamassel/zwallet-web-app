@@ -18,7 +18,6 @@ const History = () => {
       .then((res) => {
         const result = res.data.data;
         setHistory(result);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err.response);
