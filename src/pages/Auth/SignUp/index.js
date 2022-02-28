@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
@@ -6,7 +5,14 @@ import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 import ModalSuccess from "../../../components/module/ModalSuccess";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { AuthSignUp } from "../../../redux/actions/auth/authSignUp";
+
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const signUpData = useSelector((state) => state.AuthSignUp);
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -14,7 +20,6 @@ const SignUp = () => {
     password: ""
   });
   const [formError, setFormError] = useState({});
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate("");
@@ -55,31 +60,7 @@ const SignUp = () => {
 
   const handleRegister = (resultValidate) => {
     if (Object.keys(resultValidate).length === 0) {
-      setLoading(true);
-      axios
-        .post(`${process.env.REACT_APP_ZWALLET_API}/users/register`, {
-          firstName: form.firstName,
-          lastName: form.lastName,
-          email: form.email,
-          password: form.password
-        })
-        .then((res) => {
-          setLoading(false);
-          const result = res.data.data;
-          console.log(result);
-          const userId = result.id;
-          handleModalSuccess();
-          localStorage.setItem("userId", JSON.stringify(userId));
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err.response);
-          if (err.response.status === 403) {
-            setErrorMessage(err.response.data.message);
-          } else {
-            setErrorMessage("We have trouble");
-          }
-        });
+      dispatch(AuthSignUp({ form, handleModalSuccess, setErrorMessage }));
     }
   };
 
@@ -90,6 +71,7 @@ const SignUp = () => {
     handleRegister(resultValidate);
     console.log(form);
   };
+
   const handleShowPassword = () => {
     setShowPassword(showPassword ? false : true);
   };
@@ -192,8 +174,7 @@ const SignUp = () => {
             ) : null}
 
             <Button
-              isLoading={loading}
-              // onClick={handleClick}
+              isLoading={signUpData.loading}
               className="button btn-login mb-1"
               type="submit"
             >

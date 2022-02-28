@@ -27,21 +27,20 @@ export const AuthLogin = ({ form, navigate, setErrorMessage }) => {
         password: form.password
       })
       .then((res) => {
-        const { data } = res;
-        const result = res.data.data;
-        const token = result.token;
-        dispatch(AuthLoginSuccess(data));
+        const data = res.data.data;
+        const token = data.token;
         localStorage.setItem("token", JSON.stringify(token));
         navigate("/");
+        dispatch(AuthLoginSuccess(data));
       })
       .catch((err) => {
         const message = err.response;
-        dispatch(AuthLoginFailed(message));
         if (err.response.status === 403) {
           setErrorMessage(err.response.data.message);
         } else {
           setErrorMessage("We have trouble");
         }
+        dispatch(AuthLoginFailed(message));
       });
   };
 };
