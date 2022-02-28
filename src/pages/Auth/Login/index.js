@@ -1,20 +1,22 @@
-import axios from "axios";
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 import "./login.css";
-import { UserContext } from "../../../context/UserContext";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { AuthLogin } from "../../../redux/actions/auth/authLogin";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const loginData = useSelector((state) => state.AuthLogin);
+
   const [form, setForm] = useState({
     email: "",
     password: ""
   });
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formError, setFormError] = useState({});
   const navigate = useNavigate();
@@ -41,37 +43,13 @@ const Login = () => {
   };
   const handleLogin = (resultValidate) => {
     if (Object.keys(resultValidate).length === 0) {
-      setLoading(true);
-      axios
-        .post(`${process.env.REACT_APP_ZWALLET_API}/users/login`, {
-          email: form.email,
-          password: form.password
-        })
-        .then((res) => {
-          setLoading(false);
-          const result = res.data.data;
-          const token = result.token;
-          setUser(result);
-          localStorage.setItem("auth", "1");
-          localStorage.setItem("token", JSON.stringify(token));
-          navigate("/");
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err.response);
-          if (err.response.status === 403) {
-            setErrorMessage(err.response.data.message);
-          } else {
-            setErrorMessage("We have trouble");
-          }
-        });
+      dispatch(AuthLogin({ form, navigate, setErrorMessage }));
     }
   };
   const handleClick = () => {
     const resultValidate = validate(form);
     setFormError(resultValidate);
     handleLogin(resultValidate);
-    console.log(form);
   };
   const toSignUpPage = () => {
     navigate("/auth/signup");
@@ -153,7 +131,7 @@ const Login = () => {
           </div>
 
           <Button
-            isLoading={loading}
+            isLoading={loginData.loading}
             onClick={handleClick}
             className="button btn-login mb-1"
           >
