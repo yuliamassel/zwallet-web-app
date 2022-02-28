@@ -1,19 +1,20 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
-import "./newphone.css";
-import { UserContext } from "../../../context/UserContext";
-import axios from "axios";
 import ModalSuccess from "../../../components/module/ModalSuccess";
+import "./newphone.css";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { NewPhoneNumber } from "../../../redux/actions/apps/addPhoneNumber";
 
 const NewPhone = () => {
+  const dispatch = useDispatch();
+  const newPhoneData = useSelector((state) => state.NewPhoneNumber);
+
   const [form, setForm] = useState({ phone: "" });
-  const token = JSON.parse(localStorage.getItem("token"));
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -33,47 +34,8 @@ const NewPhone = () => {
     });
   };
   const handleClick = () => {
-    setLoading(true);
-    axios
-      .put(
-        `${process.env.REACT_APP_ZWALLET_API}/users/profile`,
-        { phone: form.phone },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUser(result);
-        handleModalSuccess();
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-        if (err.response.status) {
-          setErrorMessage(err.response.data.message);
-        } else {
-          setErrorMessage("We have trouble");
-        }
-      });
+    dispatch(NewPhoneNumber({ form, handleModalSuccess, setErrorMessage }));
   };
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/profile`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUser(result);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Fragment>
@@ -106,7 +68,7 @@ const NewPhone = () => {
 
             <div className="btn-new-phone d-flex align-items-center mt-0">
               <Button
-                isLoading={loading}
+                isLoading={newPhoneData.loading}
                 onClick={handleClick}
                 className="button btn-login btn-add-phone"
               >
