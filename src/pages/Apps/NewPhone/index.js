@@ -1,4 +1,6 @@
-import React, { Fragment, useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
@@ -9,10 +11,12 @@ import "./newphone.css";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { NewPhoneNumber } from "../../../redux/actions/apps/addPhoneNumber";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
 
 const NewPhone = () => {
   const dispatch = useDispatch();
   const newPhoneData = useSelector((state) => state.NewPhoneNumber);
+  const profileData = useSelector((state) => state.GetProfile);
 
   const [form, setForm] = useState({ phone: "" });
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,6 +40,10 @@ const NewPhone = () => {
   const handleClick = () => {
     dispatch(NewPhoneNumber({ form, handleModalSuccess, setErrorMessage }));
   };
+
+  useEffect(() => {
+    dispatch(GetProfile());
+  }, []);
 
   return (
     <Fragment>

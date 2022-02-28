@@ -1,16 +1,22 @@
-import axios from "axios";
-import React, { Fragment, useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { Fragment, useEffect, useState } from "react";
 import * as FiIcons from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import ModalAlert from "../../../components/module/ModalAlert";
 import ModalSuccess from "../../../components/module/ModalSuccess";
-import { UserContext } from "../../../context/UserContext";
 import "./managephone.css";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
+import { DeletePhoneNumber } from "../../../redux/actions/apps/deletePhoneNumber";
+
 const ManagePhone = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
-  const token = JSON.parse(localStorage.getItem("token"));
+  const dispatch = useDispatch();
+  const deletePhoneData = useSelector((state) => state.DeletePhoneNumber);
+  const profileData = useSelector((state) => state.GetProfile);
+  const profile = profileData.data;
+
   const navigate = useNavigate();
 
   const [openModalAlert, setOpenModalAlert] = useState(false);
@@ -26,23 +32,13 @@ const ManagePhone = () => {
     navigate("/apps/profile/phone/new");
   };
 
+  useEffect(() => {
+    dispatch(GetProfile());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleClick = () => {
-    axios
-      .put(
-        `${process.env.REACT_APP_ZWALLET_API}/users/profile/delete-phone-number`,
-        { phone: null },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        const result = res.data.data;
-        setUser(result);
-        console.log(result);
-        handleModalAlert();
-        handleModalSuccess();
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    dispatch(DeletePhoneNumber({ handleModalAlert, handleModalSuccess }));
   };
 
   return (
@@ -61,7 +57,7 @@ const ManagePhone = () => {
             <div>
               <p className="primary-phone-card-title ms-1">Phone Number</p>
               <p className="primary-phone-card-desc ms-1">
-                {user.phone ? `+62 ${user.phone}` : "+ Add phone number"}
+                {profile.phone ? `+62 ${profile.phone}` : "+ Add phone number"}
               </p>
             </div>
             <FiIcons.FiTrash
