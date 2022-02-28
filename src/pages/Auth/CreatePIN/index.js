@@ -1,14 +1,19 @@
-import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { AuthCreatePIN } from "../../../redux/actions/auth/authCreatePIN";
+
 const CreatePIN = () => {
+  const dispatch = useDispatch();
+  const createPINData = useSelector((state) => state.AuthCreatePIN);
+
   const [pin, setPin] = useState(new Array(6).fill(""));
   const PIN = pin.join("");
   const userId = JSON.parse(localStorage.getItem("userId"));
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -26,26 +31,7 @@ const CreatePIN = () => {
     if (!userId) {
       return setErrorMessage("You have to Sign Up before create PIN!");
     } else {
-      setLoading(true);
-      axios
-        .put(`${process.env.REACT_APP_ZWALLET_API}/users/PIN/${userId}`, {
-          PIN: PIN
-        })
-        .then((res) => {
-          setLoading(false);
-          const result = res.data.data;
-          console.log(result);
-          localStorage.clear();
-          navigate("/auth/PIN/success");
-        })
-        .catch((err) => {
-          setLoading(false);
-          if (err.response.status === 500) {
-            setErrorMessage("We have trouble");
-          } else {
-            setErrorMessage(err.response.data.message);
-          }
-        });
+      dispatch(AuthCreatePIN({ PIN, navigate, setErrorMessage }));
     }
   };
 
@@ -101,7 +87,7 @@ const CreatePIN = () => {
             ) : null}
 
             <Button
-              isLoading={loading}
+              isLoading={createPINData.loading}
               className="button btn-login btn-confirm mb-1"
               type="submit"
             >
