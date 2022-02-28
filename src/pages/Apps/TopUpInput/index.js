@@ -1,20 +1,39 @@
+import axios from "axios";
 import React, { Fragment, useContext, useState } from "react";
-import Button from "../../../components/base/Button";
-import Input from "../../../components/base/Input";
-import "./topupinput.css";
 import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import Button from "../../../components/base/Button";
+import Input from "../../../components/base/Input";
+import ModalPIN from "../../../components/module/ModalPIN";
+import "../../../components/module/ModalPIN/modalPIN.css";
+import "./topupinput.css";
+import ModalSuccess from "../../../components/module/ModalSuccess";
 
 const TopUpInput = () => {
   const [topupForm, setTopupForm] = useState({ amount_topup: "" });
   const token = JSON.parse(localStorage.getItem("token"));
+  const topUpId = JSON.parse(localStorage.getItem("topUpId"));
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessagePIN, setErrorMessagePIN] = useState("");
   const [formError, setFormError] = useState({});
   const navigate = useNavigate();
 
+  const [openModalPIN, setOpenModalPIN] = useState(false);
+  const handleModalPIN = () => {
+    setOpenModalPIN(!openModalPIN);
+  };
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const handleModalSuccess = () => {
+    setOpenModalSuccess(!openModalSuccess);
+  };
+  const handleNavigate = () => {
+    setOpenModalSuccess(!openModalSuccess);
+    navigate("/apps");
+  };
+
+  // TOP UP AMOUNT INPUT
   const handleChange = (e) => {
     setTopupForm({
       ...topupForm,
@@ -33,16 +52,15 @@ const TopUpInput = () => {
       setLoading(true);
       axios
         .put(
-          `${process.env.REACT_APP_ZWALLET_API}/wallet/topup/`,
+          `${process.env.REACT_APP_ZWALLET_API}/wallet/topup/${topUpId}`,
           { amount_topup: topupForm.amount_topup },
           { headers: { Authorization: `Bearer ${token}` } }
         )
         .then((res) => {
           setLoading(false);
           const result = res.data.data;
-          setUser(result);
-          alert("Top Up Success!");
-          navigate("/apps");
+          console.log(result);
+          handleModalPIN();
         })
         .catch((err) => {
           setLoading(false);
@@ -61,6 +79,46 @@ const TopUpInput = () => {
     setFormError(resultValidate);
     handleTopUp(resultValidate);
     console.log(topupForm);
+  };
+
+  // TOP UP PIN CONFIRMATION INPUT
+  const [pin, setPin] = useState(new Array(6).fill(""));
+  const PIN = pin.join("");
+
+  const handleChangePIN = (element, index) => {
+    if (isNaN(element.value)) return false;
+    setPin([...pin.map((d, idx) => (idx === index ? element.value : d))]);
+    // focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+  const handleSubmitPIN = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_ZWALLET_API}/wallet/topup/confirmation/${topUpId}`,
+        { PIN: PIN },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((res) => {
+        setLoading(false);
+        const result = res.data.data;
+        setUser(result);
+        console.log(result);
+        localStorage.removeItem("topUpId");
+        handleModalPIN();
+        handleModalSuccess();
+      })
+      .catch((err) => {
+        setLoading(false);
+        if (err.response.status === 500) {
+          setErrorMessagePIN("We have trouble");
+        } else {
+          setErrorMessagePIN(err.response.data.message);
+        }
+      });
   };
 
   return (
@@ -108,6 +166,45 @@ const TopUpInput = () => {
             </Button>
           </div>
         </form>
+
+        {openModalPIN ? (
+          <ModalPIN
+            modalTitle="Enter PIN to Top Up"
+            modalSubtitle="Enter your 6 Digits PIN for confirmation to continue Top Up. "
+            closeModal={handleModalPIN}
+            handleAction={handleSubmitPIN}
+            isLoading={loading}
+          >
+            <form onSubmit={handleSubmitPIN}>
+              <div className="pin-confirm-wrapper">
+                {pin.map((pins, index) => (
+                  <Input
+                    name="pin"
+                    value={pins}
+                    onChange={(e) => handleChangePIN(e.target, index)}
+                    onFocus={(e) => e.target.select()}
+                    className="pin-confirm-input"
+                    type="text"
+                    maxLength="1"
+                    key={index}
+                  />
+                ))}
+              </div>
+              {errorMessagePIN ? (
+                <p className="text-error mb-0">{errorMessagePIN}</p>
+              ) : null}
+            </form>
+          </ModalPIN>
+        ) : null}
+
+        {openModalSuccess ? (
+          <ModalSuccess
+            successTitle="Top Up Success!"
+            successDesc={`Amount Top Up ${topupForm.amount_topup} successfully added to your Balance.`}
+            action="Go back to Dashboard"
+            closeModal={handleNavigate}
+          />
+        ) : null}
       </section>
     </Fragment>
   );
