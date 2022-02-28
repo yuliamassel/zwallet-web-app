@@ -32,14 +32,14 @@ const ManagePhone = () => {
     navigate("/apps/profile/phone/new");
   };
 
+  const handleClick = () => {
+    dispatch(DeletePhoneNumber({ handleModalAlert, handleModalSuccess }));
+  };
+
   useEffect(() => {
     dispatch(GetProfile());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleClick = () => {
-    dispatch(DeletePhoneNumber({ handleModalAlert, handleModalSuccess }));
-  };
 
   return (
     <Fragment>

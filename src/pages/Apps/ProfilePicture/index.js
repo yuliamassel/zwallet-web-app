@@ -1,19 +1,23 @@
-import React, { useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useContext, useEffect, useState } from "react";
 import Input from "../../../components/base/Input";
 import Button from "../../../components/base/Button";
 import "./profilePicture.css";
 import img from "../../../assets/img/blank-profile-picture.png";
-import axios from "axios";
-import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import ModalSuccess from "../../../components/module/ModalSuccess";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { NewProfilePicture } from "../../../redux/actions/apps/addProfilePicture";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
+
 const ProfilePicture = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const profilePictureData = useSelector((state) => state.NewProfilePicture);
+  const profileData = useSelector((state) => state.GetProfile);
+
   const [form, setForm] = useState({ picture: null });
-  const token = JSON.parse(localStorage.getItem("token"));
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
@@ -35,25 +39,14 @@ const ProfilePicture = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("picture", form.picture);
-
-    setLoading(true);
-    axios
-      .put(
-        `${process.env.REACT_APP_ZWALLET_API}/users/profile/picture`,
-        formData,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUser(result);
-        handleModalSuccess();
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
+    dispatch(NewProfilePicture({ formData, handleModalSuccess }));
   };
+
+  useEffect(() => {
+    dispatch(GetProfile());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <section className="content-bar big-screen col-lg-8 animation-pull-out ">
       <section className="profile-content d-flex flex-column justify-content-center align-items-center">
@@ -84,7 +77,7 @@ const ProfilePicture = () => {
             )}
 
             <Button
-              isLoading={loading}
+              isLoading={profilePictureData.loading}
               className="button btn-login btn-upload"
               type="submit"
             >

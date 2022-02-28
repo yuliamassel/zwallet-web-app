@@ -13,6 +13,7 @@ import PINConfirm from "./apps/PINConfirm";
 import NewPin from "./apps/changePIN";
 import NewPhoneNumber from "./apps/addPhoneNumber";
 import DeletePhoneNumber from "./apps/deletePhoneNumber";
+import NewProfilePicture from "./apps/addProfilePicture";
 
 // combine all reducers into rootReducers
 const rootReducers = combineReducers({
@@ -27,7 +28,8 @@ const rootReducers = combineReducers({
   PINConfirm,
   NewPin,
   NewPhoneNumber,
-  DeletePhoneNumber
+  DeletePhoneNumber,
+  NewProfilePicture
 });
 
 export default rootReducers;
