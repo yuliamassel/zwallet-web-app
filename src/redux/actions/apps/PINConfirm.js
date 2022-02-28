@@ -1,27 +1,27 @@
 import axios from "axios";
 
-export const PINConfirmationRequest = () => {
+export const PINConfirmRequest = () => {
   return {
-    type: "PIN_CONFIRMATION_REQUEST"
+    type: "PIN_CONFIRM_REQUEST"
   };
 };
-export const PINConfirmationSuccess = (data) => {
+export const PINConfirmSuccess = (data) => {
   return {
-    type: "PIN_CONFIRMATION_SUCCESS",
+    type: "PIN_CONFIRM_SUCCESS",
     payload: data
   };
 };
-export const PINConfirmationFailed = (error) => {
+export const PINConfirmFailed = (error) => {
   return {
-    type: "PIN_CONFIRMATION_FAILED",
+    type: "PIN_CONFIRM_FAILED",
     payload: error
   };
 };
 
-export const PINConfirmation = ({ PIN, navigate, setErrorMessage }) => {
+export const PINConfirm = ({ PIN, navigate, setErrorMessage }) => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (dispatch) => {
-    dispatch(PINConfirmationRequest());
+    dispatch(PINConfirmRequest());
     return axios
       .post(
         `${process.env.REACT_APP_ZWALLET_API}/users/PIN`,
@@ -30,8 +30,8 @@ export const PINConfirmation = ({ PIN, navigate, setErrorMessage }) => {
       )
       .then((res) => {
         const data = res.data?.message;
-        dispatch(PINConfirmationSuccess(data));
-        navigate("/apps/password/change");
+        dispatch(PINConfirmSuccess(data));
+        navigate("/apps/PIN/new");
       })
       .catch((err) => {
         const message = err.response;
@@ -40,7 +40,7 @@ export const PINConfirmation = ({ PIN, navigate, setErrorMessage }) => {
         } else {
           setErrorMessage(err.response.data.message);
         }
-        dispatch(PINConfirmationFailed(message));
+        dispatch(PINConfirmFailed(message));
       });
   };
 };

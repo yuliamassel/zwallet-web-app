@@ -6,11 +6,11 @@ import "./changePin.css";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { PINConfirmation } from "../../../redux/actions/apps/PINConfirmation";
+import { PINConfirm } from "../../../redux/actions/apps/PINConfirm";
 
 const ChangePIN = () => {
   const dispatch = useDispatch();
-  const PinConfirmation = useSelector((state) => state.PINConfirmation);
+  const PinConfirmation = useSelector((state) => state.PINConfirm);
 
   const [pin, setPin] = useState(new Array(6).fill(""));
   const PIN = pin.join("");
@@ -29,8 +29,7 @@ const ChangePIN = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(PINConfirmation({ PIN, navigate, setErrorMessage }));
-    navigate("/apps/PIN/new");
+    dispatch(PINConfirm({ PIN, navigate, setErrorMessage }));
   };
 
   return (
