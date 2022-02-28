@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
@@ -13,10 +12,12 @@ import Input from "../../../components/base/Input";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { GetProfile } from "../../../redux/actions/apps/getProfile";
+import { PINConfirmation } from "../../../redux/actions/apps/PINConfirmation";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.GetProfile);
+  const PinConfirmation = useSelector((state) => state.PINConfirmation);
   const profile = profileData.data;
 
   useEffect(() => {
@@ -24,8 +25,6 @@ const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const token = JSON.parse(localStorage.getItem("token"));
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -41,27 +40,7 @@ const Profile = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_ZWALLET_API}/users/PIN`,
-        { PIN: PIN },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.message;
-        console.log(result);
-        navigate("/apps/password/change");
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err.response.status === 500) {
-          setErrorMessage("We have trouble");
-        } else {
-          setErrorMessage(err.response.data.message);
-        }
-      });
+    dispatch(PINConfirmation({ PIN, navigate, setErrorMessage }));
   };
 
   const addProfilePicture = () => {
@@ -167,7 +146,7 @@ const Profile = () => {
             modalSubtitle="Enter your 6 Digits PIN to confirm your account. We make sure you're the one who make the changes."
             closeModal={handleModalPIN}
             handleAction={handleSubmit}
-            isLoading={loading}
+            isLoading={PinConfirmation.loading}
           >
             <form onSubmit={handleSubmit}>
               <div className="pin-confirm-wrapper">
