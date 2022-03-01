@@ -7,42 +7,32 @@ import img from "../../../assets/img/blank-profile-picture.png";
 import axios from "axios";
 import { UserContext } from "../../../context/UserContext";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { GetProfile } from "../../../redux/actions/apps/getProfile";
+import { GetDetailsReceiver } from "../../../redux/actions/apps/getReceiversById";
+
 const Transfer = () => {
+  const dispatch = useDispatch();
+  const receiverData = useSelector((state) => state.GetDetailsReceiver);
+  const profileData = useSelector((state) => state.GetProfile);
+  const receiver = receiverData.data;
+  const profile = profileData.data;
+
   const token = JSON.parse(localStorage.getItem("token"));
-  const [form, setForm] = useState({
-    amountTransfer: "",
-    notes: ""
-  });
+  const { id } = useParams();
+  const [form, setForm] = useState({ amountTransfer: "", notes: "" });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formError, setFormError] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  const { user, setUser } = useContext(UserContext);
-  const { id } = useParams(); // ini akan menangkap params dari url bar browser
-  const [userReceiver, setUserReceiver] = useState({
-    id: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    picture: ""
-  });
+
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_ZWALLET_API}/users/details/${id}`, {
-        //id ini ditangkap dari tab url browser
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then((res) => {
-        const result = res.data.data;
-        console.log(result);
-        setUserReceiver(result);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    dispatch(GetProfile());
+
+    dispatch(GetDetailsReceiver({ id }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const navigate = useNavigate();
   const toConfirmPage = () => {
     navigate(`/apps/confirmation`);
@@ -68,8 +58,8 @@ const Transfer = () => {
         .post(
           `${process.env.REACT_APP_ZWALLET_API}/transaction/transfer`,
           {
-            receiverName: `${userReceiver.first_name} ${userReceiver.last_name}`,
-            receiverPhone: userReceiver.phone,
+            receiverName: `${receiver.first_name} ${receiver.last_name}`,
+            receiverPhone: receiver.phone,
             amountTransfer: form.amountTransfer,
             notes: form.notes
           },
@@ -109,18 +99,16 @@ const Transfer = () => {
         <div className="d-flex receivers  mb-3 mt-3 ms-4 me-4 ">
           <img
             className="receiver-picture user-pic mt-2 ms-4"
-            src={userReceiver.picture ? userReceiver.picture : img}
+            src={receiver.picture ? receiver.picture : img}
             height="54px"
             alt="Samuel"
           />
           <div className="receiver-detail ms-3 mt-2">
             <p className="text-title-name mb-0">
-              {userReceiver.first_name} {userReceiver.last_name}
+              {receiver.first_name} {receiver.last_name}
             </p>
             <p className="weekly mt-1">
-              {userReceiver.phone
-                ? `+62 ${userReceiver.phone}`
-                : "+ Add phone number"}
+              {receiver.phone ? `+62 ${receiver.phone}` : "+ Add phone number"}
             </p>
           </div>
         </div>
@@ -153,7 +141,7 @@ const Transfer = () => {
           </p>
 
           <p className="text-title-name text-center">
-            Rp {user.balance} Available
+            Rp {profile.balance} Available
           </p>
 
           <div className="input-notes notes-position d-flex mt-4 w-50 ">
