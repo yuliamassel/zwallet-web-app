@@ -24,7 +24,6 @@ const TransferStatus = () => {
       .then((res) => {
         const result = res.data.data[0];
         setTransaction(result);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err.response);

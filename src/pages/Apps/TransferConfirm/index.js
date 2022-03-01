@@ -6,7 +6,16 @@ import img from "../../../assets/img/blank-profile-picture.png";
 import ModalPIN from "../../../components/module/ModalPIN";
 import Input from "../../../components/base/Input";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { TransferConfirmation } from "../../../redux/actions/apps/transferConfirmation";
+
 const TransferConfirm = () => {
+  const dispatch = useDispatch();
+  const transferConfirmData = useSelector(
+    (state) => state.TransferConfirmation
+  );
+
   const token = JSON.parse(localStorage.getItem("token"));
   const transferId = JSON.parse(localStorage.getItem("transferId"));
   const [transaction, setTransaction] = useState({
@@ -18,7 +27,6 @@ const TransferConfirm = () => {
     date: "",
     notes: ""
   });
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -35,28 +43,9 @@ const TransferConfirm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_ZWALLET_API}/transaction/transfer/${transferId}`,
-        { PIN: PIN },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        console.log(result);
-        navigate("/apps/status");
-        localStorage.removeItem("transferId");
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err.response.status === 500) {
-          setErrorMessage("We have trouble");
-        } else {
-          setErrorMessage(err.response.data.message);
-        }
-      });
+    dispatch(
+      TransferConfirmation({ transferId, PIN, navigate, setErrorMessage })
+    );
   };
 
   useEffect(() => {
@@ -67,7 +56,6 @@ const TransferConfirm = () => {
       .then((res) => {
         const result = res.data.data[0];
         setTransaction(result);
-        console.log(result);
       })
       .catch((err) => {
         console.log(err.response);
@@ -146,7 +134,7 @@ const TransferConfirm = () => {
             modalSubtitle="Enter your 6 Digits PIN for confirmation to continue transferring money. "
             closeModal={handleModalPIN}
             handleAction={handleSubmit}
-            isLoading={loading}
+            isLoading={transferConfirmData.loading}
           >
             <form onSubmit={handleSubmit}>
               <div className="pin-confirm-wrapper">
