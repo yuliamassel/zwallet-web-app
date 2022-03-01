@@ -1,28 +1,26 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as BsIcons from "react-icons/bs";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
 import img from "../../../assets/img/blank-profile-picture.png";
-import axios from "axios";
-import { UserContext } from "../../../context/UserContext";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { GetProfile } from "../../../redux/actions/apps/getProfile";
 import { GetDetailsReceiver } from "../../../redux/actions/apps/getReceiversById";
+import { TransferInput } from "../../../redux/actions/apps/transfer";
 
 const Transfer = () => {
   const dispatch = useDispatch();
+  const transferData = useSelector((state) => state.TransferInput);
   const receiverData = useSelector((state) => state.GetDetailsReceiver);
   const profileData = useSelector((state) => state.GetProfile);
   const receiver = receiverData.data;
   const profile = profileData.data;
 
-  const token = JSON.parse(localStorage.getItem("token"));
   const { id } = useParams();
   const [form, setForm] = useState({ amountTransfer: "", notes: "" });
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formError, setFormError] = useState({});
 
@@ -53,35 +51,9 @@ const Transfer = () => {
   };
   const handleTransfer = (resultValidate) => {
     if (Object.keys(resultValidate).length === 0) {
-      setLoading(true);
-      axios
-        .post(
-          `${process.env.REACT_APP_ZWALLET_API}/transaction/transfer`,
-          {
-            receiverName: `${receiver.first_name} ${receiver.last_name}`,
-            receiverPhone: receiver.phone,
-            amountTransfer: form.amountTransfer,
-            notes: form.notes
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        )
-        .then((res) => {
-          setLoading(false);
-          const result = res.data.data;
-          const transferId = result.id;
-          localStorage.setItem("transferId", JSON.stringify(transferId));
-          console.log(result);
-          toConfirmPage();
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err.response);
-          if (err.response.status === 500) {
-            setErrorMessage("We have trouble");
-          } else {
-            setErrorMessage(err.response.data.message);
-          }
-        });
+      dispatch(
+        TransferInput({ receiver, form, toConfirmPage, setErrorMessage })
+      );
     }
   };
   const handleSubmit = (e) => {
@@ -160,7 +132,7 @@ const Transfer = () => {
           {/* <!-- button continue for lg, xl, xxl --> */}
           <div className="btn-continue-desktop d-flex justify-content-end ms-5 me-5">
             <Button
-              isLoading={loading}
+              isLoading={transferData.loading}
               className="button btn-continue-transfer text-white w-25 p-2"
             >
               Continue

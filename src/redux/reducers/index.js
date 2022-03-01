@@ -15,6 +15,7 @@ import NewPhoneNumber from "./apps/addPhoneNumber";
 import DeletePhoneNumber from "./apps/deletePhoneNumber";
 import NewProfilePicture from "./apps/addProfilePicture";
 import GetDetailsReceiver from "./apps/getReceiversById";
+import TransferInput from "./apps/transfer";
 
 // combine all reducers into rootReducers
 const rootReducers = combineReducers({
@@ -31,7 +32,8 @@ const rootReducers = combineReducers({
   NewPhoneNumber,
   DeletePhoneNumber,
   NewProfilePicture,
-  GetDetailsReceiver
+  GetDetailsReceiver,
+  TransferInput
 });
 
 export default rootReducers;
