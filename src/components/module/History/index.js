@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -39,23 +40,29 @@ const History = () => {
         </div>
 
         {history.length > 0 ? (
-          history.map((profile, index) => (
-            <div key={index} className="history-transaction-profiles ">
-              <img
-                src={profile.receiver_picture ? profile.receiver_picture : img}
-                height="52px"
-                className="user-pic m-1"
-                alt="Samuel"
-              />
-              <div className="profile-description">
-                <p className="profile-desc-name">{profile.receiver_name}</p>
-                <p className="profile-desc">{profile.date}</p>
-              </div>
-              <p className="nominal-subscription">
-                -Rp{profile.amount_transfer}
-              </p>
-            </div>
-          ))
+          history.map((profile, index) => {
+            if (profile.status === "Success") {
+              return (
+                <div key={index} className="history-transaction-profiles ">
+                  <img
+                    src={
+                      profile.receiver_picture ? profile.receiver_picture : img
+                    }
+                    height="52px"
+                    className="user-pic m-1"
+                    alt="Samuel"
+                  />
+                  <div className="profile-description">
+                    <p className="profile-desc-name">{profile.receiver_name}</p>
+                    <p className="profile-desc">{profile.date}</p>
+                  </div>
+                  <p className="nominal-subscription">
+                    -Rp{profile.amount_transfer}
+                  </p>
+                </div>
+              );
+            }
+          })
         ) : (
           <div className="no-transactions d-flex flex-column justify-content-center align-items-center">
             <RiIcons.RiFileList3Line className="no-transactions-icon" />

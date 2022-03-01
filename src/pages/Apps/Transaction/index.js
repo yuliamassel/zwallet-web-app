@@ -6,6 +6,7 @@ import * as RiIcons from "react-icons/ri";
 const Transaction = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   const [history, setHistory] = useState([]);
+  console.log(history);
 
   useEffect(() => {
     axios
@@ -29,28 +30,35 @@ const Transaction = () => {
         {/* <p className="weekly ms-4">This Week</p> */}
 
         {history.length > 0 ? (
-          history.map((profile, index) => (
-            <div
-              key={index}
-              className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-3 ms-3 me-3 pt-2 pb-2"
-            >
-              <img
-                className="receiver-picture user-pic mt-1 ms-3"
-                src={profile.receiver_picture ? profile.receiver_picture : img}
-                height="54px"
-                alt="Samuel"
-              />
-              <div className="profile-description history-page">
-                <p className="profile-desc-name mb-0">
-                  {profile.receiver_name}
-                </p>
-                <p className="profile-desc mb-0">{profile.date}</p>
-              </div>
-              <p className="nominal-subscription me-3">
-                -Rp{profile.amount_transfer}
-              </p>
-            </div>
-          ))
+          // eslint-disable-next-line array-callback-return
+          history.map((profile, index) => {
+            if (profile.status === "Success") {
+              return (
+                <div
+                  key={index}
+                  className="history-transaction-profiles d-flex flex-row justify-content-between align-items-center mb-3 ms-3 me-3 pt-2 pb-2"
+                >
+                  <img
+                    className="receiver-picture user-pic mt-1 ms-3"
+                    src={
+                      profile.receiver_picture ? profile.receiver_picture : img
+                    }
+                    height="54px"
+                    alt="Samuel"
+                  />
+                  <div className="profile-description history-page">
+                    <p className="profile-desc-name mb-0">
+                      {profile.receiver_name}
+                    </p>
+                    <p className="profile-desc mb-0">{profile.date}</p>
+                  </div>
+                  <p className="nominal-subscription me-3">
+                    -Rp{profile.amount_transfer}
+                  </p>
+                </div>
+              );
+            }
+          })
         ) : (
           <div className="no-transactions d-flex flex-column justify-content-center align-items-center mt-5">
             <RiIcons.RiFileList3Line className="no-transactions-icon" />
