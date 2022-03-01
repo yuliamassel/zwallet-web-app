@@ -6,7 +6,6 @@ import * as RiIcons from "react-icons/ri";
 const Transaction = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   const [history, setHistory] = useState([]);
-  console.log(history);
 
   useEffect(() => {
     axios

@@ -25,7 +25,7 @@ export const GetReceivers = () => {
     dispatch(GetReceiversRequest());
     return axios
       .get(
-        `${process.env.REACT_APP_ZWALLET_API}/users?limit=4&sort=first_name&order=asc`,
+        `${process.env.REACT_APP_ZWALLET_API}/users?limit=5&sort=first_name&order=asc`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
