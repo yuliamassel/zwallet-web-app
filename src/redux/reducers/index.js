@@ -17,6 +17,9 @@ import NewProfilePicture from "./apps/addProfilePicture";
 import GetDetailsReceiver from "./apps/getReceiversById";
 import TransferInput from "./apps/transfer";
 import TransferConfirmation from "./apps/transferConfirmation";
+import TopupMethod from "./apps/topupMethod";
+import TopupInput from "./apps/topupInput";
+import TopupConfirmation from "./apps/topupConfirmation";
 
 // combine all reducers into rootReducers
 const rootReducers = combineReducers({
@@ -35,7 +38,10 @@ const rootReducers = combineReducers({
   NewProfilePicture,
   GetDetailsReceiver,
   TransferInput,
-  TransferConfirmation
+  TransferConfirmation,
+  TopupMethod,
+  TopupInput,
+  TopupConfirmation
 });
 
 export default rootReducers;

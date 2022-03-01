@@ -1,6 +1,4 @@
-import axios from "axios";
-import React, { Fragment, useContext, useState } from "react";
-import { UserContext } from "../../../context/UserContext";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/base/Button";
 import Input from "../../../components/base/Input";
@@ -9,12 +7,21 @@ import "../../../components/module/ModalPIN/modalPIN.css";
 import "./topupinput.css";
 import ModalSuccess from "../../../components/module/ModalSuccess";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { TopupInput } from "../../../redux/actions/apps/topupInput";
+import { TopupConfirmation } from "../../../redux/actions/apps/topupConfirmation";
+
 const TopUpInput = () => {
+  const dispatch = useDispatch();
+  const topupInputData = useSelector((state) => state.TopupInput);
+  const topupConfirmData = useSelector((state) => state.TopupConfirmation);
+  const profileData = useSelector((state) => state.GetProfile);
+  const profile = profileData.data;
+
   const [topupForm, setTopupForm] = useState({ amount_topup: "" });
-  const token = JSON.parse(localStorage.getItem("token"));
   const topUpId = JSON.parse(localStorage.getItem("topUpId"));
-  const { user, setUser } = useContext(UserContext);
-  const [loading, setLoading] = useState(false);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessagePIN, setErrorMessagePIN] = useState("");
   const [formError, setFormError] = useState({});
@@ -49,28 +56,9 @@ const TopUpInput = () => {
   };
   const handleTopUp = (resultValidate) => {
     if (Object.keys(resultValidate).length === 0) {
-      setLoading(true);
-      axios
-        .put(
-          `${process.env.REACT_APP_ZWALLET_API}/wallet/topup/${topUpId}`,
-          { amount_topup: topupForm.amount_topup },
-          { headers: { Authorization: `Bearer ${token}` } }
-        )
-        .then((res) => {
-          setLoading(false);
-          const result = res.data.data;
-          console.log(result);
-          handleModalPIN();
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err.response);
-          if (err.response.status === 500) {
-            setErrorMessage("We have trouble");
-          } else {
-            setErrorMessage(err.response.data.message);
-          }
-        });
+      dispatch(
+        TopupInput({ topUpId, topupForm, handleModalPIN, setErrorMessage })
+      );
     }
   };
   const handleSubmit = (e) => {
@@ -78,7 +66,6 @@ const TopUpInput = () => {
     const resultValidate = validate(topupForm);
     setFormError(resultValidate);
     handleTopUp(resultValidate);
-    console.log(topupForm);
   };
 
   // TOP UP PIN CONFIRMATION INPUT
@@ -95,30 +82,15 @@ const TopUpInput = () => {
   };
   const handleSubmitPIN = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_ZWALLET_API}/wallet/topup/confirmation/${topUpId}`,
-        { PIN: PIN },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        setUser(result);
-        console.log(result);
-        localStorage.removeItem("topUpId");
-        handleModalPIN();
-        handleModalSuccess();
+    dispatch(
+      TopupConfirmation({
+        topUpId,
+        PIN,
+        handleModalPIN,
+        handleModalSuccess,
+        setErrorMessagePIN
       })
-      .catch((err) => {
-        setLoading(false);
-        if (err.response.status === 500) {
-          setErrorMessagePIN("We have trouble");
-        } else {
-          setErrorMessagePIN(err.response.data.message);
-        }
-      });
+    );
   };
 
   return (
@@ -153,12 +125,12 @@ const TopUpInput = () => {
           </p>
 
           <p className="text-title-name balance-info text-center mt-4">
-            Zwallet Balance: Rp {user.balance}
+            Zwallet Balance: Rp {profile.balance}
           </p>
 
           <div className="button-topup">
             <Button
-              isLoading={loading}
+              isLoading={topupInputData.loading}
               type="submit"
               className="button btn-login btn-topup text-white p-2"
             >
@@ -173,7 +145,7 @@ const TopUpInput = () => {
             modalSubtitle="Enter your 6 Digits PIN for confirmation to continue Top Up. "
             closeModal={handleModalPIN}
             handleAction={handleSubmitPIN}
-            isLoading={loading}
+            isLoading={topupConfirmData.loading}
           >
             <form onSubmit={handleSubmitPIN}>
               <div className="pin-confirm-wrapper">

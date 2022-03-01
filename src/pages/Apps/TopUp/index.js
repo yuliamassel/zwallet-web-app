@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/base/Input";
@@ -6,35 +5,22 @@ import Button from "../../../components/base/Button";
 import * as BsIcons from "react-icons/bs";
 import "./topup.css";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { TopupMethod } from "../../../redux/actions/apps/topupMethod";
+
 const TopUp = () => {
+  const dispatch = useDispatch();
+  const topupMethodData = useSelector((state) => state.TopupMethod);
+
   const [topUpMethod, setTopUpMethod] = useState("");
-  const [loading, setLoading] = useState(false);
-  const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setTopUpMethod(e.target.value);
   };
   const handleClick = () => {
-    // console.log(topUpMethod);
-    setLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_ZWALLET_API}/wallet/topup/method`,
-        { topup_method: topUpMethod },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        setLoading(false);
-        const result = res.data.data;
-        const topUpId = result.id;
-        localStorage.setItem("topUpId", JSON.stringify(topUpId));
-        navigate("/apps/topup/input");
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.response);
-      });
+    dispatch(TopupMethod({ topUpMethod, navigate }));
   };
 
   return (
@@ -103,7 +89,7 @@ const TopUp = () => {
 
         <div className="btn-topup-method mt-5 d-flex flex-end">
           <Button
-            isLoading={loading}
+            isLoading={topupMethodData.loading}
             onClick={handleClick}
             className="btn-method-continue"
           >
